@@ -1,29 +1,14 @@
-import { createYoga, createSchema } from 'graphql-yoga'
-
-const typeDefs = /* GraphQL */ `
-  type Query {
-    users: [User!]!
-  }
-  type User {
-    name: String
-  }
-`
-
-const resolvers = {
-  Query: {
-    users() {
-      return [{ name: 'Nextjs' }]
-    },
-  },
-}
+import { createYoga, createSchema } from "graphql-yoga";
+import { queryResolver, queryTypeDefs } from "../../graphql/query";
+import { userTypeDefs } from "../../graphql/user";
 
 const schema = createSchema({
-  typeDefs,
-  resolvers,
-})
+  typeDefs: [userTypeDefs, queryTypeDefs],
+  resolvers: [queryResolver],
+});
 
 export default createYoga({
   schema,
   // Needed to be defined explicitly because our endpoint lives at a different path other than `/graphql`
-  graphqlEndpoint: '/api/graphql',
-})
+  graphqlEndpoint: "/api/graphql",
+});
