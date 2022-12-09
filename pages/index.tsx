@@ -8,9 +8,19 @@ import Link from "next/link";
 import Date from "../components/date";
 import { fetcher } from "../lib/graphql-fetcher";
 
+interface Instruction {
+  number: number;
+  description: string;
+}
+interface Exercise {
+  name: string;
+  instructions?: Instruction[];
+}
+
 export default function Home({ allPostsData }) {
   // const { data, error } = useSWR("{ users { name } }", fetcher);
-  const exerciseQuery = "{ exercises { name } }";
+  const exerciseQuery =
+    "{ exercises { name, instructions { number, description } } }";
   const { data, error } = useSWR(exerciseQuery, fetcher);
 
   if (error) return <div>Failed to load</div>;
@@ -20,8 +30,24 @@ export default function Home({ allPostsData }) {
   console.log(exercises);
   return (
     <Layout home>
-      {exercises?.map((exercise: any, i: number) => (
-        <div key={i}>exerciseName: {exercise.name}</div>
+      {exercises?.map((exercise: Exercise, i: number) => (
+        <div key={i}>
+          <span>- {exercise.name}</span>
+          {exercise.instructions.length && (
+            <>
+              {" "}
+              <h3>instructions: </h3>
+              <ul>
+                {exercise.instructions?.map((instruction) => (
+                  <li key={instruction.number}>
+                    <h1>{instruction.number}</h1>
+                    <span>{instruction.description}</span>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </div>
       ))}
       <Head>
         <title>{siteTitle}</title>
