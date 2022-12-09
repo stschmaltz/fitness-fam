@@ -1,10 +1,9 @@
 import { createYoga, createSchema } from "graphql-yoga";
-import { queryResolver, queryTypeDefs } from "../../graphql/query";
-import { userTypeDefs } from "../../graphql/user";
+import { resolvers, typeDefs } from "../../graphql";
 
 const schema = createSchema({
-  typeDefs: [userTypeDefs, queryTypeDefs],
-  resolvers: [queryResolver],
+  typeDefs,
+  resolvers,
 });
 
 export default createYoga({

@@ -9,17 +9,19 @@ import Date from "../components/date";
 import { fetcher } from "../lib/graphql-fetcher";
 
 export default function Home({ allPostsData }) {
-  const { data, error } = useSWR("{ users { name } }", fetcher);
+  // const { data, error } = useSWR("{ users { name } }", fetcher);
+  const exerciseQuery = "{ exercises { name } }";
+  const { data, error } = useSWR(exerciseQuery, fetcher);
 
   if (error) return <div>Failed to load</div>;
   if (!data) return <div>Loading...</div>;
 
-  const { users } = data;
-
+  const { exercises } = data;
+  console.log(exercises);
   return (
     <Layout home>
-      {users.map((user: any, i: number) => (
-        <div key={i}>userName: {user.name}</div>
+      {exercises?.map((exercise: any, i: number) => (
+        <div key={i}>exerciseName: {exercise.name}</div>
       ))}
       <Head>
         <title>{siteTitle}</title>
