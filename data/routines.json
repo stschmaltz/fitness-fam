@@ -15,8 +15,9 @@
     "order": 2,
     "name": "Core",
     "exercises": [
-      { "order": 1, "id": "1761", "name": "hanging oblique knee raise" },
-      { "order": 2, "id": "0473", "name": "hanging pike" }
+      { "order": 1, "id": "0545", "name": "kettlebell plyo push-up" },
+      { "order": 2, "id": "1761", "name": "hanging oblique knee raise" },
+      { "order": 3, "id": "0473", "name": "hanging pike" }
     ]
   }
 ]

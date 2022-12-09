@@ -2,11 +2,26 @@ import Image from 'next/image';
 import Layout from '../../components/layout.js';
 import Head from 'next/head';
 import utilStyles from '../../styles/utils.module.css';
-import { asyncFetch } from '../../lib/graphql-fetcher';
-import { ExerciseObject } from '../../types/exercise';
+import { fetcher } from '../../lib/graphql-fetcher';
+import useSWR from 'swr';
 import { fullExercise } from '../../graphql/exercises';
+import { useRouter } from 'next/router.js';
 
-export default function Exercise({ exercise }: { exercise: ExerciseObject }) {
+export default function Exercise() {
+  const {
+    query: { id: exerciseId },
+  } = useRouter();
+
+  const { data, error } = useSWR(
+    `{ exercise(id:"${exerciseId}"){ ${fullExercise} } }`,
+    fetcher
+  );
+
+  console.log(data);
+  if (error) return <div>Failed to load</div>;
+  if (!data) return <div>Loading...</div>;
+
+  const { exercise } = data;
   return (
     <Layout home={undefined}>
       <Head>
@@ -44,11 +59,12 @@ export default function Exercise({ exercise }: { exercise: ExerciseObject }) {
             </li>
             {exercise.instructions.length > 1 && (
               <li>
-                {exercise.instructions.map((instruction) => (
-                  <span key={instruction.number}>
-                    {instruction.description}
-                  </span>
-                ))}
+                <b>Instructions</b>
+                <ul>
+                  {exercise.instructions.map((instruction) => (
+                    <li key={instruction.number}>{instruction.description}</li>
+                  ))}
+                </ul>
               </li>
             )}
           </ul>
@@ -58,28 +74,28 @@ export default function Exercise({ exercise }: { exercise: ExerciseObject }) {
   );
 }
 
-export async function getStaticPaths() {
-  const exerciseIds = await asyncFetch(`{ exercises { id } }`);
-  const paths = exerciseIds.exercises.map((exercise) => ({
-    params: {
-      id: exercise.id,
-    },
-  }));
-  console.log(paths);
-  return {
-    paths,
-    fallback: false,
-  };
-}
+// export async function getStaticPaths() {
+//   const exerciseIds = await asyncFetch(`{ exercises { id } }`);
+//   const paths = exerciseIds.exercises.map((exercise) => ({
+//     params: {
+//       id: exercise.id,
+//     },
+//   }));
+//   console.log(paths);
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// }
 
-export async function getStaticProps({ params }) {
-  console.log(params);
-  const exercise = await asyncFetch(
-    `{ exercise(id:"${params.id}"){ ${fullExercise} } }`
-  );
-  console.log(exercise);
+// export async function getStaticProps({ params }) {
+//   console.log(params);
+//   const exercise = await asyncFetch(
+//     `{ exercise(id:"${params.id}"){ ${fullExercise} } }`
+//   );
+//   console.log(exercise);
 
-  return {
-    props: exercise,
-  };
-}
+//   return {
+//     props: exercise,
+//   };
+// }
