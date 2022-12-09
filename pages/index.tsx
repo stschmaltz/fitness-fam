@@ -7,9 +7,7 @@ import { fetcher } from '../lib/graphql-fetcher';
 import { ExerciseObject } from '../types/exercise';
 import { allExercisesQuery } from '../graphql/exercises';
 
-export default function Home({ allPostsData }) {
-  // const { data, error } = useSWR("{ users { name } }", fetcher);
-
+export default function Home() {
   const { data, error } = useSWR(allExercisesQuery, fetcher);
 
   if (error) return <div>Failed to load</div>;
@@ -42,13 +40,4 @@ export default function Home({ allPostsData }) {
       </Head>
     </Layout>
   );
-}
-
-export async function getStaticProps() {
-  const allPostsData = getSortedPostsData();
-  return {
-    props: {
-      allPostsData,
-    },
-  };
 }
