@@ -1,4 +1,4 @@
-import data from "../data/exercises/exercises.json";
+import data from '../data/exercises/exercises.json';
 
 const queryTypeDefs = /* GraphQL */ `
   type Query {
@@ -10,7 +10,7 @@ const queryTypeDefs = /* GraphQL */ `
 const queryResolver = {
   Query: {
     users() {
-      return [{ name: "Shane Schmaltz" }];
+      return [{ name: 'Shane Schmaltz' }];
     },
     exercises() {
       console.log(data);

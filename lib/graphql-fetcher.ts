@@ -1,8 +1,8 @@
 const fetcher = (query: string) =>
-  fetch("/api/graphql", {
-    method: "POST",
+  fetch('/api/graphql', {
+    method: 'POST',
     headers: {
-      "Content-type": "application/json",
+      'Content-type': 'application/json',
     },
     body: JSON.stringify({ query }),
   })

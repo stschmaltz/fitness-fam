@@ -1,12 +1,12 @@
-import useSWR from "swr";
+import useSWR from 'swr';
 
-import Head from "next/head";
-import Layout, { siteTitle } from "../components/layout.js";
-import utilStyles from "../styles/utils.module.css";
-import { getSortedPostsData } from "../lib/posts";
-import Link from "next/link";
-import Date from "../components/date";
-import { fetcher } from "../lib/graphql-fetcher";
+import Head from 'next/head';
+import Layout, { siteTitle } from '../components/layout.js';
+import utilStyles from '../styles/utils.module.css';
+import { getSortedPostsData } from '../lib/posts';
+import Link from 'next/link';
+import Date from '../components/date';
+import { fetcher } from '../lib/graphql-fetcher';
 
 interface Instruction {
   number: number;
@@ -20,7 +20,7 @@ interface Exercise {
 export default function Home({ allPostsData }) {
   // const { data, error } = useSWR("{ users { name } }", fetcher);
   const exerciseQuery =
-    "{ exercises { name, instructions { number, description } } }";
+    '{ exercises { name, instructions { number, description } } }';
   const { data, error } = useSWR(exerciseQuery, fetcher);
 
   if (error) return <div>Failed to load</div>;
@@ -35,7 +35,7 @@ export default function Home({ allPostsData }) {
           <span>- {exercise.name}</span>
           {exercise.instructions.length && (
             <>
-              {" "}
+              {' '}
               <h3>instructions: </h3>
               <ul>
                 {exercise.instructions?.map((instruction) => (
