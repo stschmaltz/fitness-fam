@@ -5,8 +5,8 @@ import utilStyles from '../styles/utils.module.css';
 import { fetcher } from '../lib/graphql-fetcher';
 import { ExerciseObject } from '../types/exercise';
 import { allExercisesQuery } from '../graphql/exercises';
-import { RoutineObject } from '../types/routine.js';
-import Link from 'next/link.js';
+import { RoutineObject } from '../types/routine';
+import Link from 'next/link';
 
 // TODO: clean up queries
 export default function Home() {

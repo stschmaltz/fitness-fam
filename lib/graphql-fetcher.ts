@@ -12,6 +12,7 @@ const fetcher = (query: string) =>
 async function asyncFetch(query, options = { variables: {} }) {
   const { variables } = options;
   console.log(query);
+  // TODO: hook up to real API
   const res = await fetch('http://localhost:3000/api/graphql', {
     method: 'POST',
     headers: {
