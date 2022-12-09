@@ -7,7 +7,6 @@ import { ExerciseObject } from '../../types/exercise';
 import { fullExercise } from '../../graphql/exercises';
 
 export default function Exercise({ exercise }: { exercise: ExerciseObject }) {
-  console.log('hi:' + JSON.stringify(exercise));
   return (
     <Layout home={undefined}>
       <Head>
@@ -16,19 +15,29 @@ export default function Exercise({ exercise }: { exercise: ExerciseObject }) {
       <article>
         <h1 className={utilStyles.headingXl}>{exercise.name}</h1>
         <div>
-          <ul>
-            <li>{exercise.id}</li>
-            <li>{exercise.bodyPart}</li>
-            <li>{exercise.equipment}</li>
-            <li>{exercise.target}</li>
+          <ul className={utilStyles.list}>
             <li>
-              <div className={utilStyles.imageBox}>
+              <b>Id:</b> {exercise.id}
+            </li>
+            <li>
+              {' '}
+              <b>Body Part:</b> {exercise.bodyPart}
+            </li>
+            <li>
+              {' '}
+              <b>Equipment:</b> {exercise.equipment}
+            </li>
+            <li>
+              {' '}
+              <b>Target:</b> {exercise.target}
+            </li>
+            <li>
+              <div>
                 <Image
                   src={exercise.gifUrl}
                   alt="my gif"
                   width={360}
                   height={360}
-                  className={utilStyles.relative}
                 />
               </div>
               {}
@@ -36,7 +45,9 @@ export default function Exercise({ exercise }: { exercise: ExerciseObject }) {
             {exercise.instructions.length > 1 && (
               <li>
                 {exercise.instructions.map((instruction) => (
-                  <span>{instruction.description}</span>
+                  <span key={instruction.number}>
+                    {instruction.description}
+                  </span>
                 ))}
               </li>
             )}

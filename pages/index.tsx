@@ -2,7 +2,7 @@ import useSWR from 'swr';
 
 import Head from 'next/head';
 import Layout, { siteTitle } from '../components/layout.js';
-import { getSortedPostsData } from '../lib/posts';
+import utilStyles from '../styles/utils.module.css';
 import { fetcher } from '../lib/graphql-fetcher';
 import { ExerciseObject } from '../types/exercise';
 import { allExercisesQuery } from '../graphql/exercises';
@@ -16,6 +16,7 @@ export default function Home() {
   const { exercises } = data;
   return (
     <Layout home>
+      <h3>All Exercises</h3>
       {exercises?.map((exercise: ExerciseObject, i: number) => (
         <div key={i}>
           <span>- {exercise.name}</span>
@@ -23,7 +24,7 @@ export default function Home() {
             <>
               {' '}
               <h3>instructions: </h3>
-              <ul>
+              <ul className={utilStyles.list}>
                 {exercise.instructions.map((instruction) => (
                   <li key={instruction.number}>
                     <h1>{instruction.number}</h1>

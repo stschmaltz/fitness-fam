@@ -29,10 +29,6 @@
   border-radius: 9999px;
 }
 
-.imageBox {
- 
-}
-
 .colorInherit {
   color: inherit;
 }
@@ -55,6 +51,3 @@
   color: #666;
 }
 
-.relative {
-  position: relative;
-}
