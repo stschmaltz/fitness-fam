@@ -1,8 +1,8 @@
-import data from '../data/exercises/exercises.json';
+import exercises from '../data/exercises/exercises.json';
 
 const queryTypeDefs = /* GraphQL */ `
   type Query {
-    users: [User!]!
+    me: User!
     exercises: [Exercise!]!
     exercise(id: String!): Exercise!
   }
@@ -10,14 +10,14 @@ const queryTypeDefs = /* GraphQL */ `
 
 const queryResolver = {
   Query: {
-    users() {
-      return [{ name: 'Shane Schmaltz' }];
+    me() {
+      return { name: 'Shane Schmaltz' };
     },
     exercises() {
-      return data.map((exercise) => ({ instructions: [], ...exercise }));
+      return exercises;
     },
     exercise(_: never, { id }) {
-      return data.find((exercise) => exercise.id === id);
+      return exercises.find((exercise) => exercise.id === id);
     },
   },
 };
