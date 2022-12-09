@@ -33,7 +33,7 @@ export default function Home({ allPostsData }) {
       {exercises?.map((exercise: Exercise, i: number) => (
         <div key={i}>
           <span>- {exercise.name}</span>
-          {exercise.instructions.length && (
+          {exercise.instructions?.length && (
             <>
               {' '}
               <h3>instructions: </h3>
