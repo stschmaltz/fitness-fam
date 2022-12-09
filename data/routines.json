@@ -1,0 +1,22 @@
+[
+  {
+    "order": 1,
+    "name": "Legs",
+    "exercises": [
+      {
+        "order": 1,
+        "id": "1000",
+        "name": "band single leg reverse calf raise"
+      },
+      { "order": 2, "id": "1001", "name": "band single leg split squat" }
+    ]
+  },
+  {
+    "order": 2,
+    "name": "Core",
+    "exercises": [
+      { "order": 1, "id": "1761", "name": "hanging oblique knee raise" },
+      { "order": 2, "id": "0473", "name": "hanging pike" }
+    ]
+  }
+]
