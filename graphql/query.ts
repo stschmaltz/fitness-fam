@@ -4,6 +4,7 @@ const queryTypeDefs = /* GraphQL */ `
   type Query {
     users: [User!]!
     exercises: [Exercise!]!
+    exercise(id: String!): Exercise!
   }
 `;
 
@@ -14,6 +15,9 @@ const queryResolver = {
     },
     exercises() {
       return data.map((exercise) => ({ instructions: [], ...exercise }));
+    },
+    exercise(_: {}, { id }) {
+      return data.find((exercise) => exercise.id === id);
     },
   },
 };

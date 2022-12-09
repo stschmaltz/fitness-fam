@@ -14,4 +14,9 @@ const exerciseTypeDefs = /* GraphQL */ `
   }
 `;
 
-export { exerciseTypeDefs };
+const fullExercise =
+  'id, target, gifUrl, equipment, bodyPart, name, instructions { number, description }';
+
+const allExercisesQuery = `{ exercises { ${fullExercise} } }`;
+
+export { exerciseTypeDefs, allExercisesQuery, fullExercise };

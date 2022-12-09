@@ -29,6 +29,10 @@
   border-radius: 9999px;
 }
 
+.imageBox {
+ 
+}
+
 .colorInherit {
   color: inherit;
 }
@@ -49,4 +53,8 @@
 
 .lightText {
   color: #666;
+}
+
+.relative {
+  position: relative;
 }

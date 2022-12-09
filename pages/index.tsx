@@ -2,26 +2,15 @@ import useSWR from 'swr';
 
 import Head from 'next/head';
 import Layout, { siteTitle } from '../components/layout.js';
-import utilStyles from '../styles/utils.module.css';
 import { getSortedPostsData } from '../lib/posts';
-import Link from 'next/link';
-import Date from '../components/date';
 import { fetcher } from '../lib/graphql-fetcher';
-
-interface Instruction {
-  number: number;
-  description: string;
-}
-interface Exercise {
-  name: string;
-  instructions: Instruction[];
-}
+import { ExerciseObject } from '../types/exercise';
+import { allExercisesQuery } from '../graphql/exercises';
 
 export default function Home({ allPostsData }) {
   // const { data, error } = useSWR("{ users { name } }", fetcher);
-  const exerciseQuery =
-    '{ exercises { name, instructions { number, description } } }';
-  const { data, error } = useSWR(exerciseQuery, fetcher);
+
+  const { data, error } = useSWR(allExercisesQuery, fetcher);
 
   if (error) return <div>Failed to load</div>;
   if (!data) return <div>Loading...</div>;
@@ -29,10 +18,10 @@ export default function Home({ allPostsData }) {
   const { exercises } = data;
   return (
     <Layout home>
-      {exercises?.map((exercise: Exercise, i: number) => (
+      {exercises?.map((exercise: ExerciseObject, i: number) => (
         <div key={i}>
           <span>- {exercise.name}</span>
-          {exercise.instructions.length && (
+          {exercise.instructions.length > 0 && (
             <>
               {' '}
               <h3>instructions: </h3>
@@ -51,21 +40,6 @@ export default function Home({ allPostsData }) {
       <Head>
         <title>{siteTitle}</title>
       </Head>
-
-      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <h2 className={utilStyles.headingLg}>Blog</h2>
-        <ul className={utilStyles.list}>
-          {allPostsData.map(({ id, date, title }) => (
-            <li className={utilStyles.listItem} key={id}>
-              <Link href={`/posts/${id}`}>{title}</Link>
-              <br />
-              <small className={utilStyles.lightText}>
-                <Date dateString={date} />
-              </small>
-            </li>
-          ))}
-        </ul>
-      </section>
     </Layout>
   );
 }

@@ -9,4 +9,26 @@ const fetcher = (query: string) =>
     .then((res) => res.json())
     .then((json) => json.data);
 
-export { fetcher };
+async function asyncFetch(query, options = { variables: {} }) {
+  const { variables } = options;
+  console.log(query);
+  const res = await fetch('http://localhost:3000/api/graphql', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query,
+      variables,
+    }),
+  });
+
+  const json = await res.json();
+  if (json.errors) {
+    console.error(json.errors);
+    throw new Error('Failed to fetch API');
+  }
+  return json.data;
+}
+
+export { fetcher, asyncFetch };
