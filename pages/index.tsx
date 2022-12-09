@@ -7,6 +7,7 @@ import { ExerciseObject } from '../types/exercise';
 import { allExercisesQuery } from '../graphql/exercises';
 import { RoutineObject } from '../types/routine';
 import Link from 'next/link';
+import { EQUIPMENT } from '../types/exercise';
 
 // TODO: clean up queries
 export default function Home() {
@@ -42,6 +43,19 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <h3>Equipment</h3>
+        <ul className={utilStyles.list}>
+          {Object.values(EQUIPMENT).map((equipment) => (
+            <li key={equipment}>
+              <Link href={`/exercises?equipment=${equipment}`}>
+                {equipment}
+              </Link>
             </li>
           ))}
         </ul>
