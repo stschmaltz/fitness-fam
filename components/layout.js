@@ -12,10 +12,7 @@ export default function Layout({ children, home }) {
     <div className={styles.container}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
-        <meta
-          name="description"
-          content="Learn how to build a personal website using Next.js"
-        />
+        <meta name="description" content="App to help organize exercises" />
         <meta
           property="og:image"
           content={`https://og-image.vercel.app/${encodeURI(
@@ -30,8 +27,7 @@ export default function Layout({ children, home }) {
           <>
             <Image
               priority
-              src="/images/profile.jpg"
-              className={utilStyles.borderCircle}
+              src="/images/profile.png"
               height={144}
               width={144}
               alt={name}
@@ -43,8 +39,7 @@ export default function Layout({ children, home }) {
             <Link href="/">
               <Image
                 priority
-                src="/images/profile.jpg"
-                className={utilStyles.borderCircle}
+                src="/images/profile.png"
                 height={108}
                 width={108}
                 alt={name}
