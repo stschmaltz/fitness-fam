@@ -16,7 +16,7 @@ const queryResolver = {
     exercises() {
       return data.map((exercise) => ({ instructions: [], ...exercise }));
     },
-    exercise(_: {}, { id }) {
+    exercise(_: never, { id }) {
       return data.find((exercise) => exercise.id === id);
     },
   },
