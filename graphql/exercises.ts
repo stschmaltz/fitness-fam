@@ -10,7 +10,7 @@ const exerciseTypeDefs = /* GraphQL */ `
     id: String!
     name: String!
     target: String!
-    instructions: [Instruction!]
+    instructions: [Instruction!]!
   }
 `;
 

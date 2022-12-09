@@ -14,7 +14,7 @@ interface Instruction {
 }
 interface Exercise {
   name: string;
-  instructions?: Instruction[];
+  instructions: Instruction[];
 }
 
 export default function Home({ allPostsData }) {
@@ -27,18 +27,17 @@ export default function Home({ allPostsData }) {
   if (!data) return <div>Loading...</div>;
 
   const { exercises } = data;
-  console.log(exercises);
   return (
     <Layout home>
       {exercises?.map((exercise: Exercise, i: number) => (
         <div key={i}>
           <span>- {exercise.name}</span>
-          {exercise.instructions?.length && (
+          {exercise.instructions.length && (
             <>
               {' '}
               <h3>instructions: </h3>
               <ul>
-                {exercise.instructions?.map((instruction) => (
+                {exercise.instructions.map((instruction) => (
                   <li key={instruction.number}>
                     <h1>{instruction.number}</h1>
                     <span>{instruction.description}</span>

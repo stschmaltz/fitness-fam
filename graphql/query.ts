@@ -13,8 +13,7 @@ const queryResolver = {
       return [{ name: 'Shane Schmaltz' }];
     },
     exercises() {
-      console.log(data);
-      return data;
+      return data.map((exercise) => ({ instructions: [], ...exercise }));
     },
   },
 };
