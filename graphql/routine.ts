@@ -1,5 +1,5 @@
 import sortBy from 'lodash/sortBy';
-import routines from '../data/routines.json';
+import { getRoutinesForUser } from '../providers/routine.provider';
 
 const routineTypeDefs = /* GraphQL */ `
   type RoutineExercise {
@@ -16,7 +16,9 @@ const routineTypeDefs = /* GraphQL */ `
 `;
 const routineResolver = {
   User: {
-    routines() {
+    async routines() {
+      const routines = await getRoutinesForUser();
+
       return sortBy(routines, 'order');
     },
   },

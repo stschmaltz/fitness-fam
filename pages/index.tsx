@@ -10,7 +10,7 @@ import { fetcher } from '../lib/graphql-fetcher';
 import { ExerciseObject } from '../types/exercise';
 import { RoutineObject } from '../types/routine';
 import { EQUIPMENT } from '../types/exercise';
-import { getExercises } from '../providers/exercise.provider';
+import { getAllExercises } from '../providers/exercise.provider';
 
 // TODO: clean up queries
 export default function Home({
@@ -95,7 +95,7 @@ export default function Home({
   );
 }
 export async function getStaticProps() {
-  const exercises = await getExercises();
+  const exercises = await getAllExercises();
   return {
     props: { exercises },
   };

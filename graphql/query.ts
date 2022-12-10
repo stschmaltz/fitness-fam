@@ -1,4 +1,8 @@
-import exercises from '../data/exercises/exercises.json';
+import {
+  findExerciseById,
+  getAllExercises,
+  getExercisesByEquipment,
+} from '../providers/exercise.provider';
 
 const queryTypeDefs = /* GraphQL */ `
   type Query {
@@ -11,19 +15,20 @@ const queryTypeDefs = /* GraphQL */ `
 
 const queryResolver = {
   Query: {
-    me() {
+    async me() {
       return { name: 'Shane Schmaltz' };
     },
-    exercises() {
-      return exercises;
+
+    async exercises() {
+      return getAllExercises();
     },
-    exercisesByEquipment(_: never, { equipment }) {
-      return exercises.filter((exercise) => {
-        return exercise.equipment === equipment;
-      });
+
+    async exercisesByEquipment(_: never, { equipment }) {
+      return getExercisesByEquipment(equipment);
     },
-    exercise(_: never, { id }) {
-      return exercises.find((exercise) => exercise.id === id);
+
+    async exercise(_: never, { id }) {
+      return findExerciseById(id);
     },
   },
 };

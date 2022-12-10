@@ -13,6 +13,7 @@ import { Text } from '@chakra-ui/react';
 
 import { useState } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { useRouter } from 'next/router';
 import Layout from '../components/layout';
 import { EQUIPMENT, ExerciseObject } from '../types/exercise';
 import { RoutineExerciseObject, RoutineObject } from '../types/routine';
@@ -20,14 +21,17 @@ import { theme } from '../styles/theme';
 import {
   addExerciseToRoutine,
   removeExerciseFromRoutine,
+  saveRoutine,
 } from '../providers/routine.provider';
 
 export default function Exercises() {
+  const router = useRouter();
+
   const getRoutineItemStyle = (isDragging, draggableStyle) => ({
     // some basic styles to make the items look a bit nicer
     userSelect: 'none',
-    padding: '8px',
-    margin: `0 0 2px 0`,
+    padding: '6px',
+    margin: `0 0 1px 0`,
 
     background: isDragging ? theme.colors.gray[300] : theme.colors.gray[100],
 
@@ -73,6 +77,13 @@ export default function Exercises() {
 
     return result;
   };
+
+  const handleSaveRoutine = (routine) => {
+    saveRoutine(routine);
+
+    router.push('/');
+  };
+
   const onDragEnd = (result) => {
     if (!result.destination) {
       return;
@@ -100,7 +111,6 @@ export default function Exercises() {
     setCurrentRoutine(newRoutine);
   };
   const handleRoutineNameChange = (event) => {
-    if (event.target.value === '') return;
     console.log('handleRoutineNameChange: ' + event.target.value);
     setCurrentRoutine({ ...currentRoutine, name: event.target.value });
     console.log('currentRoutine: ' + JSON.stringify(currentRoutine));
@@ -132,21 +142,30 @@ export default function Exercises() {
   return (
     <Layout home={false}>
       <Container>
-        <Input
-          variant="flushed"
-          placeholder="New Routine"
-          value={currentRoutine.name}
-          onChange={handleRoutineNameChange}
-          mb={10}
-          fontSize="3xl"
-        />
-
-        <DragDropContext onDragEnd={onDragEnd}>
-          {currentRoutine?.exercises.length > 0 && (
+        <Flex>
+          <Input
+            //TODO: figure out variant
+            variant="outline"
+            placeholder="New Routine"
+            value={currentRoutine.name}
+            onChange={handleRoutineNameChange}
+            mb={10}
+            fontSize="3xl"
+          />
+          <Button onClick={() => handleSaveRoutine(currentRoutine)}>
+            Save
+          </Button>
+        </Flex>
+        {currentRoutine?.exercises.length > 0 ? (
+          <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId={currentRoutine.id} type="LIST">
               {/* <OrderedList> */}
               {(provided, _snapshot) => (
-                <List {...provided.droppableProps} ref={provided.innerRef}>
+                <List
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                  style={{ maxHeight: '40vh', overflow: 'auto' }}
+                >
                   {currentRoutine?.exercises.map(
                     (exercise: RoutineExerciseObject, index: number) => {
                       return (
@@ -187,8 +206,12 @@ export default function Exercises() {
                 </List>
               )}
             </Droppable>
-          )}
-        </DragDropContext>
+          </DragDropContext>
+        ) : (
+          <Text fontSize="2xl" fontStyle="italic">
+            Start adding exercises to build your routine 👇
+          </Text>
+        )}
       </Container>
       <Container m={100} />
       <Container>
