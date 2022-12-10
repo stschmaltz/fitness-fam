@@ -1,5 +1,5 @@
-import routines from '../data/routines.json';
 import sortBy from 'lodash/sortBy';
+import routines from '../data/routines.json';
 
 const routineTypeDefs = /* GraphQL */ `
   type RoutineExercise {

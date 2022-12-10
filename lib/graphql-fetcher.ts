@@ -11,7 +11,7 @@ const fetcher = (query: string) =>
 
 async function asyncFetch(query, options = { variables: {} }) {
   const { variables } = options;
-  console.log(query);
+
   // TODO: hook up to real API
   const res = await fetch('http://localhost:3000/api/graphql', {
     method: 'POST',
@@ -26,7 +26,6 @@ async function asyncFetch(query, options = { variables: {} }) {
 
   const json = await res.json();
   if (json.errors) {
-    console.error(json.errors);
     throw new Error('Failed to fetch API');
   }
   return json.data;
