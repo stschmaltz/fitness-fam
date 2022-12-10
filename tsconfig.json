@@ -20,7 +20,8 @@
     "**/*.ts",
     "**/*.tsx",
     "components/layout.ts",
-    "components/date.js"
+    "components/date.js",
+    "pages/new-routine"
   ],
   "exclude": ["node_modules"]
 }
