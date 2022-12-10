@@ -1,62 +1,23 @@
-import {
-  Button,
-  Container,
-  Flex,
-  IconButton,
-  Input,
-  List,
-  ListItem,
-} from '@chakra-ui/react';
-import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
-
+import { Button, Container, Flex, Input } from '@chakra-ui/react';
 import { Text } from '@chakra-ui/react';
 
 import { useState } from 'react';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useRouter } from 'next/router';
 import Layout from '../components/layout';
-import { EQUIPMENT, ExerciseObject } from '../types/exercise';
-import { RoutineExerciseObject, RoutineObject } from '../types/routine';
-import { theme } from '../styles/theme';
+import { ExerciseObject } from '../types/exercise';
+import { RoutineObject } from '../types/routine';
 import {
   addExerciseToRoutine,
   removeExerciseFromRoutine,
 } from '../providers/routine.provider';
 import { asyncFetch } from '../graphql/graphql-fetcher';
+import { saveRoutineMutationGraphQL } from '../graphql/snippets/mutation';
+import CurrentRoutineList from '../components/CurrentRoutineList';
+import NoExercisesRoutineList from '../components/NoExercisesRoutineList';
+import ExerciseSearchList from '../components/ExerciseSearchList';
 
 export default function Exercises() {
   const router = useRouter();
-
-  const getRoutineItemStyle = (isDragging, draggableStyle) => ({
-    // some basic styles to make the items look a bit nicer
-    userSelect: 'none',
-    padding: '6px',
-    margin: `0 0 1px 0`,
-
-    background: isDragging ? theme.colors.gray[300] : theme.colors.gray[100],
-
-    ...draggableStyle,
-  });
-  const [searchResults, setSearchResults] = useState<ExerciseObject[]>([
-    {
-      bodyPart: 'waist',
-      equipment: EQUIPMENT.BODY_WEIGHT,
-      gifUrl: 'http://d205bpvrqc9yn1.cloudfront.net/0001.gif',
-      id: '0001',
-      name: '3/4 sit-up',
-      target: 'abs',
-      instructions: [],
-    },
-    {
-      bodyPart: 'waist',
-      equipment: EQUIPMENT.BODY_WEIGHT,
-      gifUrl: 'http://d205bpvrqc9yn1.cloudfront.net/0002.gif',
-      id: '0002',
-      name: '45° side bend',
-      target: 'abs',
-      instructions: [],
-    },
-  ]);
 
   const [currentRoutine, setCurrentRoutine] = useState<RoutineObject>({
     id: '1',
@@ -80,20 +41,9 @@ export default function Exercises() {
   };
 
   const handleSaveRoutine = async (routine) => {
-    await asyncFetch(
-      `mutation saveRoutine($input: SaveRoutineInput!){
-        saveRoutine(input:$input){
-          routine{order
-          name
-          exercises{
-            order
-            id
-            name
-          }}
-        }
-      }`,
-      { input: { routine } }
-    );
+    //TODO: add error toast
+    if (!routine.name || !routine.exercises.length) return;
+    await asyncFetch(saveRoutineMutationGraphQL, { input: { routine } });
     router.push('/');
   };
 
@@ -122,17 +72,12 @@ export default function Exercises() {
   };
 
   const handleExerciseOnClick = (exercise: ExerciseObject) => {
+    // Add new exercise to current routine and remove from search results
     const newRoutine: RoutineObject = addExerciseToRoutine(
       currentRoutine,
       exercise
     );
     setCurrentRoutine(newRoutine);
-
-    const newSearchResults = searchResults.filter(
-      (searchResult) => searchResult.id !== exercise.id
-    );
-
-    setSearchResults(newSearchResults);
   };
 
   const handleRemoveExerciseFromRoutine = (exerciseId: string) => {
@@ -148,7 +93,6 @@ export default function Exercises() {
       <Container>
         <Flex>
           <Input
-            //TODO: figure out variant
             variant="outline"
             placeholder="New Routine"
             value={currentRoutine.name}
@@ -161,80 +105,19 @@ export default function Exercises() {
           </Button>
         </Flex>
         {currentRoutine?.exercises.length > 0 ? (
-          <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId={currentRoutine.id} type="LIST">
-              {/* <OrderedList> */}
-              {(provided, _snapshot) => (
-                <List
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                  style={{ maxHeight: '40vh', overflow: 'auto' }}
-                >
-                  {currentRoutine?.exercises.map(
-                    (exercise: RoutineExerciseObject, index: number) => {
-                      return (
-                        <Draggable
-                          draggableId={exercise.id}
-                          index={index}
-                          key={exercise.id}
-                        >
-                          {(provided, snapshot) => (
-                            <Flex
-                              justifyContent="space-between"
-                              ref={provided.innerRef}
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                              style={getRoutineItemStyle(
-                                snapshot.isDragging,
-                                provided.draggableProps.style
-                              )}
-                            >
-                              <Text>{exercise.order + 1}</Text>
-                              <Text>{exercise.name}</Text>
-                              <IconButton
-                                onClick={() =>
-                                  handleRemoveExerciseFromRoutine(exercise.id)
-                                }
-                                colorScheme="blue"
-                                aria-label="Remove Exercise From Routine"
-                                icon={<DeleteIcon />}
-                              />
-                            </Flex>
-                          )}
-                        </Draggable>
-                      );
-                    }
-                  )}
-                  {provided.placeholder}
-                  {/* </OrderedList> */}
-                </List>
-              )}
-            </Droppable>
-          </DragDropContext>
+          <CurrentRoutineList
+            handleOnDragEnd={onDragEnd}
+            currentRoutine={currentRoutine}
+            handleRemoveExerciseFromRoutine={handleRemoveExerciseFromRoutine}
+          />
         ) : (
-          <Text fontSize="2xl" fontStyle="italic">
-            Start adding exercises to build your routine 👇
-          </Text>
+          <NoExercisesRoutineList />
         )}
       </Container>
       <Container m={100} />
       <Container>
         <Text fontSize="4xl">Exercises</Text>
-        <List>
-          {searchResults.map((exercise) => (
-            <ListItem key={exercise.id}>
-              <Button
-                leftIcon={<AddIcon mr="2" />}
-                onClick={() =>
-                  handleExerciseOnClick(exercise as ExerciseObject)
-                }
-              >
-                {/* <AddIcon mr="2" /> */}
-                {exercise.name}
-              </Button>
-            </ListItem>
-          ))}
-        </List>
+        <ExerciseSearchList handleExerciseOnClick={handleExerciseOnClick} />
       </Container>
     </Layout>
   );
