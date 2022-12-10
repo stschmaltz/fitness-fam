@@ -1,44 +1,44 @@
 import useSWR from 'swr';
+import { Container } from '@chakra-ui/react';
+import Link from 'next/link';
+import { useRouter } from 'next/router.js';
+import { Text } from '@chakra-ui/react';
 
 import Layout from '../components/layout.js';
 import { fetcher } from '../lib/graphql-fetcher';
 import { ExerciseObject } from '../types/exercise';
 import { fullExercise } from '../graphql/exercises';
-import Link from 'next/link';
-import { useRouter } from 'next/router.js';
 
 export default function Exercises() {
   const {
     query: { equipment },
   } = useRouter();
-  console.log('bow wow ' + JSON.stringify(equipment));
 
   const { data, error } = useSWR(
     `{ exercisesByEquipment(equipment: "${equipment}") { ${fullExercise} } }`,
     fetcher
   );
 
-  if (error) return <div>Failed to load</div>;
-  if (!data) return <div>Loading...</div>;
+  if (error) return <Container>Failed to load</Container>;
+  if (!data) return <Container>Loading...</Container>;
 
   const { exercisesByEquipment } = data;
 
-  console.log('yip ' + exercisesByEquipment);
   return (
     <Layout home={false}>
-      <div>
-        <h3>Exercises: {equipment}</h3>
+      <Container>
+        <Text fontSize="4xl">Exercises: {equipment}</Text>
         Total: {exercisesByEquipment?.length}
         {exercisesByEquipment?.map((exercise: ExerciseObject, i: number) => (
-          <div key={i}>
+          <Container key={i}>
             <Link href={`/exercises/${exercise.id}`}>
-              <span>
+              <Text>
                 - {exercise.name} ({exercise.bodyPart})
-              </span>
+              </Text>
             </Link>
-          </div>
+          </Container>
         ))}
-      </div>
+      </Container>
     </Layout>
   );
 }

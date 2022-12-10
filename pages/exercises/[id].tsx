@@ -1,11 +1,14 @@
 import Image from 'next/image';
-import Layout from '../../components/layout.js';
 import Head from 'next/head';
-import utilStyles from '../../styles/utils.module.css';
-import { fetcher } from '../../lib/graphql-fetcher';
 import useSWR from 'swr';
-import { fullExercise } from '../../graphql/exercises';
 import { useRouter } from 'next/router.js';
+import { List, ListItem } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
+import { Container } from '@chakra-ui/react';
+
+import { fullExercise } from '../../graphql/exercises';
+import { fetcher } from '../../lib/graphql-fetcher';
+import Layout from '../../components/layout.js';
 
 export default function Exercise() {
   const {
@@ -17,58 +20,59 @@ export default function Exercise() {
     fetcher
   );
 
-  console.log(data);
-  if (error) return <div>Failed to load</div>;
-  if (!data) return <div>Loading...</div>;
+  if (error) return <Text>Failed to load</Text>;
+  if (!data) return <Text>Loading...</Text>;
 
   const { exercise } = data;
   return (
     <Layout home={undefined}>
       <Head>
-        <title>{exercise.id}</title>
+        <title>{exercise.name}</title>
       </Head>
       <article>
-        <h1 className={utilStyles.headingXl}>{exercise.name}</h1>
-        <div>
-          <ul className={utilStyles.list}>
-            <li>
-              <b>Id:</b> {exercise.id}
-            </li>
-            <li>
+        <Text fontSize="3xl">{exercise.name}</Text>
+        <Container>
+          <List>
+            <ListItem>
+              <Text as="b">Id:</Text> {exercise.id}
+            </ListItem>
+            <ListItem>
               {' '}
-              <b>Body Part:</b> {exercise.bodyPart}
-            </li>
-            <li>
+              <Text as="b">Body Part:</Text> {exercise.bodyPart}
+            </ListItem>
+            <ListItem>
               {' '}
-              <b>Equipment:</b> {exercise.equipment}
-            </li>
-            <li>
+              <Text as="b">Equipment:</Text> {exercise.equipment}
+            </ListItem>
+            <ListItem>
               {' '}
-              <b>Target:</b> {exercise.target}
-            </li>
-            <li>
-              <div>
+              <Text as="b">Target:</Text> {exercise.target}
+            </ListItem>
+            <ListItem>
+              <Container>
                 <Image
                   src={exercise.gifUrl}
                   alt="my gif"
                   width={360}
                   height={360}
                 />
-              </div>
+              </Container>
               {}
-            </li>
+            </ListItem>
             {exercise.instructions.length > 1 && (
-              <li>
-                <b>Instructions</b>
-                <ul>
+              <ListItem>
+                <Text as="b">Instructions</Text>
+                <List>
                   {exercise.instructions.map((instruction) => (
-                    <li key={instruction.number}>{instruction.description}</li>
+                    <ListItem key={instruction.number}>
+                      {instruction.description}
+                    </ListItem>
                   ))}
-                </ul>
-              </li>
+                </List>
+              </ListItem>
             )}
-          </ul>
-        </div>
+          </List>
+        </Container>
       </article>
     </Layout>
   );

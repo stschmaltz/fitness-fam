@@ -1,12 +1,14 @@
 import useSWR from 'swr';
+import Link from 'next/link';
+import { Container } from '@chakra-ui/react';
+import { List, ListItem } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
 
 import Layout from '../components/layout.js';
-import utilStyles from '../styles/utils.module.css';
 import { fetcher } from '../lib/graphql-fetcher';
 import { ExerciseObject } from '../types/exercise';
 import { allExercisesQuery } from '../graphql/exercises';
 import { RoutineObject } from '../types/routine';
-import Link from 'next/link';
 import { EQUIPMENT } from '../types/exercise';
 
 // TODO: clean up queries
@@ -20,71 +22,78 @@ export default function Home() {
     fetcher
   );
 
-  console.log(userData);
-  if (allExercisesError || userError) return <div>Failed to load</div>;
-  if (!allExercises || !userData) return <div>Loading...</div>;
+  if (allExercisesError || userError)
+    return <Container>Failed to load</Container>;
+  if (!allExercises || !userData) return <Container>Loading...</Container>;
 
   const { exercises } = allExercises;
   return (
     <Layout home>
-      <div>
-        <h2>Your Routines</h2>
-        <ul>
+      <Container>
+        <Text fontSize="4xl" as="b">
+          Your Routines
+        </Text>
+        <List>
           {userData?.me?.routines.map((routine: RoutineObject) => (
-            <li key={routine.order}>
-              <h4> {routine.name}</h4>
-              <ul>
+            <ListItem key={routine.order}>
+              <Text fontSize="2xl" as="b">
+                {' '}
+                {routine.name}
+              </Text>
+              <List>
                 {routine.exercises.map((exercise) => (
-                  <li key={exercise.id}>
-                    <b>{exercise.order}:</b>{' '}
+                  <ListItem key={exercise.id}>
+                    <Text as="b">{exercise.order}:</Text>{' '}
                     <Link href={`/exercises/${exercise.id}`}>
                       {exercise.name}
                     </Link>
-                  </li>
+                  </ListItem>
                 ))}
-              </ul>
-            </li>
+              </List>
+            </ListItem>
           ))}
-        </ul>
-      </div>
+        </List>
+      </Container>
 
-      <div>
-        <h3>Equipment</h3>
-        <ul className={utilStyles.list}>
+      <Container>
+        <Text fontWeight="bold" fontSize="3xl">
+          Filter by Exercise
+        </Text>
+        <List>
           {Object.values(EQUIPMENT).map((equipment) => (
-            <li key={equipment}>
+            <ListItem key={equipment}>
               <Link href={`/exercises?equipment=${equipment}`}>
                 {equipment}
               </Link>
-            </li>
+            </ListItem>
           ))}
-        </ul>
-      </div>
+        </List>
+      </Container>
 
-      <div>
-        <h3>All Exercises</h3>
+      <Container>
+        <Text fontSize="4xl">All Exercises</Text>
         {exercises?.map((exercise: ExerciseObject, i: number) => (
-          <div key={i}>
+          <Container key={i}>
             <Link href={`/exercises/${exercise.id}`}>
-              <span>- {exercise.name}</span>
+              <Text>- {exercise.name}</Text>
               {exercise.instructions.length > 0 && (
-                <>
+                <Container>
                   {' '}
-                  <h3>instructions: </h3>
-                  <ul className={utilStyles.list}>
+                  <Text fontSize="2xl">instructions: </Text>
+                  <List>
                     {exercise.instructions.map((instruction) => (
-                      <li key={instruction.number}>
-                        <h1>{instruction.number}</h1>
-                        <span>{instruction.description}</span>
-                      </li>
+                      <ListItem key={instruction.number}>
+                        <Text as="b">{instruction.number}</Text>
+                        <Text>{instruction.description}</Text>
+                      </ListItem>
                     ))}
-                  </ul>
-                </>
+                  </List>
+                </Container>
               )}
             </Link>
-          </div>
+          </Container>
         ))}
-      </div>
+      </Container>
     </Layout>
   );
 }

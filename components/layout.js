@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from './layout.module.css';
 import utilStyles from '../styles/utils.module.css';
-import Link from 'next/link';
 
 const name = 'Shane Schmaltz';
 export const siteTitle = 'Fitness Fam';
