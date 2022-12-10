@@ -7,7 +7,7 @@ import { Text } from '@chakra-ui/react';
 import { Container } from '@chakra-ui/react';
 
 import { fullExercise } from '../../graphql/exercises';
-import { fetcher } from '../../lib/graphql-fetcher';
+import { fetcher } from '../../graphql/graphql-fetcher';
 import Layout from '../../components/layout.js';
 
 export default function Exercise() {

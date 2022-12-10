@@ -1,19 +1,17 @@
-const fetcher = (query: string) =>
+const fetcher = (query: string, variables?: object) =>
   fetch('/api/graphql', {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',
     },
-    body: JSON.stringify({ query }),
+    body: JSON.stringify({ query, variables }),
   })
     .then((res) => res.json())
     .then((json) => json.data);
 
-async function asyncFetch(query, options = { variables: {} }) {
-  const { variables } = options;
-
+async function asyncFetch(query, variables?: object) {
   // TODO: hook up to real API
-  const res = await fetch('http://localhost:3000/api/graphql', {
+  const res = await fetch('/api/graphql', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

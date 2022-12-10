@@ -1,11 +1,15 @@
 import { ExerciseObject } from '../types/exercise';
-import { RoutineObject } from '../types/routine';
+import { RoutineExerciseObject, RoutineObject } from '../types/routine';
 
-// TODO: is it wrong to leave these as functions? Feels sort of like serverless functions
-async function saveRoutine(routine: RoutineObject): Promise<RoutineObject> {
-  console.log(routine);
+function saveNewOrder(
+  exercises: RoutineExerciseObject[]
+): RoutineExerciseObject[] {
+  const exercisesWithOrder = exercises.map((exercise, index) => ({
+    ...exercise,
+    order: index,
+  }));
 
-  return routine;
+  return exercisesWithOrder;
 }
 
 function renameRoutine(routine: RoutineObject, newName: string): RoutineObject {
@@ -25,7 +29,7 @@ function addExerciseToRoutine(
       {
         id: newExercise.id,
         name: newExercise.name,
-        order: routine.exercises.length + 1,
+        order: routine.exercises.length,
       },
     ],
   };
@@ -39,17 +43,12 @@ function removeExerciseFromRoutine(
 ): RoutineObject {
   const newRoutine: RoutineObject = {
     ...routine,
-    exercises: routine.exercises.filter(
-      (exercise) => exercise.id !== exerciseId
+    exercises: saveNewOrder(
+      routine.exercises.filter((exercise) => exercise.id !== exerciseId)
     ),
   };
 
   return newRoutine;
 }
 
-export {
-  saveRoutine,
-  renameRoutine,
-  addExerciseToRoutine,
-  removeExerciseFromRoutine,
-};
+export { renameRoutine, addExerciseToRoutine, removeExerciseFromRoutine };
