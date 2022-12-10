@@ -1,8 +1,9 @@
 [
   {
-    "id": "00001",
+    "id": "1",
     "order": 1,
     "name": "Legs",
+    "userId": "1",
     "exercises": [
       {
         "order": 1,
@@ -13,7 +14,8 @@
     ]
   },
   {
-    "id": "00002",
+    "id": "2",
+    "userId": "1",
     "order": 2,
     "name": "Core",
     "exercises": [

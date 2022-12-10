@@ -5,7 +5,7 @@ import { useRouter } from 'next/router.js';
 import { Text } from '@chakra-ui/react';
 
 import Layout from '../components/layout.js';
-import { fetcher } from '../lib/graphql-fetcher';
+import { fetcher } from '../graphql/graphql-fetcher';
 import { ExerciseObject } from '../types/exercise';
 import { fullExercise } from '../graphql/exercises';
 

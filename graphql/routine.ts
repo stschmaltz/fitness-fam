@@ -1,7 +1,29 @@
 import sortBy from 'lodash/sortBy';
-import { getRoutinesForUser } from '../providers/routine.provider';
+import { getRoutinesForUser } from '../providers/routine-database.provider';
 
 const routineTypeDefs = /* GraphQL */ `
+  input RoutineExerciseInput {
+    order: Int!
+    id: String!
+    name: String!
+  }
+
+  input RoutineInput {
+    id: String
+    userId: String!
+    order: Int!
+    name: String!
+    exercises: [RoutineExerciseInput!]!
+  }
+
+  input SaveRoutineInput {
+    routine: RoutineInput!
+  }
+
+  type SaveRoutineResponse {
+    routine: Routine!
+  }
+
   type RoutineExercise {
     order: Int!
     id: String!
@@ -9,6 +31,7 @@ const routineTypeDefs = /* GraphQL */ `
   }
 
   type Routine {
+    userId: String!
     order: Int!
     name: String!
     exercises: [RoutineExercise!]!

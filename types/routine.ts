@@ -5,6 +5,7 @@ export interface RoutineExerciseObject {
 }
 export interface RoutineObject {
   id: string;
+  userId: string;
   name: string;
   order: number;
   exercises: RoutineExerciseObject[];

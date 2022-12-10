@@ -1,17 +1,5 @@
 import { ExerciseObject } from '../types/exercise';
 import { RoutineExerciseObject, RoutineObject } from '../types/routine';
-import routines from '../data/routines.json';
-
-// TODO: is it wrong to leave these as functions? Feels sort of like serverless functions
-async function saveRoutine(routine: RoutineObject): Promise<RoutineObject> {
-  console.log(routine);
-
-  return routine;
-}
-
-async function getRoutinesForUser(): Promise<RoutineObject[]> {
-  return routines;
-}
 
 function saveNewOrder(
   exercises: RoutineExerciseObject[]
@@ -63,10 +51,4 @@ function removeExerciseFromRoutine(
   return newRoutine;
 }
 
-export {
-  saveRoutine,
-  getRoutinesForUser,
-  renameRoutine,
-  addExerciseToRoutine,
-  removeExerciseFromRoutine,
-};
+export { renameRoutine, addExerciseToRoutine, removeExerciseFromRoutine };

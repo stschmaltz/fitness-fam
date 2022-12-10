@@ -21,8 +21,8 @@ import { theme } from '../styles/theme';
 import {
   addExerciseToRoutine,
   removeExerciseFromRoutine,
-  saveRoutine,
 } from '../providers/routine.provider';
+import { asyncFetch } from '../graphql/graphql-fetcher';
 
 export default function Exercises() {
   const router = useRouter();
@@ -60,6 +60,7 @@ export default function Exercises() {
 
   const [currentRoutine, setCurrentRoutine] = useState<RoutineObject>({
     id: '1',
+    userId: '1',
     name: 'New Routine ' + '1',
     exercises: [
       { id: '1001', name: 'Squats', order: 0 },
@@ -78,9 +79,21 @@ export default function Exercises() {
     return result;
   };
 
-  const handleSaveRoutine = (routine) => {
-    saveRoutine(routine);
-
+  const handleSaveRoutine = async (routine) => {
+    await asyncFetch(
+      `mutation saveRoutine($input: SaveRoutineInput!){
+        saveRoutine(input:$input){
+          routine{order
+          name
+          exercises{
+            order
+            id
+            name
+          }}
+        }
+      }`,
+      { input: { routine } }
+    );
     router.push('/');
   };
 
@@ -89,12 +102,6 @@ export default function Exercises() {
       return;
     }
 
-    console.log(result);
-    console.log('old' + currentRoutine);
-    const movedExercise = currentRoutine.exercises.find(
-      (exercise) => exercise.id === result.draggableId
-    );
-    console.log('movedExercise' + JSON.stringify(movedExercise));
     const newRoutine = {
       ...currentRoutine,
       exercises: reorder(
@@ -107,16 +114,14 @@ export default function Exercises() {
       })),
     };
 
-    console.log('new' + newRoutine);
     setCurrentRoutine(newRoutine);
   };
+
   const handleRoutineNameChange = (event) => {
-    console.log('handleRoutineNameChange: ' + event.target.value);
     setCurrentRoutine({ ...currentRoutine, name: event.target.value });
-    console.log('currentRoutine: ' + JSON.stringify(currentRoutine));
   };
+
   const handleExerciseOnClick = (exercise: ExerciseObject) => {
-    console.log('handleExerciseOnClick: ' + exercise);
     const newRoutine: RoutineObject = addExerciseToRoutine(
       currentRoutine,
       exercise
@@ -131,7 +136,6 @@ export default function Exercises() {
   };
 
   const handleRemoveExerciseFromRoutine = (exerciseId: string) => {
-    console.log('handleRemoveExerciseFromRoutine: ' + exerciseId);
     const newRoutine: RoutineObject = removeExerciseFromRoutine(
       currentRoutine,
       exerciseId
@@ -152,7 +156,7 @@ export default function Exercises() {
             mb={10}
             fontSize="3xl"
           />
-          <Button onClick={() => handleSaveRoutine(currentRoutine)}>
+          <Button onClick={async () => await handleSaveRoutine(currentRoutine)}>
             Save
           </Button>
         </Flex>
