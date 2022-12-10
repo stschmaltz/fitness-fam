@@ -1,15 +1,26 @@
-import { Button, Container, Input, List, ListItem } from '@chakra-ui/react';
-import { AddIcon } from '@chakra-ui/icons';
+import {
+  Button,
+  Container,
+  Flex,
+  IconButton,
+  Input,
+  List,
+  ListItem,
+} from '@chakra-ui/react';
+import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
 
 import { Text } from '@chakra-ui/react';
 
 import { useState } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import utilStyles from '../styles/utils.module.css';
-import Layout from '../components/layout.js';
-import { ExerciseObject } from '../types/exercise.js';
-import { RoutineExerciseObject, RoutineObject } from '../types/routine.js';
+import Layout from '../components/layout';
+import { EQUIPMENT, ExerciseObject } from '../types/exercise';
+import { RoutineExerciseObject, RoutineObject } from '../types/routine';
 import { theme } from '../styles/theme';
+import {
+  addExerciseToRoutine,
+  removeExerciseFromRoutine,
+} from '../providers/routine.provider';
 
 export default function Exercises() {
   const getRoutineItemStyle = (isDragging, draggableStyle) => ({
@@ -22,15 +33,35 @@ export default function Exercises() {
 
     ...draggableStyle,
   });
+  const [searchResults, setSearchResults] = useState<ExerciseObject[]>([
+    {
+      bodyPart: 'waist',
+      equipment: EQUIPMENT.BODY_WEIGHT,
+      gifUrl: 'http://d205bpvrqc9yn1.cloudfront.net/0001.gif',
+      id: '0001',
+      name: '3/4 sit-up',
+      target: 'abs',
+      instructions: [],
+    },
+    {
+      bodyPart: 'waist',
+      equipment: EQUIPMENT.BODY_WEIGHT,
+      gifUrl: 'http://d205bpvrqc9yn1.cloudfront.net/0002.gif',
+      id: '0002',
+      name: '45° side bend',
+      target: 'abs',
+      instructions: [],
+    },
+  ]);
 
   const [currentRoutine, setCurrentRoutine] = useState<RoutineObject>({
     id: '1',
     name: 'New Routine ' + '1',
     exercises: [
-      { id: '1001', name: 'Test Exercise1', order: 1 },
-      { id: '2001', name: 'Test Exercise2', order: 2 },
-      { id: '3001', name: 'Test Exercise3', order: 3 },
-      { id: '4001', name: 'Test Exercise4', order: 4 },
+      { id: '1001', name: 'Squats', order: 0 },
+      { id: '2001', name: 'Bench Press', order: 1 },
+      { id: '3001', name: 'Dead Lift', order: 2 },
+      { id: '4001', name: 'Shoulder Press', order: 3 },
     ],
     order: -1,
   });
@@ -74,6 +105,29 @@ export default function Exercises() {
     setCurrentRoutine({ ...currentRoutine, name: event.target.value });
     console.log('currentRoutine: ' + JSON.stringify(currentRoutine));
   };
+  const handleExerciseOnClick = (exercise: ExerciseObject) => {
+    console.log('handleExerciseOnClick: ' + exercise);
+    const newRoutine: RoutineObject = addExerciseToRoutine(
+      currentRoutine,
+      exercise
+    );
+    setCurrentRoutine(newRoutine);
+
+    const newSearchResults = searchResults.filter(
+      (searchResult) => searchResult.id !== exercise.id
+    );
+
+    setSearchResults(newSearchResults);
+  };
+
+  const handleRemoveExerciseFromRoutine = (exerciseId: string) => {
+    console.log('handleRemoveExerciseFromRoutine: ' + exerciseId);
+    const newRoutine: RoutineObject = removeExerciseFromRoutine(
+      currentRoutine,
+      exerciseId
+    );
+    setCurrentRoutine(newRoutine);
+  };
 
   return (
     <Layout home={false}>
@@ -102,8 +156,8 @@ export default function Exercises() {
                           key={exercise.id}
                         >
                           {(provided, snapshot) => (
-                            <Text
-                              className={utilStyles.onDrag}
+                            <Flex
+                              justifyContent="space-between"
                               ref={provided.innerRef}
                               {...provided.draggableProps}
                               {...provided.dragHandleProps}
@@ -112,8 +166,17 @@ export default function Exercises() {
                                 provided.draggableProps.style
                               )}
                             >
-                              {exercise.name}
-                            </Text>
+                              <Text>{exercise.order + 1}</Text>
+                              <Text>{exercise.name}</Text>
+                              <IconButton
+                                onClick={() =>
+                                  handleRemoveExerciseFromRoutine(exercise.id)
+                                }
+                                colorScheme="blue"
+                                aria-label="Remove Exercise From Routine"
+                                icon={<DeleteIcon />}
+                              />
+                            </Flex>
                           )}
                         </Draggable>
                       );
@@ -131,29 +194,15 @@ export default function Exercises() {
       <Container>
         <Text fontSize="4xl">Exercises</Text>
         <List>
-          {[
-            {
-              bodyPart: 'waist',
-              equipment: 'BODY_WEIGHT',
-              gifUrl: 'http://d205bpvrqc9yn1.cloudfront.net/0001.gif',
-              id: '0001',
-              name: '3/4 sit-up',
-              target: 'abs',
-              instructions: [],
-            },
-            {
-              bodyPart: 'waist',
-              equipment: 'BODY_WEIGHT',
-              gifUrl: 'http://d205bpvrqc9yn1.cloudfront.net/0002.gif',
-              id: '0002',
-              name: '45° side bend',
-              target: 'abs',
-              instructions: [],
-            },
-          ].map((exercise) => (
+          {searchResults.map((exercise) => (
             <ListItem key={exercise.id}>
-              <Button>
-                <AddIcon mr="2" />
+              <Button
+                leftIcon={<AddIcon mr="2" />}
+                onClick={() =>
+                  handleExerciseOnClick(exercise as ExerciseObject)
+                }
+              >
+                {/* <AddIcon mr="2" /> */}
                 {exercise.name}
               </Button>
             </ListItem>
