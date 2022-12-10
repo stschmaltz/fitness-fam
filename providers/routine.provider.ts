@@ -1,7 +1,7 @@
 import { ExerciseObject } from '../types/exercise';
 import { RoutineObject } from '../types/routine';
 
-// TODO: what do front-ends normally do for these things
+// TODO: is it wrong to leave these as functions? Feels sort of like serverless functions
 async function saveRoutine(routine: RoutineObject): Promise<RoutineObject> {
   console.log(routine);
 
