@@ -4,6 +4,7 @@ import { Container } from '@chakra-ui/react';
 import { List, ListItem } from '@chakra-ui/react';
 import { Text } from '@chakra-ui/react';
 
+import { InferGetStaticPropsType } from 'next';
 import Layout from '../components/layout.js';
 import { fetcher } from '../lib/graphql-fetcher';
 import { ExerciseObject } from '../types/exercise';
@@ -12,7 +13,9 @@ import { EQUIPMENT } from '../types/exercise';
 import { getExercises } from '../providers/exercise.provider';
 
 // TODO: clean up queries
-export default function Home({ exercises }) {
+export default function Home({
+  exercises,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   const { data: userData, error: userError } = useSWR(
     '{me { name, routines { name, exercises { name, id, order } } } }',
     fetcher
@@ -21,7 +24,6 @@ export default function Home({ exercises }) {
   if (userError) return <Container>Failed to load</Container>;
   if (!userData) return <Container>Loading...</Container>;
 
-  // const { exercises } = allExercises;
   return (
     <Layout home>
       <Container>
