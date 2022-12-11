@@ -9,7 +9,7 @@ import { fetcher } from '../graphql/graphql-fetcher';
 import { ExerciseObject } from '../types/exercise';
 import { fullExercise } from '../graphql/exercises';
 
-export default function Exercises() {
+export default function ExercisesPage() {
   const {
     query: { equipment },
   } = useRouter();

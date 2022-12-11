@@ -3,11 +3,13 @@ import { extendTheme } from '@chakra-ui/react';
 const brandPrimary = '#53be82';
 const brandLight = '#ECF8F2';
 const darkAccent = '#b13d55';
+const lightAccent = '#D38B2C';
 
 const colors = {
+  backgroundColor: '#F3F7F8',
   brandPrimary: brandPrimary,
   brandLight: brandLight,
-  lightAccent: '#D38B2C',
+  lightAccent,
   darkAccent,
   brandColors: {
     '50': brandLight,
@@ -21,7 +23,7 @@ const colors = {
     '800': '#1C4A30',
     '900': '#0E2518',
   },
-  red: {
+  accent1: {
     '50': '#F8ECEF',
     '100': '#EDCAD2',
     '200': '#E1A8B5',
@@ -32,6 +34,18 @@ const colors = {
     '700': '#712838',
     '800': '#4C1A26',
     '900': '#260D13',
+  },
+  accent2: {
+    '50': '#FBF3EA',
+    '100': '#F3DFC4',
+    '200': '#EBCA9E',
+    '300': '#E3B578',
+    '400': '#DBA052',
+    '500': lightAccent,
+    '600': '#A96F23',
+    '700': '#7F531A',
+    '800': '#543812',
+    '900': '#2A1C09',
   },
 };
 
@@ -71,19 +85,8 @@ const theme = extendTheme({
     },
   },
   colors: {
-    red: colors.red,
-    yellow: {
-      '50': '#FBF3EA',
-      '100': '#F3DFC4',
-      '200': '#EBCA9E',
-      '300': '#E3B578',
-      '400': '#DBA052',
-      '500': '#D38B2C',
-      '600': '#A96F23',
-      '700': '#7F531A',
-      '800': '#543812',
-      '900': '#2A1C09',
-    },
+    red: colors.accent1,
+    yellow: colors.accent2,
     green: colors.brandColors,
     transparent: 'transparent',
     primary: colors.brandPrimary,
@@ -96,26 +99,19 @@ const theme = extendTheme({
       accent: colors.lightAccent,
     },
     brand: colors.brandColors,
-    accent: colors.red,
+    accent: colors.accent1,
+    accent2: colors.accent2,
   },
 
   styles: {
     global: {
       body: {
-        bg: 'gray.50',
+        bg: colors.backgroundColor,
         p: 0,
         m: 0,
         lineHeight: 1.6,
       },
-      main: {
-        mt: '4rem',
-      },
-      html: {
-        bg: 'gray.50',
-        p: 0,
-        m: 0,
-        lineHeight: 1.6,
-      },
+
       a: {
         fontSize: 'xl',
         color: 'blue.200',

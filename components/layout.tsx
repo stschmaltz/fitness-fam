@@ -10,7 +10,7 @@ export const siteTitle = 'Fitness Fam';
 
 export default function Layout({ children, home }) {
   return (
-    <Container>
+    <Container mt={10}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta name="description" content="App to help organize exercises" />

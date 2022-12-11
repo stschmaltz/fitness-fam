@@ -11,7 +11,7 @@ import { ExerciseObject } from '../types/exercise';
 import { EQUIPMENT } from '../types/exercise';
 import { getAllExercises } from '../providers/exercise.provider';
 
-export default function Explore({
+export default function ExplorePage({
   exercises,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { data: userData, error: userError } = useSWR(
