@@ -18,3 +18,5 @@ Those include:
 - Chakra UI (never used before)
 - NextJS route apis (never used)
 - General refresher on React (I've been a backend dev for the last couple of years)
+
+Copyright (C) 2022 Shane Schmaltz
