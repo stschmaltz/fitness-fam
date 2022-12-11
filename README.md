@@ -1,6 +1,6 @@
 ## Fitness-Fam
 
-https://fitnessfam.app is an NextJS app I put together to create exercise routines and browse from a database of exercises.
+https://fitnessfam.app is an NextJS app I am putting together to create exercise routines and browse from a database of exercises.
 
 #### Tech
 
