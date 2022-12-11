@@ -1,6 +1,7 @@
 import { EQUIPMENT, ExerciseObject } from '../types/exercise';
 import exercises from '../data/exercises/exercises.json';
 
+// TODO: is it wrong to leave these as functions? Feels sort of like serverless functions
 // TODO: what do front-ends normally do for these things
 async function getAllExercises(): Promise<ExerciseObject[]> {
   return exercises.map((exercise) => ({

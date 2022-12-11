@@ -2,7 +2,6 @@ import { RoutineExerciseObject, RoutineObject } from '../types/routine';
 
 import { getDbClient } from '../data/lib/mongodb';
 
-// TODO: is it wrong to leave these as functions? Feels sort of like serverless functions
 async function getRoutinesForUser(): Promise<RoutineObject[]> {
   const { db } = await getDbClient();
 

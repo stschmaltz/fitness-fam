@@ -41,7 +41,7 @@ export default function Exercises() {
   };
 
   const handleSaveRoutine = async (routine) => {
-    //TODO: add error toast
+    //TODO: add error and success toast
     if (!routine.name || !routine.exercises.length) return;
     await asyncFetch(saveRoutineMutationGraphQL, { input: { routine } });
     router.push('/');

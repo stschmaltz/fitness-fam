@@ -10,7 +10,7 @@ const fetcher = (query: string, variables?: object) =>
     .then((json) => json.data);
 
 async function asyncFetch(query, variables?: object) {
-  // TODO: hook up to real API
+  // TODO: hook up to database and use to fetch all exercises
   const res = await fetch('/api/graphql', {
     method: 'POST',
     headers: {
