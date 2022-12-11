@@ -1,14 +1,14 @@
 import Image from 'next/image';
 import Head from 'next/head';
 import useSWR from 'swr';
-import { useRouter } from 'next/router.js';
+import { useRouter } from 'next/router';
 import { List, ListItem } from '@chakra-ui/react';
 import { Text } from '@chakra-ui/react';
 import { Container } from '@chakra-ui/react';
 
 import { fullExercise } from '../../graphql/exercises';
 import { fetcher } from '../../graphql/graphql-fetcher';
-import Layout from '../../components/layout.js';
+import Layout from '../../components/layout';
 
 export default function Exercise() {
   const {
