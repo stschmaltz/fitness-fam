@@ -1,21 +1,15 @@
 import useSWR from 'swr';
 import Link from 'next/link';
-import { Container } from '@chakra-ui/react';
+import { Button, Container, Flex, IconButton } from '@chakra-ui/react';
 import { List, ListItem } from '@chakra-ui/react';
 import { Text } from '@chakra-ui/react';
 
-import { InferGetStaticPropsType } from 'next';
-import Layout from '../components/layout.js';
+import { AddIcon } from '@chakra-ui/icons';
+import Layout from '../components/layout';
 import { fetcher } from '../graphql/graphql-fetcher';
-import { ExerciseObject } from '../types/exercise';
 import { RoutineObject } from '../types/routine';
-import { EQUIPMENT } from '../types/exercise';
-import { getAllExercises } from '../providers/exercise.provider';
 
-// TODO: clean up queries
-export default function Home({
-  exercises,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Home() {
   const { data: userData, error: userError } = useSWR(
     '{me { name, routines { name, exercises { name, id, order } } } }',
     fetcher
@@ -26,77 +20,52 @@ export default function Home({
 
   return (
     <Layout home>
-      <Container>
-        <Text fontSize="4xl" as="b">
-          Your Routines
-        </Text>
-        <List>
-          {userData?.me?.routines.map((routine: RoutineObject) => (
-            <ListItem key={routine.order}>
-              <Text fontSize="2xl" as="b">
-                {' '}
-                {routine.name}
-              </Text>
-              <List>
-                {routine.exercises.map((exercise) => (
-                  <ListItem key={exercise.id}>
-                    <Text as="b">{exercise.order}:</Text>{' '}
-                    <Link href={`/exercises/${exercise.id}`}>
-                      {exercise.name}
-                    </Link>
-                  </ListItem>
-                ))}
-              </List>
-            </ListItem>
-          ))}
-        </List>
-      </Container>
-
-      <Container>
-        <Text fontWeight="bold" fontSize="3xl">
-          Filter by Exercise
-        </Text>
-        <List>
-          {Object.values(EQUIPMENT).map((equipment) => (
-            <ListItem key={equipment}>
-              <Link href={`/exercises?equipment=${equipment}`}>
-                {equipment}
+      <Container
+        mt={5}
+        display={'flex'}
+        justifyContent="center"
+        flexWrap="wrap"
+      >
+        <Text variant="h1">Your Routines</Text>
+        <List mt={5}>
+          {userData?.me?.routines.length > 0 ? (
+            userData?.me?.routines.map((routine: RoutineObject) => (
+              <ListItem key={routine.order}>
+                <Text variant="h3"> {routine.name}</Text>
+                <List>
+                  {routine.exercises.map((exercise) => (
+                    <ListItem key={exercise.id}>
+                      <Text variant="bold">{exercise.order}:</Text>{' '}
+                      <Link href={`/exercises/${exercise.id}`}>
+                        {exercise.name}
+                      </Link>
+                    </ListItem>
+                  ))}
+                </List>
+              </ListItem>
+            ))
+          ) : (
+            <Flex justifyContent={'center'} flexWrap="wrap">
+              <Text mb={'25'}>You have no routines yet</Text>
+              <Link href="/new-routine">
+                <Button size="lg" leftIcon={<AddIcon mr="5" />}>
+                  <Flex wrap="wrap" justifyContent="center">
+                    <Text>Click here to</Text>
+                    <Text>create a new routine </Text>
+                  </Flex>
+                </Button>
               </Link>
-            </ListItem>
-          ))}
+            </Flex>
+          )}
         </List>
-      </Container>
-
-      <Container>
-        <Text fontSize="4xl">All Exercises</Text>
-        {exercises?.map((exercise: ExerciseObject, i: number) => (
-          <Container key={i}>
-            <Link href={`/exercises/${exercise.id}`}>
-              <Text>- {exercise.name}</Text>
-              {exercise.instructions.length > 0 && (
-                <Container>
-                  {' '}
-                  <Text fontSize="2xl">instructions: </Text>
-                  <List>
-                    {exercise.instructions.map((instruction) => (
-                      <ListItem key={instruction.number}>
-                        <Text as="b">{instruction.number}</Text>
-                        <Text>{instruction.description}</Text>
-                      </ListItem>
-                    ))}
-                  </List>
-                </Container>
-              )}
-            </Link>
-          </Container>
-        ))}
+        <Link href="/new-routine">
+          <IconButton
+            mt={'10'}
+            aria-label="create new routine"
+            icon={<AddIcon />}
+          ></IconButton>
+        </Link>
       </Container>
     </Layout>
   );
-}
-export async function getStaticProps() {
-  const exercises = await getAllExercises();
-  return {
-    props: { exercises },
-  };
 }

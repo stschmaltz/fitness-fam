@@ -1,8 +1,8 @@
-import { Button, Container, Flex, Input } from '@chakra-ui/react';
-import { Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Input } from '@chakra-ui/react';
 
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { InferGetStaticPropsType } from 'next';
 import Layout from '../components/layout';
 import { ExerciseObject } from '../types/exercise';
 import { RoutineObject } from '../types/routine';
@@ -15,20 +15,18 @@ import { saveRoutineMutationGraphQL } from '../graphql/snippets/mutation';
 import CurrentRoutineList from '../components/CurrentRoutineList';
 import NoExercisesRoutineList from '../components/NoExercisesRoutineList';
 import ExerciseSearchList from '../components/ExerciseSearchList';
+import { getAllExercises } from '../providers/exercise.provider';
 
-export default function Exercises() {
+export default function NewRoutinePage({
+  exercises,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter();
 
   const [currentRoutine, setCurrentRoutine] = useState<RoutineObject>({
     id: '1',
     userId: '1',
     name: 'New Routine ' + '1',
-    exercises: [
-      { id: '1001', name: 'Squats', order: 0 },
-      { id: '2001', name: 'Bench Press', order: 1 },
-      { id: '3001', name: 'Dead Lift', order: 2 },
-      { id: '4001', name: 'Shoulder Press', order: 3 },
-    ],
+    exercises: [],
     order: -1,
   });
 
@@ -41,7 +39,7 @@ export default function Exercises() {
   };
 
   const handleSaveRoutine = async (routine) => {
-    //TODO: add error toast
+    //TODO: add error and success toast
     if (!routine.name || !routine.exercises.length) return;
     await asyncFetch(saveRoutineMutationGraphQL, { input: { routine } });
     router.push('/');
@@ -90,35 +88,54 @@ export default function Exercises() {
 
   return (
     <Layout home={false}>
-      <Container>
-        <Flex>
+      <Box>
+        <Flex mb={5}>
           <Input
             variant="outline"
             placeholder="New Routine"
             value={currentRoutine.name}
             onChange={handleRoutineNameChange}
-            mb={10}
+            pl={0}
             fontSize="3xl"
           />
-          <Button onClick={async () => await handleSaveRoutine(currentRoutine)}>
+          <Button
+            ml="4"
+            colorScheme="brand"
+            onClick={async () => await handleSaveRoutine(currentRoutine)}
+          >
             Save
           </Button>
         </Flex>
         {currentRoutine?.exercises.length > 0 ? (
-          <CurrentRoutineList
-            handleOnDragEnd={onDragEnd}
-            currentRoutine={currentRoutine}
-            handleRemoveExerciseFromRoutine={handleRemoveExerciseFromRoutine}
-          />
+          <Box maxHeight="35vh" minHeight="35vh" overflow="scroll">
+            <CurrentRoutineList
+              handleOnDragEnd={onDragEnd}
+              currentRoutine={currentRoutine}
+              handleRemoveExerciseFromRoutine={handleRemoveExerciseFromRoutine}
+            />
+          </Box>
         ) : (
-          <NoExercisesRoutineList />
+          <Box maxHeight="35vh" minHeight="35vh" overflow="scroll">
+            <NoExercisesRoutineList />
+          </Box>
         )}
-      </Container>
-      <Container m={100} />
-      <Container>
-        <Text fontSize="4xl">Exercises</Text>
-        <ExerciseSearchList handleExerciseOnClick={handleExerciseOnClick} />
-      </Container>
+      </Box>
+      <Box
+        maxHeight={'35vh'}
+        minHeight={'35vh'}
+        mt={currentRoutine?.exercises.length > 4 ? 5 : 0}
+      >
+        <ExerciseSearchList
+          allExercises={exercises}
+          handleExerciseOnClick={handleExerciseOnClick}
+        />
+      </Box>
     </Layout>
   );
+}
+export async function getStaticProps() {
+  const exercises = await getAllExercises();
+  return {
+    props: { exercises },
+  };
 }

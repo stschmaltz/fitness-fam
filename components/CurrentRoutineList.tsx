@@ -1,5 +1,5 @@
-import { Flex, IconButton, List } from '@chakra-ui/react';
-import { DeleteIcon } from '@chakra-ui/icons';
+import { Box, Flex, IconButton, List } from '@chakra-ui/react';
+import { MinusIcon } from '@chakra-ui/icons';
 import { Text } from '@chakra-ui/react';
 
 import {
@@ -23,7 +23,7 @@ export default function CurrentRoutineList(props: {
     padding: '6px',
     margin: `0 0 1px 0`,
 
-    background: isDragging ? theme.colors.gray[300] : theme.colors.gray[100],
+    background: isDragging ? theme.colors.green['100'] : theme.colors.secondary,
 
     ...draggableStyle,
   });
@@ -44,11 +44,21 @@ export default function CurrentRoutineList(props: {
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId={currentRoutine.id} type="LIST">
         {(provided, _snapshot) => (
-          <List
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-            style={{ maxHeight: '40vh', overflow: 'auto' }}
-          >
+          <List {...provided.droppableProps} ref={provided.innerRef}>
+            <Box>
+              <Flex justifyContent="space-between">
+                <Text minW="5rem" pr="2rem" as="b" fontSize="lg">
+                  Order
+                </Text>
+                <Text flexGrow="1" as="b" fontSize="lg">
+                  Exercise
+                </Text>
+                <Text as="b" fontSize="lg">
+                  Remove
+                </Text>
+              </Flex>
+            </Box>
+
             {currentRoutine?.exercises.map(
               (exercise: RoutineExerciseObject, index: number) => {
                 return (
@@ -68,16 +78,22 @@ export default function CurrentRoutineList(props: {
                           provided.draggableProps.style
                         )}
                       >
-                        <Text>{exercise.order + 1}</Text>
-                        <Text>{exercise.name}</Text>
-                        <IconButton
-                          onClick={() =>
-                            handleRemoveExerciseFromRoutine(exercise.id)
-                          }
-                          colorScheme="blue"
-                          aria-label="Remove Exercise From Routine"
-                          icon={<DeleteIcon />}
-                        />
+                        <Box minW="4rem" pr="3.2rem" pl="1rem">
+                          <Text fontSize="lg">{exercise.order + 1}</Text>
+                        </Box>
+                        <Box flexGrow="1">
+                          <Text fontSize="lg">{exercise.name}</Text>
+                        </Box>
+                        <Flex>
+                          <IconButton
+                            onClick={() =>
+                              handleRemoveExerciseFromRoutine(exercise.id)
+                            }
+                            colorScheme="accent"
+                            aria-label="Remove Exercise From Routine"
+                            icon={<MinusIcon />}
+                          />
+                        </Flex>
                       </Flex>
                     )}
                   </Draggable>
