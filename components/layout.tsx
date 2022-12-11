@@ -1,15 +1,16 @@
+import { Container, Text } from '@chakra-ui/react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from '../styles/layout.module.css';
-import utilStyles from '../styles/utils.module.css';
+import { theme } from '../styles/theme';
 
 const name = 'Shane Schmaltz';
 export const siteTitle = 'Fitness Fam';
 
 export default function Layout({ children, home }) {
   return (
-    <div className={styles.container}>
+    <Container>
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta name="description" content="App to help organize exercises" />
@@ -32,16 +33,18 @@ export default function Layout({ children, home }) {
               width={144}
               alt={name}
             />
-            <h1 className={utilStyles.heading2Xl}>{name}</h1>
+            <Text color={theme.colors.darkAccent} variant="h1">
+              {name}
+            </Text>
           </>
         )}
       </header>
       <main>{children}</main>
       {!home && (
-        <div className={styles.backToHome}>
+        <Container className={styles.backToHome}>
           <Link href="/">← Back to home</Link>
-        </div>
+        </Container>
       )}
-    </div>
+    </Container>
   );
 }

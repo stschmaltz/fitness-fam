@@ -25,9 +25,7 @@ export default function Explore({
   return (
     <Layout home>
       <Container>
-        <Text fontWeight="bold" fontSize="3xl">
-          Filter by Exercise
-        </Text>
+        <Text variant="h1">Filter by Exercise</Text>
         <List>
           {Object.values(EQUIPMENT).map((equipment) => (
             <ListItem key={equipment}>
@@ -40,7 +38,7 @@ export default function Explore({
       </Container>
 
       <Container>
-        <Text fontSize="4xl">All Exercises</Text>
+        <Text variant="h1">All Exercises</Text>
         {exercises?.map((exercise: ExerciseObject, i: number) => (
           <Container key={i}>
             <Link href={`/exercises/${exercise.id}`}>
@@ -48,7 +46,7 @@ export default function Explore({
               {exercise.instructions.length > 0 && (
                 <Container>
                   {' '}
-                  <Text fontSize="2xl">instructions: </Text>
+                  <Text variant="h3">instructions: </Text>
                   <List>
                     {exercise.instructions.map((instruction) => (
                       <ListItem key={instruction.number}>

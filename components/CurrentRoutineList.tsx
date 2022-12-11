@@ -23,7 +23,7 @@ export default function CurrentRoutineList(props: {
     padding: '6px',
     margin: `0 0 1px 0`,
 
-    background: isDragging ? theme.colors.gray[300] : theme.colors.gray[100],
+    background: isDragging ? theme.colors.green['100'] : theme.colors.secondary,
 
     ...draggableStyle,
   });
@@ -70,14 +70,25 @@ export default function CurrentRoutineList(props: {
                       >
                         <Text>{exercise.order + 1}</Text>
                         <Text>{exercise.name}</Text>
-                        <IconButton
-                          onClick={() =>
-                            handleRemoveExerciseFromRoutine(exercise.id)
-                          }
-                          colorScheme="blue"
-                          aria-label="Remove Exercise From Routine"
-                          icon={<DeleteIcon />}
-                        />
+                        <Flex>
+                          {/* <IconButton
+                            onClick={() =>
+                              handleRemoveExerciseFromRoutine(exercise.id)
+                            }
+                            colorScheme="accent"
+                            aria-label="Remove Exercise From Routine"
+                            icon={<DeleteIcon />}
+                            mr={1}
+                          /> */}
+                          <IconButton
+                            onClick={() =>
+                              handleRemoveExerciseFromRoutine(exercise.id)
+                            }
+                            colorScheme="accent"
+                            aria-label="Remove Exercise From Routine"
+                            icon={<DeleteIcon />}
+                          />
+                        </Flex>
                       </Flex>
                     )}
                   </Draggable>

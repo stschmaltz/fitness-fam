@@ -20,20 +20,15 @@ export default function Home() {
   return (
     <Layout home>
       <Container>
-        <Text fontSize="4xl" as="b">
-          Your Routines
-        </Text>
+        <Text variant="h1">Your Routines</Text>
         <List>
           {userData?.me?.routines.map((routine: RoutineObject) => (
             <ListItem key={routine.order}>
-              <Text fontSize="2xl" as="b">
-                {' '}
-                {routine.name}
-              </Text>
+              <Text variant="h3"> {routine.name}</Text>
               <List>
                 {routine.exercises.map((exercise) => (
                   <ListItem key={exercise.id}>
-                    <Text as="b">{exercise.order}:</Text>{' '}
+                    <Text variant="bold">{exercise.order}:</Text>{' '}
                     <Link href={`/exercises/${exercise.id}`}>
                       {exercise.name}
                     </Link>

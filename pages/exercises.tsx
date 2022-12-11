@@ -27,7 +27,7 @@ export default function Exercises() {
   return (
     <Layout home={false}>
       <Container>
-        <Text fontSize="4xl">Exercises: {equipment}</Text>
+        <Text variant="h1">Exercises: {equipment}</Text>
         Total: {exercisesByEquipment?.length}
         {exercisesByEquipment?.map((exercise: ExerciseObject, i: number) => (
           <Container key={i}>

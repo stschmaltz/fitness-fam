@@ -1,4 +1,4 @@
-import { Button, Container, Flex, Input } from '@chakra-ui/react';
+import { Box, Button, Flex, Input } from '@chakra-ui/react';
 import { Text } from '@chakra-ui/react';
 
 import { useState } from 'react';
@@ -90,7 +90,7 @@ export default function Exercises() {
 
   return (
     <Layout home={false}>
-      <Container>
+      <Box>
         <Flex>
           <Input
             variant="outline"
@@ -100,7 +100,11 @@ export default function Exercises() {
             mb={10}
             fontSize="3xl"
           />
-          <Button onClick={async () => await handleSaveRoutine(currentRoutine)}>
+          <Button
+            ml="4"
+            colorScheme="brand"
+            onClick={async () => await handleSaveRoutine(currentRoutine)}
+          >
             Save
           </Button>
         </Flex>
@@ -113,12 +117,12 @@ export default function Exercises() {
         ) : (
           <NoExercisesRoutineList />
         )}
-      </Container>
-      <Container m={100} />
-      <Container>
+      </Box>
+      <Box m={100} />
+      <Box>
         <Text fontSize="4xl">Exercises</Text>
         <ExerciseSearchList handleExerciseOnClick={handleExerciseOnClick} />
-      </Container>
+      </Box>
     </Layout>
   );
 }
