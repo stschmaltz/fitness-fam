@@ -1,14 +1,12 @@
-import Image from 'next/image';
 import Head from 'next/head';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
-import { List, ListItem } from '@chakra-ui/react';
 import { Text } from '@chakra-ui/react';
-import { Container } from '@chakra-ui/react';
 
 import { fullExercise } from '../../graphql/exercises';
 import { fetcher } from '../../graphql/graphql-fetcher';
 import Layout from '../../components/layout';
+import BasicExerciseInfo from '../../components/BasicExerciseInfo';
 
 export default function Exercise() {
   const {
@@ -30,49 +28,7 @@ export default function Exercise() {
         <title>{exercise.name}</title>
       </Head>
       <article>
-        <Text fontSize="3xl">{exercise.name}</Text>
-        <Container>
-          <List>
-            <ListItem>
-              <Text as="b">Id:</Text> {exercise.id}
-            </ListItem>
-            <ListItem>
-              {' '}
-              <Text as="b">Body Part:</Text> {exercise.bodyPart}
-            </ListItem>
-            <ListItem>
-              {' '}
-              <Text as="b">Equipment:</Text> {exercise.equipment}
-            </ListItem>
-            <ListItem>
-              {' '}
-              <Text as="b">Target:</Text> {exercise.target}
-            </ListItem>
-            <ListItem>
-              <Container>
-                <Image
-                  src={exercise.gifUrl}
-                  alt="my gif"
-                  width={360}
-                  height={360}
-                />
-              </Container>
-              {}
-            </ListItem>
-            {exercise.instructions.length > 1 && (
-              <ListItem>
-                <Text as="b">Instructions</Text>
-                <List>
-                  {exercise.instructions.map((instruction) => (
-                    <ListItem key={instruction.number}>
-                      {instruction.description}
-                    </ListItem>
-                  ))}
-                </List>
-              </ListItem>
-            )}
-          </List>
-        </Container>
+        <BasicExerciseInfo exercise={exercise} />
       </article>
     </Layout>
   );

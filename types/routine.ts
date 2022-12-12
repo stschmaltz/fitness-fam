@@ -1,11 +1,13 @@
+import { ObjectId } from 'mongodb';
+
 export interface RoutineExerciseObject {
   order: number;
   name: string;
   id: string;
 }
 export interface RoutineObject {
-  id: string;
-  userId: string;
+  _id: ObjectId;
+  userId: ObjectId;
   name: string;
   order: number;
   exercises: RoutineExerciseObject[];

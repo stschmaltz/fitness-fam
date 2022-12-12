@@ -46,7 +46,7 @@ export default function CurrentRoutineList(props: {
         {(provided, _snapshot) => (
           <List {...provided.droppableProps} ref={provided.innerRef}>
             <Box>
-              <Flex justifyContent="space-between">
+              <Flex justifyContent="space-between" pr={1}>
                 <Text minW="5rem" pr="2rem" as="b" fontSize="lg">
                   Order
                 </Text>

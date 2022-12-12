@@ -29,8 +29,8 @@ export default function ExercisesPage() {
       <Container>
         <Text variant="h1">Exercises: {equipment}</Text>
         Total: {exercisesByEquipment?.length}
-        {exercisesByEquipment?.map((exercise: ExerciseObject, i: number) => (
-          <Container key={i}>
+        {exercisesByEquipment?.map((exercise: ExerciseObject) => (
+          <Container key={exercise.id}>
             <Link href={`/exercises/${exercise.id}`}>
               <Text>
                 - {exercise.name} ({exercise.bodyPart})

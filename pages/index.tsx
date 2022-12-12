@@ -30,7 +30,7 @@ export default function Home() {
         <List mt={5}>
           {userData?.me?.routines.length > 0 ? (
             userData?.me?.routines.map((routine: RoutineObject) => (
-              <ListItem key={routine.order}>
+              <ListItem key={routine._id.toHexString()}>
                 <Text variant="h3"> {routine.name}</Text>
                 <List>
                   {routine.exercises.map((exercise) => (

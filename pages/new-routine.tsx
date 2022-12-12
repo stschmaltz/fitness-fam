@@ -1,8 +1,8 @@
-import { Box, Button, Flex, Input } from '@chakra-ui/react';
+import { Box, Button, Flex, Input, useToast } from '@chakra-ui/react';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { InferGetStaticPropsType } from 'next';
+import { ObjectId } from 'mongodb';
 import Layout from '../components/layout';
 import { ExerciseObject } from '../types/exercise';
 import { RoutineObject } from '../types/routine';
@@ -16,32 +16,45 @@ import CurrentRoutineList from '../components/CurrentRoutineList';
 import NoExercisesRoutineList from '../components/NoExercisesRoutineList';
 import ExerciseSearchList from '../components/ExerciseSearchList';
 import { getAllExercises } from '../providers/exercise.provider';
+import { reorderList } from '../providers/list-helpers.provider';
 
-export default function NewRoutinePage({
-  exercises,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function NewRoutinePage() {
   const router = useRouter();
 
+  // TODO: is fetching larger data better in useEffect or getStaticProps?
+  const [exercises, setExercises] = useState<ExerciseObject[]>([]);
+  const successToast = useToast();
+
+  useEffect(() => {
+    const fetchExercises = async () => {
+      const allExercises = await getAllExercises();
+      setExercises(allExercises);
+    };
+    fetchExercises();
+  }, []);
+
   const [currentRoutine, setCurrentRoutine] = useState<RoutineObject>({
-    id: '1',
-    userId: '1',
+    _id: new ObjectId(),
+    userId: new ObjectId('1'),
     name: 'New Routine ' + '1',
     exercises: [],
     order: -1,
   });
 
-  const reorder = (list, startIndex, endIndex) => {
-    const result = Array.from(list);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-
-    return result;
-  };
-
   const handleSaveRoutine = async (routine) => {
-    //TODO: add error and success toast
     if (!routine.name || !routine.exercises.length) return;
-    await asyncFetch(saveRoutineMutationGraphQL, { input: { routine } });
+    try {
+      await asyncFetch(saveRoutineMutationGraphQL, { input: { routine } });
+    } catch (error) {
+      console.log('Error saving routine', { errorMessage: error.message });
+      //TODO: add error and success toast
+    }
+    successToast({
+      title: 'Routine Saved.',
+      status: 'success',
+      duration: 3000,
+      isClosable: true,
+    });
     router.push('/');
   };
 
@@ -52,7 +65,7 @@ export default function NewRoutinePage({
 
     const newRoutine = {
       ...currentRoutine,
-      exercises: reorder(
+      exercises: reorderList(
         currentRoutine.exercises,
         result.source.index,
         result.destination.index
@@ -107,7 +120,7 @@ export default function NewRoutinePage({
           </Button>
         </Flex>
         {currentRoutine?.exercises.length > 0 ? (
-          <Box maxHeight="35vh" minHeight="35vh" overflow="scroll">
+          <Box maxHeight="35vh" minHeight="35vh" overflowY="auto" pr={1}>
             <CurrentRoutineList
               handleOnDragEnd={onDragEnd}
               currentRoutine={currentRoutine}
@@ -115,7 +128,7 @@ export default function NewRoutinePage({
             />
           </Box>
         ) : (
-          <Box maxHeight="35vh" minHeight="35vh" overflow="scroll">
+          <Box maxHeight="35vh" minHeight="35vh" overflowY="auto">
             <NoExercisesRoutineList />
           </Box>
         )}
@@ -123,6 +136,7 @@ export default function NewRoutinePage({
       <Box
         maxHeight={'35vh'}
         minHeight={'35vh'}
+        pr={1}
         mt={currentRoutine?.exercises.length > 4 ? 5 : 0}
       >
         <ExerciseSearchList
@@ -133,9 +147,10 @@ export default function NewRoutinePage({
     </Layout>
   );
 }
-export async function getStaticProps() {
-  const exercises = await getAllExercises();
-  return {
-    props: { exercises },
-  };
-}
+
+// export async function getStaticProps() {
+//   const exercises = await getAllExercises();
+//   return {
+//     props: { exercises },
+//   };
+// }
