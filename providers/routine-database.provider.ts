@@ -2,16 +2,7 @@ import { RoutineExerciseObject, RoutineObject } from '../types/routine';
 
 import { getDbClient } from '../data/database/mongodb';
 
-async function getRoutinesForUser(): Promise<RoutineObject[]> {
-  const { db } = await getDbClient();
-
-  const routineDocuments = await db
-    .collection('routines')
-    .find({ userId: '1' })
-    .toArray();
-
-  return routineDocuments.map(mapRoutineDocumentToRoutineObject);
-}
+const collectionName = 'routines';
 
 // TODO: Sort out if leaving ids as ObjectIds is a good idea
 // Pros: No mapping, no need for orm, faster for dev
@@ -30,11 +21,22 @@ const mapRoutineDocumentToRoutineObject = (doc): RoutineObject => ({
   ),
 });
 
+async function getRoutinesForUser(): Promise<RoutineObject[]> {
+  const { db } = await getDbClient();
+
+  const routineDocuments = await db
+    .collection(collectionName)
+    .find({ userId: '1' })
+    .toArray();
+
+  return routineDocuments.map(mapRoutineDocumentToRoutineObject);
+}
+
 async function saveRoutine(routine: RoutineObject): Promise<RoutineObject> {
   try {
     const { db } = await getDbClient();
 
-    await db.collection('routines').insertOne(routine);
+    await db.collection(collectionName).insertOne(routine);
 
     return routine;
   } catch (error) {

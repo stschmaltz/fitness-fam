@@ -51,7 +51,7 @@ const colors = {
 
 const theme = extendTheme({
   config: {
-    initialColorMode: 'dark',
+    initialColorMode: 'light',
     useSystemColorMode: false,
   },
   components: {
@@ -123,4 +123,4 @@ const theme = extendTheme({
   },
 });
 
-export { theme };
+export { theme, brandPrimary };

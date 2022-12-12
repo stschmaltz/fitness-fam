@@ -5,5 +5,12 @@ const saveRoutineMutationGraphQL = `mutation saveRoutine($input: SaveRoutineInpu
     routine ${fullRoutine}
   }
 }`;
+const signInUserMutationQraphQL = `mutation userSignIn($input: UserSignInInput!) {
+  userSignIn(input: $input) {
+    user {
+      email
+    }
+  }
+}`;
 
-export { saveRoutineMutationGraphQL };
+export { saveRoutineMutationGraphQL, signInUserMutationQraphQL };

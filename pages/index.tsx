@@ -15,7 +15,7 @@ export default function Home() {
 
   if (userError) return <Container>Failed to load</Container>;
   if (!userData) return <Container>Loading...</Container>;
-  console.log(userData?.me?.routines);
+
   return (
     <Layout home>
       <Container

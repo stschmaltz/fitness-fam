@@ -13,6 +13,8 @@
     "@chakra-ui/react": "^2.4.3",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@next-auth/mongodb-adapter": "^1.1.1",
+    "bcryptjs": "^2.4.3",
     "bson": "^4.7.0",
     "chakra-ui-autocomplete": "^1.4.5",
     "date-fns": "^2.29.3",

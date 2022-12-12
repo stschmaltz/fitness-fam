@@ -16,7 +16,7 @@ if (!MONGODB_DB) {
 let cachedClient = null;
 let cachedDb = null;
 
-export async function getDbClient(): Promise<{
+async function getDbClient(): Promise<{
   client: MongoClient;
   db: Db;
 }> {
@@ -46,3 +46,11 @@ export async function getDbClient(): Promise<{
     db: cachedDb,
   };
 }
+
+async function setupMongoDBAdapter(): Promise<MongoClient> {
+  const dbClient = (await getDbClient()).client;
+
+  return dbClient;
+}
+
+export { getDbClient, setupMongoDBAdapter };

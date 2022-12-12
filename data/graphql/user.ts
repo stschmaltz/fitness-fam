@@ -1,7 +1,16 @@
 const userTypeDefs = /* GraphQL */ `
   type User {
-    name: String
+    email: String!
     routines: [Routine!]!
+  }
+
+  type UserSignInResponse {
+    user: User!
+  }
+
+  input UserSignInInput {
+    email: String!
+    passwordHash: String!
   }
 `;
 

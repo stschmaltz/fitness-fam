@@ -1,5 +1,5 @@
 import { fullRoutine } from './routine';
 
-const baseUserQuery = `{me { name, routines  ${fullRoutine} } }`;
+const baseUserQuery = `{me { email, routines  ${fullRoutine} } }`;
 
 export { baseUserQuery };
