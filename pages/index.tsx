@@ -8,16 +8,14 @@ import { AddIcon } from '@chakra-ui/icons';
 import Layout from '../components/layout';
 import { fetcher } from '../data/graphql/graphql-fetcher';
 import { RoutineObject } from '../types/routine';
+import { baseUserQuery } from '../data/graphql/snippets/user';
 
 export default function Home() {
-  const { data: userData, error: userError } = useSWR(
-    '{me { name, routines { name, exercises { name, id, order } } } }',
-    fetcher
-  );
+  const { data: userData, error: userError } = useSWR(baseUserQuery, fetcher);
 
   if (userError) return <Container>Failed to load</Container>;
   if (!userData) return <Container>Loading...</Container>;
-
+  console.log(userData?.me?.routines);
   return (
     <Layout home>
       <Container
@@ -30,7 +28,7 @@ export default function Home() {
         <List mt={5}>
           {userData?.me?.routines.length > 0 ? (
             userData?.me?.routines.map((routine: RoutineObject) => (
-              <ListItem key={routine._id.toHexString()}>
+              <ListItem key={routine._id.toString()}>
                 <Text variant="h3"> {routine.name}</Text>
                 <List>
                   {routine.exercises.map((exercise) => (

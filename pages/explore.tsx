@@ -10,14 +10,12 @@ import { fetcher } from '../data/graphql/graphql-fetcher';
 import { ExerciseObject } from '../types/exercise';
 import { EQUIPMENT } from '../types/exercise';
 import { getAllExercises } from '../providers/exercise.provider';
+import { baseUserQuery } from '../data/graphql/snippets/user';
 
 export default function ExplorePage({
   exercises,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const { data: userData, error: userError } = useSWR(
-    '{me { name, routines { name, exercises { name, id, order } } } }',
-    fetcher
-  );
+  const { data: userData, error: userError } = useSWR(baseUserQuery, fetcher);
 
   if (userError) return <Container>Failed to load</Container>;
   if (!userData) return <Container>Loading...</Container>;

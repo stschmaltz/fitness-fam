@@ -42,7 +42,7 @@ export default function CurrentRoutineList(props: {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId={currentRoutine._id.toHexString()} type="LIST">
+      <Droppable droppableId={currentRoutine._id.toString()} type="LIST">
         {(provided, _snapshot) => (
           <List {...provided.droppableProps} ref={provided.innerRef}>
             <Box>

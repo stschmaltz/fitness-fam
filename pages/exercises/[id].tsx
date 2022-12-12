@@ -3,10 +3,10 @@ import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import { Text } from '@chakra-ui/react';
 
-import { fullExercise } from '../../data/graphql/exercises';
 import { fetcher } from '../../data/graphql/graphql-fetcher';
 import Layout from '../../components/layout';
 import BasicExerciseInfo from '../../components/BasicExerciseInfo';
+import { queryExerciseById } from '../../data/graphql/snippets/exercise';
 
 export default function Exercise() {
   const {
@@ -14,7 +14,7 @@ export default function Exercise() {
   } = useRouter();
 
   const { data, error } = useSWR(
-    `{ exercise(id:"${exerciseId}"){ ${fullExercise} } }`,
+    queryExerciseById(exerciseId as string),
     fetcher
   );
 
