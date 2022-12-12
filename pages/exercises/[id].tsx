@@ -3,8 +3,8 @@ import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import { Text } from '@chakra-ui/react';
 
-import { fullExercise } from '../../graphql/exercises';
-import { fetcher } from '../../graphql/graphql-fetcher';
+import { fullExercise } from '../../data/graphql/exercises';
+import { fetcher } from '../../data/graphql/graphql-fetcher';
 import Layout from '../../components/layout';
 import BasicExerciseInfo from '../../components/BasicExerciseInfo';
 

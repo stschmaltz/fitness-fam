@@ -5,9 +5,9 @@ import { useRouter } from 'next/router';
 import { Text } from '@chakra-ui/react';
 
 import Layout from '../components/layout';
-import { fetcher } from '../graphql/graphql-fetcher';
+import { fetcher } from '../data/graphql/graphql-fetcher';
 import { ExerciseObject } from '../types/exercise';
-import { fullExercise } from '../graphql/exercises';
+import { fullExercise } from '../data/graphql/exercises';
 
 export default function ExercisesPage() {
   const {

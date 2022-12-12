@@ -6,7 +6,7 @@ import { Text } from '@chakra-ui/react';
 
 import { InferGetStaticPropsType } from 'next';
 import Layout from '../components/layout';
-import { fetcher } from '../graphql/graphql-fetcher';
+import { fetcher } from '../data/graphql/graphql-fetcher';
 import { ExerciseObject } from '../types/exercise';
 import { EQUIPMENT } from '../types/exercise';
 import { getAllExercises } from '../providers/exercise.provider';

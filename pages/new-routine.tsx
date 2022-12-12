@@ -10,8 +10,8 @@ import {
   addExerciseToRoutine,
   removeExerciseFromRoutine,
 } from '../providers/routine.provider';
-import { asyncFetch } from '../graphql/graphql-fetcher';
-import { saveRoutineMutationGraphQL } from '../graphql/snippets/mutation';
+import { asyncFetch } from '../data/graphql/graphql-fetcher';
+import { saveRoutineMutationGraphQL } from '../data/graphql/snippets/mutation';
 import CurrentRoutineList from '../components/CurrentRoutineList';
 import NoExercisesRoutineList from '../components/NoExercisesRoutineList';
 import ExerciseSearchList from '../components/ExerciseSearchList';

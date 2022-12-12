@@ -6,7 +6,7 @@ import { Text } from '@chakra-ui/react';
 
 import { AddIcon } from '@chakra-ui/icons';
 import Layout from '../components/layout';
-import { fetcher } from '../graphql/graphql-fetcher';
+import { fetcher } from '../data/graphql/graphql-fetcher';
 import { RoutineObject } from '../types/routine';
 
 export default function Home() {
