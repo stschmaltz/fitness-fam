@@ -1,4 +1,5 @@
 import { Box, Button, Flex, Input, Link, useToast } from '@chakra-ui/react';
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
@@ -11,7 +12,11 @@ import {
   removeExerciseFromRoutine,
 } from '../providers/routine.provider';
 import { asyncFetch } from '../data/graphql/graphql-fetcher';
-import { saveRoutineMutationGraphQL } from '../data/graphql/snippets/mutation';
+import {
+  saveRoutineMutationGraphQL,
+  signInUserMutationQraphQL,
+  SignInUserMutationReponse,
+} from '../data/graphql/snippets/mutation';
 import CurrentRoutineList from '../components/CurrentRoutineList';
 import NoExercisesRoutineList from '../components/NoExercisesRoutineList';
 import ExerciseSearchList from '../components/ExerciseSearchList';
@@ -22,7 +27,20 @@ import { useCurrentUserContext } from '../context/UserContext';
 export default function NewRoutinePage() {
   const router = useRouter();
 
-  const { currentUser } = useCurrentUserContext();
+  const { currentUser, setCurrentUser } = useCurrentUserContext();
+
+  // TODO: figure out how to make this trigger from context change
+  const { user } = useUser();
+
+  useEffect(() => {
+    if (user) {
+      asyncFetch(signInUserMutationQraphQL, {
+        input: { email: user.email },
+      }).then((data: SignInUserMutationReponse) => {
+        setCurrentUser(data.userSignIn.user);
+      });
+    }
+  }, [user, setCurrentUser]);
 
   // TODO: is fetching larger data better in useEffect or getStaticProps?
   const [exercises, setExercises] = useState<ExerciseObject[]>([]);

@@ -3,9 +3,8 @@ import { Box, Button, Container, Flex } from '@chakra-ui/react';
 import { List, ListItem } from '@chakra-ui/react';
 import { Text } from '@chakra-ui/react';
 import { useEffect } from 'react';
-
-import { AddIcon } from '@chakra-ui/icons';
 import { useUser } from '@auth0/nextjs-auth0/client';
+import { AddIcon } from '@chakra-ui/icons';
 import Layout from '../components/layout';
 import { asyncFetch } from '../data/graphql/graphql-fetcher';
 import { RoutineObject } from '../types/routine';
