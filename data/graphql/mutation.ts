@@ -1,6 +1,7 @@
 import { saveRoutine } from '../../providers/routine-database.provider';
-import { verifyUserSignIn } from '../../providers/user.provider';
+import { handleUserSignIn } from '../../providers/user.provider';
 import { RoutineObject } from '../../types/routine';
+import { UserObject } from '../../types/user';
 
 const mutationTypeDefs = /* GraphQL */ `
   type Mutation {
@@ -12,12 +13,15 @@ interface SaveRoutineArgs {
   input: { routine: RoutineObject };
 }
 export interface UserSignInInput {
-  input: { email: string; passwordHash: string };
+  input: { email: string };
 }
 
 const mutationResolver = {
   Mutation: {
-    async saveRoutine(_: never, args: SaveRoutineArgs) {
+    async saveRoutine(
+      _: never,
+      args: SaveRoutineArgs
+    ): Promise<{ routine: RoutineObject }> {
       const {
         input: { routine },
       } = args;
@@ -27,14 +31,21 @@ const mutationResolver = {
       return { routine };
     },
 
-    async userSignIn(_: never, args: UserSignInInput) {
-      const {
-        input: { email, passwordHash },
-      } = args;
+    async userSignIn(
+      _: never,
+      args: UserSignInInput
+    ): Promise<{ user: UserObject }> {
+      try {
+        const {
+          input: { email },
+        } = args;
+        const user = await handleUserSignIn(email);
 
-      const user = await verifyUserSignIn(email, passwordHash);
-
-      return user;
+        return { user };
+      } catch (error) {
+        console.log(error);
+        throw new Error('User not found');
+      }
     },
   },
 };

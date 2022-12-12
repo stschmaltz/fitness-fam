@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Input, useToast } from '@chakra-ui/react';
+import { Box, Button, Flex, Input, Link, useToast } from '@chakra-ui/react';
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
@@ -17,9 +17,12 @@ import NoExercisesRoutineList from '../components/NoExercisesRoutineList';
 import ExerciseSearchList from '../components/ExerciseSearchList';
 import { getAllExercises } from '../providers/exercise.provider';
 import { reorderList } from '../providers/list-helpers.provider';
+import { useCurrentUserContext } from '../context/UserContext';
 
 export default function NewRoutinePage() {
   const router = useRouter();
+
+  const { currentUser } = useCurrentUserContext();
 
   // TODO: is fetching larger data better in useEffect or getStaticProps?
   const [exercises, setExercises] = useState<ExerciseObject[]>([]);
@@ -35,7 +38,7 @@ export default function NewRoutinePage() {
 
   const [currentRoutine, setCurrentRoutine] = useState<RoutineObject>({
     _id: new ObjectId(),
-    userId: new ObjectId('000000000000000000000001'),
+    userId: currentUser?._id ? new ObjectId(currentUser._id) : null,
     name: 'New Routine ' + '1',
     exercises: [],
     order: -1,
@@ -111,13 +114,22 @@ export default function NewRoutinePage() {
             pl={0}
             fontSize="3xl"
           />
-          <Button
-            ml="4"
-            colorScheme="brand"
-            onClick={async () => await handleSaveRoutine(currentRoutine)}
-          >
-            Save
-          </Button>
+          {currentUser ? (
+            <Button
+              ml="4"
+              colorScheme="brand"
+              disabled={
+                !currentRoutine.name || !currentRoutine.exercises.length
+              }
+              onClick={async () => await handleSaveRoutine(currentRoutine)}
+            >
+              Save
+            </Button>
+          ) : (
+            <Button size="lg">
+              <Link href="/api/auth/login">Login</Link>
+            </Button>
+          )}
         </Flex>
         {currentRoutine?.exercises.length > 0 ? (
           <Box maxHeight="35vh" minHeight="35vh" overflowY="auto" pr={1}>

@@ -1,5 +1,6 @@
 import sortBy from 'lodash/sortBy';
 import { getRoutinesForUser } from '../../providers/routine-database.provider';
+import { UserObject } from '../../types/user';
 
 const routineTypeDefs = /* GraphQL */ `
   input RoutineExerciseInput {
@@ -40,10 +41,15 @@ const routineTypeDefs = /* GraphQL */ `
 `;
 const routineResolver = {
   User: {
-    async routines() {
-      const routines = await getRoutinesForUser();
+    async routines(parent: Omit<UserObject, '_id'> & { _id: string }) {
+      try {
+        const routines = await getRoutinesForUser(parent._id);
 
-      return sortBy(routines, 'order');
+        return sortBy(routines, 'order');
+      } catch (error) {
+        console.log(error);
+        return [];
+      }
     },
   },
 };

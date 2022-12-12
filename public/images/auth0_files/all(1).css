@@ -1,0 +1,45 @@
+/* inter-latin-300-normal*/
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('../files/Inter-Light.woff2') format('woff2'),
+    url('../files/Inter-Light.woff') format('woff');
+}
+/* inter-latin-400-normal*/
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../files/Inter-Regular.woff2') format('woff2'),
+    url('../files/Inter-Regular.woff') format('woff');
+}
+/* inter-latin-500-normal*/
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../files/Inter-Medium.woff2') format('woff2'),
+    url('../files/Inter-Medium.woff') format('woff');
+}
+/* inter-latin-600-normal*/
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../files/Inter-SemiBold.woff2') format('woff2'),
+    url('../files/Inter-SemiBold.woff') format('woff');
+}
+/* inter-latin-700-normal*/
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../files/Inter-Bold.woff2') format('woff2'),
+    url('../files/Inter-Bold.woff') format('woff');
+}

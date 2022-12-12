@@ -1,3 +1,4 @@
+import { ObjectId } from 'bson';
 import { RoutineExerciseObject, RoutineObject } from '../types/routine';
 
 import { getDbClient } from '../data/database/mongodb';
@@ -21,12 +22,12 @@ const mapRoutineDocumentToRoutineObject = (doc): RoutineObject => ({
   ),
 });
 
-async function getRoutinesForUser(): Promise<RoutineObject[]> {
+async function getRoutinesForUser(userId: string): Promise<RoutineObject[]> {
   const { db } = await getDbClient();
 
   const routineDocuments = await db
     .collection(collectionName)
-    .find({ userId: '1' })
+    .find({ userId: new ObjectId(userId) })
     .toArray();
 
   return routineDocuments.map(mapRoutineDocumentToRoutineObject);
@@ -36,7 +37,9 @@ async function saveRoutine(routine: RoutineObject): Promise<RoutineObject> {
   try {
     const { db } = await getDbClient();
 
-    await db.collection(collectionName).insertOne(routine);
+    await db
+      .collection(collectionName)
+      .insertOne({ ...routine, userId: new ObjectId(routine.userId) });
 
     return routine;
   } catch (error) {

@@ -1,4 +1,5 @@
 import { fullRoutine } from './routine';
+import { ApiUser, fullUser } from './user';
 
 const saveRoutineMutationGraphQL = `mutation saveRoutine($input: SaveRoutineInput!){
   saveRoutine(input:$input){
@@ -7,10 +8,14 @@ const saveRoutineMutationGraphQL = `mutation saveRoutine($input: SaveRoutineInpu
 }`;
 const signInUserMutationQraphQL = `mutation userSignIn($input: UserSignInInput!) {
   userSignIn(input: $input) {
-    user {
-      email
-    }
+    user ${fullUser}
   }
 }`;
+
+export interface SignInUserMutationReponse {
+  userSignIn: {
+    user: ApiUser;
+  };
+}
 
 export { saveRoutineMutationGraphQL, signInUserMutationQraphQL };

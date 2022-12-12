@@ -7,7 +7,6 @@ class ExerciseSearcher {
   private allExercises: ExerciseObject[];
 
   constructor() {
-    console.log('constructor called');
     this.allExercises = exercises as ExerciseObject[];
 
     const options = {

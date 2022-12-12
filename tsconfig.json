@@ -21,7 +21,8 @@
     "**/*.tsx",
     "components/layout.tsx",
     "components/date.js",
-    "pages/new-routine"
+    "pages/new-routine",
+    "context/UserContext.tsz"
   ],
   "exclude": ["node_modules"]
 }

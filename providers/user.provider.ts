@@ -8,7 +8,6 @@ const collectionName = 'users';
 const mapUserDocumentToUserObject = (doc): UserObject => ({
   _id: doc._id,
   email: doc.email,
-  passwordHash: doc.passwordHash,
 });
 
 async function findUser(id: string): Promise<UserObject> {
@@ -29,39 +28,14 @@ async function findUser(id: string): Promise<UserObject> {
     throw new error();
   }
 }
+async function handleUserSignIn(email: string): Promise<UserObject> {
+  const { db } = await getDbClient();
 
-async function verifyUserSignIn(
-  email: string,
-  passwordHash: string
-): Promise<UserObject | undefined> {
-  try {
-    const { db } = await getDbClient();
-    const user = await db.collection(collectionName).findOne({ email });
+  const user = await db
+    .collection(collectionName)
+    .findOneAndUpdate({ email }, { $set: { email } }, { upsert: true });
 
-    if (!user) {
-      // TODO: add toast
-      console.log("User doesn't exist");
-
-      return;
-    }
-
-    if (user.passwordHash !== passwordHash) {
-      // TODO: add toast
-      console.log('Password incorrect');
-
-      return;
-    }
-
-    return {
-      _id: user._id,
-      email: user.email,
-      passwordHash: user.passwordHash,
-    };
-  } catch (error) {
-    console.error(error);
-
-    throw error;
-  }
+  return { _id: user.value._id, email: user.value.email };
 }
 
 async function saveUser(user: UserObject): Promise<UserObject> {
@@ -77,4 +51,4 @@ async function saveUser(user: UserObject): Promise<UserObject> {
   }
 }
 
-export { saveUser, findUser, verifyUserSignIn };
+export { saveUser, findUser, handleUserSignIn };

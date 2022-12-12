@@ -11,8 +11,7 @@ const fetcher = (query: string, variables?: object) =>
 
 async function asyncFetch(query, variables?: object) {
   try {
-    const test = window.location.href;
-    const res = await fetch(`${test}/api/graphql`, {
+    const res = await fetch(`/api/graphql`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -30,7 +29,8 @@ async function asyncFetch(query, variables?: object) {
     return json.data;
   } catch (error) {
     console.log(error);
-    throw new error();
+    console.log(error.message);
+    throw error;
   }
 }
 

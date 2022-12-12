@@ -1,28 +1,18 @@
 import { ChakraProvider } from '@chakra-ui/react';
-import { SessionProvider } from 'next-auth/react';
-import { signIn } from 'next-auth/react';
-import { useEffect } from 'react';
+import { UserProvider } from '@auth0/nextjs-auth0/client';
 
 import '../styles/global.css';
 import { theme } from '../styles/theme';
+import { CurrentUserProvider } from '../context/UserContext';
 
-export default function App({
-  Component,
-  pageProps: { session, ...pageProps },
-}) {
-  // const { data: session } = useSession();
-
-  useEffect(() => {
-    if (session?.error === 'RefreshAccessTokenError') {
-      signIn(); // Force sign in to hopefully resolve error
-    }
-  }, [session]);
-
+export default function App({ Component, pageProps }) {
   return (
-    <SessionProvider session={session}>
+    <UserProvider>
       <ChakraProvider theme={theme}>
-        <Component {...pageProps} />
+        <CurrentUserProvider>
+          <Component {...pageProps} />
+        </CurrentUserProvider>
       </ChakraProvider>
-    </SessionProvider>
+    </UserProvider>
   );
 }

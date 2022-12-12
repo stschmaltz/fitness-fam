@@ -1,5 +1,6 @@
 const userTypeDefs = /* GraphQL */ `
   type User {
+    _id: String!
     email: String!
     routines: [Routine!]!
   }
@@ -10,7 +11,6 @@ const userTypeDefs = /* GraphQL */ `
 
   input UserSignInInput {
     email: String!
-    passwordHash: String!
   }
 `;
 
