@@ -1,6 +1,6 @@
 // import { saveRoutine } from '../providers/routine.provider';
-import { saveRoutine } from '../providers/routine-database.provider';
-import { RoutineObject } from '../types/routine';
+import { saveRoutine } from '../../providers/routine-database.provider';
+import { RoutineObject } from '../../types/routine';
 
 const mutationTypeDefs = /* GraphQL */ `
   type Mutation {

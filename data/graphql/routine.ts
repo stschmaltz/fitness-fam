@@ -1,5 +1,5 @@
 import sortBy from 'lodash/sortBy';
-import { getRoutinesForUser } from '../providers/routine-database.provider';
+import { getRoutinesForUser } from '../../providers/routine-database.provider';
 
 const routineTypeDefs = /* GraphQL */ `
   input RoutineExerciseInput {

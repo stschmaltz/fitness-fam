@@ -2,7 +2,7 @@ import {
   findExerciseById,
   getAllExercises,
   getExercisesByEquipment,
-} from '../providers/exercise.provider';
+} from '../../providers/exercise.provider';
 
 const queryTypeDefs = /* GraphQL */ `
   type Query {
