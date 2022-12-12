@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { AddIcon, InfoIcon } from '@chakra-ui/icons';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ExerciseInfoModal from './ExerciseInfoModal';
 import { ExerciseObject } from '../types/exercise';
 import { ExerciseSearcher } from '../providers/exercise-search.provider';
@@ -20,15 +20,18 @@ export default function ExerciseSearchList(props: {
   allExercises: ExerciseObject[];
   handleExerciseOnClick: (exercise: ExerciseObject) => void;
 }) {
-  const searcher = new ExerciseSearcher();
-
+  const [searcher, setSearcher] = useState<ExerciseSearcher>(undefined);
   const [searchResults, setSearchResults] = useState<ExerciseObject[]>([]);
   const [selectedExercise, setSelectedExercise] = useState<
     ExerciseObject | undefined
   >(undefined);
 
+  useEffect(() => {
+    return setSearcher(new ExerciseSearcher());
+  }, []);
+
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const results = searcher.searchForExercises(event.target.value);
+    const results = searcher?.searchForExercises(event.target.value) || [];
     //TODO should slice?
     setSearchResults(results.slice(0, 50));
   };
@@ -69,7 +72,7 @@ export default function ExerciseSearchList(props: {
           onChange={handleSearchChange}
         />
       </Flex>
-      <List maxHeight="inherit" overflow="scroll">
+      <List maxHeight="inherit" overflowY="auto">
         {searchResults.length > 0 ? (
           searchResults.map((exercise) => (
             <ListItem key={exercise.id}>

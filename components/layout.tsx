@@ -42,7 +42,7 @@ export default function Layout({ children, home }) {
       <main>{children}</main>
       {!home && (
         <Container className={styles.backToHome}>
-          <Link href="/">← Back to home</Link>
+          <Link href="/">← Back to Routines</Link>
         </Container>
       )}
     </Container>

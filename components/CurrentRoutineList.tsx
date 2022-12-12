@@ -42,11 +42,11 @@ export default function CurrentRoutineList(props: {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId={currentRoutine.id} type="LIST">
+      <Droppable droppableId={currentRoutine._id.toString()} type="LIST">
         {(provided, _snapshot) => (
           <List {...provided.droppableProps} ref={provided.innerRef}>
             <Box>
-              <Flex justifyContent="space-between">
+              <Flex justifyContent="space-between" pr={1}>
                 <Text minW="5rem" pr="2rem" as="b" fontSize="lg">
                   Order
                 </Text>

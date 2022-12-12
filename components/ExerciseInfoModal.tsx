@@ -1,9 +1,5 @@
 import {
-  Box,
   Button,
-  Image,
-  List,
-  ListItem,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -11,8 +7,8 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Text,
 } from '@chakra-ui/react';
+import BasicExerciseInfo from './BasicExerciseInfo';
 import { ExerciseObject } from '../types/exercise';
 
 export default function ExerciseInfoModal(props: {
@@ -32,46 +28,7 @@ export default function ExerciseInfoModal(props: {
         <ModalHeader>Modal Title</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Text fontSize="3xl">{exercise?.name}</Text>
-          <Box>
-            <List>
-              <ListItem>
-                {' '}
-                <Text as="b">Body Part:</Text> {exercise?.bodyPart}
-              </ListItem>
-              <ListItem>
-                {' '}
-                <Text as="b">Equipment:</Text> {exercise?.equipment}
-              </ListItem>
-              <ListItem>
-                {' '}
-                <Text as="b">Target:</Text> {exercise?.target}
-              </ListItem>
-              <ListItem>
-                <Box>
-                  <Image
-                    src={exercise?.gifUrl}
-                    alt="my gif"
-                    width={360}
-                    height={360}
-                  />
-                </Box>
-                {}
-              </ListItem>
-              {exercise?.instructions.length > 1 && (
-                <ListItem>
-                  <Text as="b">Instructions</Text>
-                  <List>
-                    {exercise?.instructions.map((instruction) => (
-                      <ListItem key={instruction.number}>
-                        {instruction.description}
-                      </ListItem>
-                    ))}
-                  </List>
-                </ListItem>
-              )}
-            </List>
-          </Box>
+          <BasicExerciseInfo exercise={exercise} />
         </ModalBody>
 
         <ModalFooter>

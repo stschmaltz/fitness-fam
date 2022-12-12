@@ -1,4 +1,3 @@
-import useSWR from 'swr';
 import Link from 'next/link';
 import { Container } from '@chakra-ui/react';
 import { List, ListItem } from '@chakra-ui/react';
@@ -6,7 +5,6 @@ import { Text } from '@chakra-ui/react';
 
 import { InferGetStaticPropsType } from 'next';
 import Layout from '../components/layout';
-import { fetcher } from '../graphql/graphql-fetcher';
 import { ExerciseObject } from '../types/exercise';
 import { EQUIPMENT } from '../types/exercise';
 import { getAllExercises } from '../providers/exercise.provider';
@@ -14,14 +12,6 @@ import { getAllExercises } from '../providers/exercise.provider';
 export default function ExplorePage({
   exercises,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const { data: userData, error: userError } = useSWR(
-    '{me { name, routines { name, exercises { name, id, order } } } }',
-    fetcher
-  );
-
-  if (userError) return <Container>Failed to load</Container>;
-  if (!userData) return <Container>Loading...</Container>;
-
   return (
     <Layout home>
       <Container>

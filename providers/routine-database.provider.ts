@@ -1,37 +1,45 @@
+import { ObjectId } from 'bson';
 import { RoutineExerciseObject, RoutineObject } from '../types/routine';
 
-import { getDbClient } from '../data/lib/mongodb';
+import { getDbClient } from '../data/database/mongodb';
 
-async function getRoutinesForUser(): Promise<RoutineObject[]> {
+const collectionName = 'routines';
+
+// TODO: Sort out if leaving ids as ObjectIds is a good idea
+// Pros: No mapping, no need for orm, faster for dev
+// Cons: ObjectIds are slightly weird and now I'm committing to mongo shapes
+const mapRoutineDocumentToRoutineObject = (doc): RoutineObject => ({
+  _id: doc._id,
+  userId: doc.userId,
+  name: doc.name,
+  order: doc.order,
+  exercises: doc.exercises.map(
+    (exercise): RoutineExerciseObject => ({
+      id: exercise.id,
+      name: exercise.name,
+      order: exercise.order,
+    })
+  ),
+});
+
+async function getRoutinesForUser(userId: string): Promise<RoutineObject[]> {
   const { db } = await getDbClient();
 
   const routineDocuments = await db
-    .collection('routines')
-    .find({ userId: '1' })
+    .collection(collectionName)
+    .find({ userId: new ObjectId(userId) })
     .toArray();
 
-  return routineDocuments.map(
-    (doc): RoutineObject => ({
-      id: doc.id,
-      userId: doc.userId,
-      name: doc.name,
-      order: doc.order,
-      exercises: doc.exercises.map(
-        (exercise): RoutineExerciseObject => ({
-          id: exercise.id,
-          name: exercise.name,
-          order: exercise.order,
-        })
-      ),
-    })
-  );
+  return routineDocuments.map(mapRoutineDocumentToRoutineObject);
 }
 
 async function saveRoutine(routine: RoutineObject): Promise<RoutineObject> {
   try {
     const { db } = await getDbClient();
 
-    await db.collection('routines').insertOne(routine);
+    await db
+      .collection(collectionName)
+      .insertOne({ ...routine, userId: new ObjectId(routine.userId) });
 
     return routine;
   } catch (error) {
@@ -39,4 +47,4 @@ async function saveRoutine(routine: RoutineObject): Promise<RoutineObject> {
     return routine;
   }
 }
-export { saveRoutine, getRoutinesForUser };
+export { saveRoutine, getRoutinesForUser, mapRoutineDocumentToRoutineObject };
