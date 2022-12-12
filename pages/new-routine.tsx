@@ -2,7 +2,7 @@ import { Box, Button, Flex, Input, useToast } from '@chakra-ui/react';
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { ObjectId } from 'mongodb';
+import { ObjectId } from 'bson';
 import Layout from '../components/layout';
 import { ExerciseObject } from '../types/exercise';
 import { RoutineObject } from '../types/routine';
@@ -35,7 +35,7 @@ export default function NewRoutinePage() {
 
   const [currentRoutine, setCurrentRoutine] = useState<RoutineObject>({
     _id: new ObjectId(),
-    userId: new ObjectId('1'),
+    userId: new ObjectId('000000000000000000000001'),
     name: 'New Routine ' + '1',
     exercises: [],
     order: -1,

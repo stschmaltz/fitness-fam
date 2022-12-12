@@ -1,4 +1,4 @@
-import { ObjectId } from 'mongodb';
+import { ObjectId } from 'bson';
 
 export interface RoutineExerciseObject {
   order: number;
