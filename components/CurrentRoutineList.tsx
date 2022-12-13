@@ -23,7 +23,9 @@ export default function CurrentRoutineList(props: {
     padding: '6px',
     margin: `0 0 1px 0`,
 
-    background: isDragging ? theme.colors.green['100'] : theme.colors.secondary,
+    background: isDragging
+      ? theme.colors.brandPrimary['100']
+      : theme.colors.brandLight,
 
     ...draggableStyle,
   });
@@ -89,7 +91,7 @@ export default function CurrentRoutineList(props: {
                             onClick={() =>
                               handleRemoveExerciseFromRoutine(exercise.id)
                             }
-                            colorScheme="accent"
+                            colorScheme="brandPrimary"
                             aria-label="Remove Exercise From Routine"
                             icon={<MinusIcon />}
                           />

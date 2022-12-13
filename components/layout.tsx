@@ -1,11 +1,9 @@
-import { Container, Text } from '@chakra-ui/react';
+import { Container } from '@chakra-ui/react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from '../styles/layout.module.css';
-import { theme } from '../styles/theme';
 
-const name = 'Shane Schmaltz';
 export const siteTitle = 'Fitness Fam';
 
 export default function Layout({ children, home }) {
@@ -31,11 +29,8 @@ export default function Layout({ children, home }) {
               src="/images/profile.png"
               height={144}
               width={144}
-              alt={name}
+              alt={siteTitle}
             />
-            <Text color={theme.colors.darkAccent} variant="h1">
-              {name}
-            </Text>
           </>
         )}
       </header>

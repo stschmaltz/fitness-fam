@@ -17,6 +17,14 @@ const routineTypeDefs = /* GraphQL */ `
     exercises: [RoutineExerciseInput!]!
   }
 
+  input DeleteRoutineInput {
+    routineId: String!
+  }
+
+  type DeleteRoutineResponse {
+    success: Boolean!
+  }
+
   input SaveRoutineInput {
     routine: RoutineInput!
   }

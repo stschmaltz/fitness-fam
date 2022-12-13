@@ -6,16 +6,27 @@ const saveRoutineMutationGraphQL = `mutation saveRoutine($input: SaveRoutineInpu
     routine ${fullRoutine}
   }
 }`;
+
+const deleteRoutineMutationGraphQL = `mutation deleteRoutine($input: DeleteRoutineInput!){
+  deleteRoutine(input:$input){
+    success
+  }
+}`;
+
 const signInUserMutationQraphQL = `mutation userSignIn($input: UserSignInInput!) {
   userSignIn(input: $input) {
     user ${fullUser}
   }
 }`;
 
-export interface SignInUserMutationReponse {
+export interface SignInUserMutationResponse {
   userSignIn: {
     user: ApiUser;
   };
 }
 
-export { saveRoutineMutationGraphQL, signInUserMutationQraphQL };
+export {
+  saveRoutineMutationGraphQL,
+  signInUserMutationQraphQL,
+  deleteRoutineMutationGraphQL,
+};

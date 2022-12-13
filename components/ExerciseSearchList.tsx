@@ -51,22 +51,18 @@ export default function ExerciseSearchList(props: {
 
   return (
     <Box
-      backgroundColor={theme.colors.brand['50']}
+      backgroundColor={theme.colors.brandPrimary['50']}
       maxHeight="inherit"
       overflow="hidden"
+      p={2}
     >
       <Text fontSize="4xl">Exercises</Text>
       <Flex>
-        <Button
-          mb={3}
-          mr={3}
-          backgroundColor={theme.colors.accent2['400']}
-          colorScheme="accent2"
-        >
+        <Button mb={3} mr={3} colorScheme="accent2">
           Filters
         </Button>
         <Input
-          colorScheme="accent2"
+          colorScheme="brandPrimary"
           variant="filled"
           placeholder="Search"
           onChange={handleSearchChange}
@@ -81,7 +77,9 @@ export default function ExerciseSearchList(props: {
                   aria-label="add exercise to routine"
                   justifyContent="flex-start"
                   backgroundColor={theme.colors.gray['50']}
-                  leftIcon={<AddIcon color={theme.colors.brand['500']} />}
+                  leftIcon={
+                    <AddIcon color={theme.colors.brandPrimary['500']} />
+                  }
                   flexGrow="1"
                   flexShrink="1"
                   overflowX="clip"
@@ -92,7 +90,7 @@ export default function ExerciseSearchList(props: {
                   <Text fontSize="md">{exercise.name}</Text>
                 </Button>
                 <IconButton
-                  color={theme.colors.accent2['200']}
+                  color={theme.colors.thirdAccent}
                   aria-label="add exercise to routine"
                   icon={<InfoIcon />}
                   onClick={() => showExerciseInfo(exercise as ExerciseObject)}

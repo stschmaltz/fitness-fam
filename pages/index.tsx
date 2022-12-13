@@ -1,22 +1,24 @@
 import Link from 'next/link';
 import { Box, Button, Container, Flex } from '@chakra-ui/react';
 import { List, ListItem } from '@chakra-ui/react';
-import { Text } from '@chakra-ui/react';
+import { Text, useToast } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useUser } from '@auth0/nextjs-auth0/client';
-import { AddIcon } from '@chakra-ui/icons';
+import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
 import Layout from '../components/layout';
 import { asyncFetch } from '../data/graphql/graphql-fetcher';
 import { RoutineObject } from '../types/routine';
 import {
+  deleteRoutineMutationGraphQL,
   signInUserMutationQraphQL,
-  SignInUserMutationReponse,
+  SignInUserMutationResponse,
 } from '../data/graphql/snippets/mutation';
 import { useCurrentUserContext } from '../context/UserContext';
 import { theme } from '../styles/theme';
 
 export default function Home() {
   const { currentUser, setCurrentUser } = useCurrentUserContext();
+  const toast = useToast();
 
   const { user } = useUser();
 
@@ -24,11 +26,34 @@ export default function Home() {
     if (user) {
       asyncFetch(signInUserMutationQraphQL, {
         input: { email: user.email },
-      }).then((data: SignInUserMutationReponse) => {
+      }).then((data: SignInUserMutationResponse) => {
         setCurrentUser(data.userSignIn.user);
       });
     }
   }, [user, setCurrentUser]);
+
+  const handleDeleteRoutine = async (routineId: string) => {
+    console.log('Deleting routine', { routineId });
+
+    try {
+      await asyncFetch(deleteRoutineMutationGraphQL, { input: { routineId } });
+
+      setCurrentUser({
+        ...currentUser,
+        routines: currentUser.routines.filter(
+          (routine: RoutineObject) => routine._id.toString() !== routineId
+        ),
+      });
+    } catch (error) {
+      console.log('Error saving routine', { errorMessage: error.message });
+      toast({
+        title: 'Something went wrong saving routine.',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
 
   return (
     <Layout home>
@@ -44,7 +69,16 @@ export default function Home() {
             <Box>
               {currentUser?.routines.map((routine: RoutineObject) => (
                 <ListItem key={routine._id.toString()}>
-                  <Text variant="h3"> {routine.name}</Text>
+                  <Flex alignItems="center">
+                    <Text variant="h3"> {routine.name}</Text>
+                    <DeleteIcon
+                      color={theme.colors.primary}
+                      ml={3}
+                      onClick={async () =>
+                        await handleDeleteRoutine(routine._id.toString())
+                      }
+                    />
+                  </Flex>
                   <List>
                     {routine.exercises.map((exercise) => (
                       <ListItem key={exercise.id}>
@@ -58,10 +92,12 @@ export default function Home() {
                 </ListItem>
               ))}
               <Box mt={10}>
-                <Link color={theme.colors.brand} href="/new-routine">
+                <Link color={theme.colors.brandPrimary} href="/new-routine">
                   <Flex alignItems="center">
-                    <AddIcon color={theme.colors.brand} />{' '}
-                    <Text color={theme.colors.brand}>Add new Routine</Text>
+                    <AddIcon color={theme.colors.brandPrimary} />{' '}
+                    <Text color={theme.colors.brandPrimary}>
+                      Add new Routine
+                    </Text>
                   </Flex>
                 </Link>
               </Box>
@@ -70,9 +106,14 @@ export default function Home() {
             <Flex justifyContent={'center'} flexWrap="wrap">
               <Text mb={'25'}>You have no routines yet</Text>
               <Link href="/new-routine">
-                <Button size="lg" leftIcon={<AddIcon mr="5" />}>
-                  <Flex wrap="wrap" justifyContent="center">
-                    <Text>Click here to</Text>
+                <Button
+                  p={30}
+                  variant="outline"
+                  size="lg"
+                  leftIcon={<AddIcon mr="5" />}
+                >
+                  <Flex wrap="wrap" justifyContent="center" flexDir="column">
+                    <Text>Click here to </Text>
                     <Text>create a new routine </Text>
                   </Flex>
                 </Button>
@@ -88,12 +129,16 @@ export default function Home() {
             </Link>
           </Box>
         ) : (
-          <Button mt="10rem" p={8}>
-            <Box>
-              <Text>Not signed in</Text>
-              <Link href="/api/auth/login">Login</Link>
-            </Box>
-          </Button>
+          <Link href="/api/auth/login">
+            <Button
+              textColor={theme.colors.gray['50']}
+              colorScheme="brandPrimary"
+              mt="10rem"
+              p={5}
+            >
+              Login
+            </Button>
+          </Link>
         )}
       </Container>
     </Layout>

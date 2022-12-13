@@ -37,9 +37,11 @@ async function saveRoutine(routine: RoutineObject): Promise<RoutineObject> {
   try {
     const { db } = await getDbClient();
 
-    await db
-      .collection(collectionName)
-      .insertOne({ ...routine, userId: new ObjectId(routine.userId) });
+    await db.collection(collectionName).insertOne({
+      ...routine,
+      _id: new ObjectId(routine._id),
+      userId: new ObjectId(routine.userId),
+    });
 
     return routine;
   } catch (error) {
@@ -47,4 +49,25 @@ async function saveRoutine(routine: RoutineObject): Promise<RoutineObject> {
     return routine;
   }
 }
-export { saveRoutine, getRoutinesForUser, mapRoutineDocumentToRoutineObject };
+
+async function deleteRoutine(routineId: string): Promise<void> {
+  try {
+    const { db } = await getDbClient();
+    console.log('deleteeee,', routineId);
+    await db
+      .collection(collectionName)
+      .deleteOne({ _id: new ObjectId(routineId) });
+
+    return;
+  } catch (error) {
+    console.log(error);
+
+    throw error;
+  }
+}
+export {
+  saveRoutine,
+  getRoutinesForUser,
+  deleteRoutine,
+  mapRoutineDocumentToRoutineObject,
+};
