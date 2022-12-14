@@ -78,7 +78,10 @@ export default function ExerciseSearchList(props: {
                   justifyContent="flex-start"
                   backgroundColor={theme.colors.gray['50']}
                   leftIcon={
-                    <AddIcon color={theme.colors.brandPrimary['500']} />
+                    <AddIcon
+                      fontSize={'1xl'}
+                      color={theme.colors.accent3['500']}
+                    />
                   }
                   flexGrow="1"
                   flexShrink="1"
