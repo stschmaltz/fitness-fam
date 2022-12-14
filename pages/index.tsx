@@ -15,6 +15,7 @@ import {
 } from '../data/graphql/snippets/mutation';
 import { useCurrentUserContext } from '../context/UserContext';
 import { theme } from '../styles/theme';
+import style from '../styles/utils.module.css';
 
 export default function Home() {
   const { currentUser, setCurrentUser } = useCurrentUserContext();
@@ -63,14 +64,19 @@ export default function Home() {
         justifyContent="center"
         flexWrap="wrap"
       >
-        <Text variant="h1">Your Routines</Text>
+        <Text variant="h1" className={style.textOutline}>
+          Your Routines
+        </Text>
         <List mt={5}>
           {currentUser?.routines.length > 0 ? (
             <Box>
               {currentUser?.routines.map((routine: RoutineObject) => (
                 <ListItem key={routine._id.toString()}>
                   <Flex alignItems="center">
-                    <Text variant="h3"> {routine.name}</Text>
+                    <Text variant="h3" className={style.textOutline}>
+                      {' '}
+                      {routine.name}
+                    </Text>
                     <DeleteIcon
                       color={theme.colors.primary}
                       ml={3}
@@ -104,17 +110,28 @@ export default function Home() {
             </Box>
           ) : (
             <Flex justifyContent={'center'} flexWrap="wrap">
-              <Text mb={'25'}>You have no routines yet</Text>
+              <Text
+                mb={'25'}
+                fontStyle={'italic'}
+                color={theme.colors.accent3['300']}
+              >
+                You have no routines yet
+              </Text>
               <Link href="/new-routine">
                 <Button
+                  colorScheme="accent1"
                   p={30}
                   variant="outline"
                   size="lg"
                   leftIcon={<AddIcon mr="5" />}
                 >
                   <Flex wrap="wrap" justifyContent="center" flexDir="column">
-                    <Text>Click here to </Text>
-                    <Text>create a new routine </Text>
+                    <Text color={theme.colors.accent1['500']}>
+                      Click here to{' '}
+                    </Text>
+                    <Text color={theme.colors.accent1['500']}>
+                      create a new routine{' '}
+                    </Text>
                   </Flex>
                 </Button>
               </Link>
