@@ -9,3 +9,7 @@
 .padding1px {
   padding-top: 1px;
 }
+
+.textOutline{
+  -webkit-text-stroke: 0.2px black;
+}
