@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Box, Button, Container, Flex } from '@chakra-ui/react';
 import { List, ListItem } from '@chakra-ui/react';
 import { Text, useToast } from '@chakra-ui/react';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
 import Layout from '../components/layout';
@@ -15,13 +15,21 @@ import {
 } from '../data/graphql/snippets/mutation';
 import { useCurrentUserContext } from '../context/UserContext';
 import { theme } from '../styles/theme';
-import style from '../styles/utils.module.css';
+import utilStyles from '../styles/utils.module.css';
 
 export default function Home() {
+  const defaultExerciseListScrollEventCSS = ``;
+  const fullyScrolledStyles = `
+    border-bottom-right-radius:4px;
+    border-top-right-radius:4px;
+    border-right: 1px solid ${theme.colors.brandPrimary['300']};
+  `;
   const { currentUser, setCurrentUser } = useCurrentUserContext();
   const toast = useToast();
-
+  const scrollRef = useRef();
   const { user } = useUser();
+  const [exerciseListScrollEventCSS, setExerciseListScrollEventCSS] =
+    useState<string>(defaultExerciseListScrollEventCSS); // [
 
   useEffect(() => {
     if (user) {
@@ -56,25 +64,52 @@ export default function Home() {
     }
   };
 
+  // TODO: type this event properly
+  const handleScroll = ({ target }) => {
+    const endOfScroll =
+      target.scrollLeft + target.offsetWidth >= target.scrollWidth;
+
+    if (exerciseListScrollEventCSS != fullyScrolledStyles && endOfScroll) {
+      setExerciseListScrollEventCSS(fullyScrolledStyles);
+    }
+    if (
+      exerciseListScrollEventCSS !== defaultExerciseListScrollEventCSS &&
+      !endOfScroll
+    ) {
+      setExerciseListScrollEventCSS(defaultExerciseListScrollEventCSS);
+    }
+  };
+
   return (
     <Layout home>
-      <Container
-        mt={5}
-        display={'flex'}
-        justifyContent="center"
-        flexWrap="wrap"
-      >
-        <Text variant="h1" className={style.textOutline}>
+      <Container mt={5}>
+        <Text variant="h1" className={utilStyles.textOutline}>
           Your Routines
         </Text>
-        <List mt={5}>
+        <Box mt={3}>
           {currentUser?.routines.length > 0 ? (
-            <Box>
+            <List>
               {currentUser?.routines.map((routine: RoutineObject) => (
-                <ListItem key={routine._id.toString()}>
-                  <Flex alignItems="center">
-                    <Text variant="h3" className={style.textOutline}>
-                      {' '}
+                <ListItem key={routine._id.toString()} mb="3">
+                  <Flex
+                    paddingX={2}
+                    paddingY={1}
+                    zIndex={2}
+                    pos="relative"
+                    borderTopRadius="md"
+                    data-name="Routine name"
+                    alignItems="center"
+                    borderTop={'1px solid ' + theme.colors.brandPrimary['300']}
+                    borderX={'1px solid ' + theme.colors.brandPrimary['300']}
+                    display="inline-flex"
+                    bgColor={theme.colors.brandPrimary['50']}
+                    mb={-0.4}
+                  >
+                    <Text
+                      textOverflow="ellipsis"
+                      variant="h3"
+                      className={utilStyles.textOutline}
+                    >
                       {routine.name}
                     </Text>
                     <DeleteIcon
@@ -85,16 +120,62 @@ export default function Home() {
                       }
                     />
                   </Flex>
-                  <List>
-                    {routine.exercises.map((exercise) => (
-                      <ListItem key={exercise.id}>
-                        <Text variant="bold">{exercise.order}:</Text>{' '}
-                        <Link href={`/exercises/${exercise.id}`}>
-                          {exercise.name}
-                        </Link>
-                      </ListItem>
-                    ))}
-                  </List>
+                  <Box
+                    pos="relative"
+                    h="150px"
+                    className={utilStyles.scrollTouch}
+                    overflowX="auto"
+                    ref={scrollRef}
+                    onScroll={handleScroll}
+                    overflowY="hidden"
+                    bgColor={theme.colors.brandPrimary['50']}
+                    data-name="Routine exercises"
+                    // shadow="routineExercisesList"
+                    borderLeft={'1px solid ' + theme.colors.brandPrimary['300']}
+                    borderY={'1px solid ' + theme.colors.brandPrimary['300']}
+                    borderBottom={
+                      '1px solid ' + theme.colors.brandPrimary['300']
+                    }
+                    borderBottomLeftRadius={'md'}
+                    css={exerciseListScrollEventCSS}
+                  >
+                    <Box pos="absolute" left="0" top="0" height="100%">
+                      <Flex
+                        flexDir="row"
+                        data-name="Routine exercise list"
+                        height="100%"
+                      >
+                        {routine.exercises.map((exercise) => (
+                          <Box
+                            key={exercise.id}
+                            width="150px"
+                            height="100%"
+                            paddingY={'10px'}
+                            paddingLeft={'10px'}
+                            css={'&:last-of-type { padding-right: 10px; }'}
+                          >
+                            <Box
+                              bgColor={theme.colors.cyan['50']}
+                              height="100%"
+                              p={2}
+                              borderRadius="md"
+                              outline={'1px solid ' + theme.colors.cyan['300']}
+                            >
+                              <Text variant="bold">{exercise.order}:</Text>{' '}
+                              <Link href={`/exercises/${exercise.id}`}>
+                                <Text
+                                  fontSize="lg"
+                                  color={theme.colors.blue['400']}
+                                >
+                                  {exercise.name}
+                                </Text>
+                              </Link>
+                            </Box>
+                          </Box>
+                        ))}
+                      </Flex>
+                    </Box>
+                  </Box>
                 </ListItem>
               ))}
               <Box mt={10}>
@@ -107,40 +188,42 @@ export default function Home() {
                   </Flex>
                 </Link>
               </Box>
-            </Box>
+            </List>
           ) : (
-            <Flex justifyContent={'center'} flexWrap="wrap">
+            <Flex flexWrap="wrap">
               <Text
                 mb={'25'}
                 fontStyle={'italic'}
-                color={theme.colors.accent3['300']}
+                color={theme.colors.accent1['600']}
               >
                 You have no routines yet
               </Text>
               <Link href="/new-routine">
                 <Button
                   colorScheme="accent1"
-                  p={30}
-                  variant="outline"
+                  paddingX={30}
+                  paddingY={10}
+                  variant="solid"
                   size="lg"
                   leftIcon={<AddIcon mr="5" />}
                 >
-                  <Flex wrap="wrap" justifyContent="center" flexDir="column">
-                    <Text color={theme.colors.accent1['500']}>
-                      Click here to{' '}
-                    </Text>
-                    <Text color={theme.colors.accent1['500']}>
-                      create a new routine{' '}
-                    </Text>
+                  <Flex
+                    wrap="wrap"
+                    justifyContent="center"
+                    flexDir="column"
+                    color={theme.colors.gray['50']}
+                  >
+                    <Text color="inherit">Click here to </Text>
+                    <Text color="inherit">create a new routine </Text>
                   </Flex>
                 </Button>
               </Link>
             </Flex>
           )}
-        </List>
+        </Box>
 
         {user ? (
-          <Box mt="5rem">
+          <Box mt="2">
             <Link href="/api/auth/logout?returnTo=http%3A%2F%2Flocalhost%3A3000">
               Logout
             </Link>

@@ -13,3 +13,11 @@
 .textOutline {
   -webkit-text-stroke: 0.2px black;
 }
+
+.flex {
+  display: flex;
+}
+
+.scrollTouch {
+  -webkit-overflow-scrolling: touch; /* Lets it scroll lazy */
+}

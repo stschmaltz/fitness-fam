@@ -103,7 +103,7 @@
     "equipment": "BODY_WEIGHT",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/3214.gif",
     "id": "3214",
-    "name": "arms apart circular toe touch (male)",
+    "name": "arms apart circular toe touch",
     "target": "glutes",
     "instructions": []
   },
@@ -112,7 +112,7 @@
     "equipment": "BODY_WEIGHT",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/3204.gif",
     "id": "3204",
-    "name": "arms overhead full sit-up (male)",
+    "name": "arms overhead full sit-up",
     "target": "abs",
     "instructions": []
   },
@@ -319,7 +319,7 @@
     "equipment": "BODY_WEIGHT",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/3220.gif",
     "id": "3220",
-    "name": "astride jumps (male)",
+    "name": "astride jumps",
     "target": "cardiovascular system",
     "instructions": []
   },
@@ -1129,7 +1129,7 @@
     "equipment": "BARBELL",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/3562.gif",
     "id": "3562",
-    "name": "barbell glute bridge two legs on bench (male)",
+    "name": "barbell glute bridge two legs on bench",
     "target": "glutes",
     "instructions": []
   },
@@ -1804,7 +1804,7 @@
     "equipment": "BARBELL",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/2800.gif",
     "id": "2800",
-    "name": "barbell sitted alternate leg raise (female)",
+    "name": "barbell sitted alternate leg raise",
     "target": "abs",
     "instructions": []
   },
@@ -2137,7 +2137,7 @@
     "equipment": "BODY_WEIGHT",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/3212.gif",
     "id": "3212",
-    "name": "basic toe touch (male)",
+    "name": "basic toe touch",
     "target": "glutes",
     "instructions": []
   },
@@ -2209,7 +2209,7 @@
     "equipment": "BODY_WEIGHT",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/3639.gif",
     "id": "3639",
-    "name": "bent knee lying twist (male)",
+    "name": "bent knee lying twist",
     "target": "glutes",
     "instructions": []
   },
@@ -2740,7 +2740,7 @@
     "equipment": "CABLE",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/3697.gif",
     "id": "3697",
-    "name": "cable kneeling rear delt row (with rope) (male)",
+    "name": "cable kneeling rear delt row (with rope)",
     "target": "delts",
     "instructions": []
   },
@@ -3919,7 +3919,7 @@
     "equipment": "BODY_WEIGHT",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/3216.gif",
     "id": "3216",
-    "name": "chest tap push-up (male)",
+    "name": "chest tap push-up",
     "target": "pectorals",
     "instructions": []
   },
@@ -5854,7 +5854,7 @@
     "equipment": "DUMBBELL",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/2327.gif",
     "id": "2327",
-    "name": "dumbbell reverse grip row (female)",
+    "name": "dumbbell reverse grip row",
     "target": "upper back",
     "instructions": []
   },
@@ -6718,7 +6718,7 @@
     "equipment": "BODY_WEIGHT",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/1167.gif",
     "id": "1167",
-    "name": "dynamic chest stretch (male)",
+    "name": "dynamic chest stretch",
     "target": "pectorals",
     "instructions": []
   },
@@ -7231,7 +7231,7 @@
     "equipment": "BODY_WEIGHT",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/3470.gif",
     "id": "3470",
-    "name": "forward lunge (male)",
+    "name": "forward lunge",
     "target": "glutes",
     "instructions": []
   },
@@ -7339,7 +7339,7 @@
     "equipment": "BODY_WEIGHT",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/3523.gif",
     "id": "3523",
-    "name": "glute bridge two legs on bench (male)",
+    "name": "glute bridge two legs on bench",
     "target": "glutes",
     "instructions": []
   },
@@ -7393,7 +7393,7 @@
     "equipment": "BODY_WEIGHT",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/3221.gif",
     "id": "3221",
-    "name": "half knee bends (male)",
+    "name": "half knee bends",
     "target": "cardiovascular system",
     "instructions": []
   },
@@ -7402,7 +7402,7 @@
     "equipment": "BODY_WEIGHT",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/3202.gif",
     "id": "3202",
-    "name": "half sit-up (male)",
+    "name": "half sit-up",
     "target": "abs",
     "instructions": []
   },
@@ -7429,7 +7429,7 @@
     "equipment": "BODY_WEIGHT",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/3218.gif",
     "id": "3218",
-    "name": "hands clasped circular toe touch (male)",
+    "name": "hands clasped circular toe touch",
     "target": "glutes",
     "instructions": []
   },
@@ -7438,7 +7438,7 @@
     "equipment": "BODY_WEIGHT",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/3215.gif",
     "id": "3215",
-    "name": "hands reversed clasped circular toe touch (male)",
+    "name": "hands reversed clasped circular toe touch",
     "target": "glutes",
     "instructions": []
   },
@@ -7789,7 +7789,7 @@
     "equipment": "BODY_WEIGHT",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/3224.gif",
     "id": "3224",
-    "name": "jack jump (male)",
+    "name": "jack jump",
     "target": "cardiovascular system",
     "instructions": []
   },
@@ -8270,7 +8270,7 @@
     "equipment": "BODY_WEIGHT",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/3239.gif",
     "id": "3239",
-    "name": "kneeling plank tap shoulder (male)",
+    "name": "kneeling plank tap shoulder",
     "target": "abs",
     "instructions": []
   },
@@ -8279,7 +8279,7 @@
     "equipment": "BODY_WEIGHT",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/3211.gif",
     "id": "3211",
-    "name": "kneeling push-up (male)",
+    "name": "kneeling push-up",
     "target": "pectorals",
     "instructions": []
   },
@@ -9224,7 +9224,7 @@
     "equipment": "BODY_WEIGHT",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/3217.gif",
     "id": "3217",
-    "name": "modified hindu push-up (male)",
+    "name": "modified hindu push-up",
     "target": "pectorals",
     "instructions": []
   },
@@ -9539,7 +9539,7 @@
     "equipment": "BODY_WEIGHT",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/3203.gif",
     "id": "3203",
-    "name": "prisoner half sit-up (male)",
+    "name": "prisoner half sit-up",
     "target": "abs",
     "instructions": []
   },
@@ -9791,7 +9791,7 @@
     "equipment": "RESISTANCE_BAND",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/3236.gif",
     "id": "3236",
-    "name": "resistance band hip thrusts on knees (female)",
+    "name": "resistance band hip thrusts on knees",
     "target": "glutes",
     "instructions": []
   },
@@ -10088,7 +10088,7 @@
     "equipment": "BODY_WEIGHT",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/3219.gif",
     "id": "3219",
-    "name": "scissor jumps (male)",
+    "name": "scissor jumps",
     "target": "cardiovascular system",
     "instructions": []
   },
@@ -10097,7 +10097,7 @@
     "equipment": "BODY_WEIGHT",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/1390.gif",
     "id": "1390",
-    "name": "seated calf stretch (male)",
+    "name": "seated calf stretch",
     "target": "calves",
     "instructions": []
   },
@@ -10187,7 +10187,7 @@
     "equipment": "BODY_WEIGHT",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/3222.gif",
     "id": "3222",
-    "name": "semi squat jump (male)",
+    "name": "semi squat jump",
     "target": "cardiovascular system",
     "instructions": []
   },
@@ -10277,7 +10277,7 @@
     "equipment": "BODY_WEIGHT",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/3667.gif",
     "id": "3667",
-    "name": "side lying hip adduction (male)",
+    "name": "side lying hip adduction",
     "target": "adductors",
     "instructions": []
   },
@@ -10331,7 +10331,7 @@
     "equipment": "BODY_WEIGHT",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/3213.gif",
     "id": "3213",
-    "name": "side-to-side toe touch (male)",
+    "name": "side-to-side toe touch",
     "target": "abs",
     "instructions": []
   },
@@ -11195,7 +11195,7 @@
     "equipment": "BODY_WEIGHT",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/3223.gif",
     "id": "3223",
-    "name": "star jump (male)",
+    "name": "star jump",
     "target": "cardiovascular system",
     "instructions": []
   },
@@ -11303,7 +11303,7 @@
     "equipment": "BODY_WEIGHT",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/3433.gif",
     "id": "3433",
-    "name": "swimmer kicks v. 2 (male)",
+    "name": "swimmer kicks v. 2",
     "target": "glutes",
     "instructions": []
   },
@@ -11438,7 +11438,7 @@
     "equipment": "BODY_WEIGHT",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/2801.gif",
     "id": "2801",
-    "name": "twisted leg raise (female)",
+    "name": "twisted leg raise",
     "target": "abs",
     "instructions": []
   },
@@ -11447,7 +11447,7 @@
     "equipment": "BODY_WEIGHT",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/3231.gif",
     "id": "3231",
-    "name": "two toe touch (male)",
+    "name": "two toe touch",
     "target": "spine",
     "instructions": []
   },
@@ -11555,7 +11555,7 @@
     "equipment": "WEIGHTED",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/3643.gif",
     "id": "3643",
-    "name": "weighted cossack squats (male)",
+    "name": "weighted cossack squats",
     "target": "glutes",
     "instructions": []
   },

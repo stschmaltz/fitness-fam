@@ -1,7 +1,7 @@
 import { extendTheme } from '@chakra-ui/react';
 
 const brandPrimary = '#FA897B';
-const brandLight = '#FFE3D5';
+const brandLight = '#FFEDDF';
 const firstAccent = '#D0E6A5';
 const secondAccent = '#CCABD8';
 const thirdAccent = '#7AE0C9';
@@ -145,7 +145,7 @@ const theme = extendTheme({
 
       a: {
         fontSize: 'xl',
-        color: 'blue.200',
+        color: 'cyan.500',
         _hover: {
           textDecoration: 'underline',
         },
