@@ -220,7 +220,7 @@ export default function NewRoutinePage() {
       </Box>
       <Box
         maxHeight={'35vh'}
-        minHeight={'35vh'}
+        minHeight={'235px'}
         pr={1}
         mt={currentRoutine?.exercises.length > 4 ? 5 : 0}
       >

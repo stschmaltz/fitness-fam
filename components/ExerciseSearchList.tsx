@@ -53,6 +53,7 @@ export default function ExerciseSearchList(props: {
     <Box
       backgroundColor={theme.colors.brandPrimary['50']}
       maxHeight="inherit"
+      minHeight="inherit"
       overflow="hidden"
       p={2}
     >
@@ -68,7 +69,7 @@ export default function ExerciseSearchList(props: {
           onChange={handleSearchChange}
         />
       </Flex>
-      <List maxHeight="inherit" overflowY="auto">
+      <List minHeight="inherit" maxHeight="inherit" overflowY="auto">
         {searchResults.length > 0 ? (
           searchResults.map((exercise) => (
             <ListItem key={exercise.id}>
