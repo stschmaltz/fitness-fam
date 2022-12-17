@@ -167,9 +167,9 @@ export default function NewRoutinePage() {
   return (
     <Layout home={false}>
       {!currentUser && (
-        <Alert status="info" colorScheme="brandSecondary" mb={3}>
-          <InfoIcon color={theme.colors.brandSecondary['900']} />
-          <Text color={theme.colors.brandSecondary['900']} ml={2} fontSize="md">
+        <Alert status="info" colorScheme="accent1" mb={3}>
+          <InfoIcon color={theme.colors.accent1['900']} />
+          <Text color={theme.colors.accent1['900']} ml={2} fontSize="md">
             Login to save your routine.
           </Text>
         </Alert>
@@ -190,7 +190,7 @@ export default function NewRoutinePage() {
             <Button
               ml="4"
               p={5}
-              colorScheme="accent1"
+              colorScheme="brandSecondary"
               disabled={disableSaveButton}
               onClick={async () => await handleSaveRoutine(currentRoutine)}
             >

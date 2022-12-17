@@ -81,7 +81,7 @@ export default function ExerciseSearchList(props: {
                   leftIcon={
                     <AddIcon
                       fontSize={'1xl'}
-                      color={theme.colors.accent3['500']}
+                      color={theme.colors.brandSecondary['500']}
                     />
                   }
                   flexGrow="1"
@@ -94,7 +94,7 @@ export default function ExerciseSearchList(props: {
                   <Text fontSize="md">{exercise.name}</Text>
                 </Button>
                 <IconButton
-                  color={theme.colors.thirdAccent}
+                  color={theme.colors.secondAccent}
                   aria-label="add exercise to routine"
                   icon={<InfoIcon />}
                   onClick={() => showExerciseInfo(exercise as ExerciseObject)}
