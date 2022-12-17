@@ -36,8 +36,8 @@ export default function Layout({ children, home }) {
       <header className={styles.header}>
         {isVisible && (
           <Alert colorScheme="brandPrimary" status="warning" pos="absolute">
-            <AlertIcon />
-            <Box color={theme.colors.brandPrimary['900']}>
+            <AlertIcon color={theme.colors.brandPrimary['50']} />
+            <Box color={theme.colors.brandPrimary['50']}>
               <AlertTitle>Warning!</AlertTitle>
               <AlertDescription>
                 This application is actively under development. Features/Visuals
@@ -46,6 +46,7 @@ export default function Layout({ children, home }) {
               </AlertDescription>
             </Box>
             <CloseButton
+              color={theme.colors.gray['900']}
               alignSelf="flex-start"
               position="relative"
               right={-1}

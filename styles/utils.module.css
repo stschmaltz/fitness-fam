@@ -18,6 +18,12 @@
   display: flex;
 }
 
+.lineClamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
 .scrollTouch {
   -webkit-overflow-scrolling: touch; /* Lets it scroll lazy */
 }
