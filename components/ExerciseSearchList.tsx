@@ -1,17 +1,24 @@
 import {
+  Box,
   Button,
+  Drawer,
+  DrawerBody,
+  DrawerContent,
+  DrawerHeader,
+  DrawerOverlay,
   Flex,
   IconButton,
   Input,
   List,
   ListItem,
   Text,
+  useDisclosure,
 } from '@chakra-ui/react';
-import { AddIcon, InfoIcon } from '@chakra-ui/icons';
+import { AddIcon, CloseIcon, InfoIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
 
 import ExerciseInfoModal from './ExerciseInfoModal';
-import { ExerciseObject } from '../types/exercise';
+import { EQUIPMENT, ExerciseObject, TARGET_MUSCLE } from '../types/exercise';
 import { theme } from '../styles/theme';
 import { appContainer } from '../container/inversify.config';
 import { TYPES } from '../container/types';
@@ -21,6 +28,12 @@ export default function ExerciseSearchList(props: {
   allExercises: ExerciseObject[];
   handleExerciseOnClick: (exercise: ExerciseObject) => void;
 }) {
+  const {
+    isOpen: isFiltersOpen,
+    onOpen: OnFiltersOpen,
+    onClose: onFiltersClose,
+  } = useDisclosure();
+
   const exerciseSearcher = appContainer.get<ExerciseSearcherInterface>(
     TYPES.ExerciseSearcher
   );
@@ -60,7 +73,7 @@ export default function ExerciseSearchList(props: {
     >
       <Text fontSize="4xl">Exercises</Text>
       <Flex>
-        <Button mb={3} mr={3} colorScheme="accent2">
+        <Button mb={3} mr={3} colorScheme="accent2" onClick={OnFiltersOpen}>
           Filters
         </Button>
         <Input
@@ -121,6 +134,55 @@ export default function ExerciseSearchList(props: {
           isOpen={selectedExercise !== undefined}
         />
       )}
+      <Drawer
+        placement={'bottom'}
+        onClose={onFiltersClose}
+        isOpen={isFiltersOpen}
+      >
+        <DrawerOverlay />
+        <DrawerContent minHeight="40vh" maxHeight={'70vh'}>
+          <DrawerHeader borderBottomWidth="1px">
+            <Flex alignItems={'center'} justifyContent="space-between">
+              <Text variant={'h1'} fontSize="2xl">
+                Filters{' '}
+              </Text>
+              <IconButton
+                onClick={onFiltersClose}
+                aria-label="close filters"
+                icon={<CloseIcon />}
+                mt={5}
+              >
+                Close
+              </IconButton>
+            </Flex>
+          </DrawerHeader>
+          <DrawerBody>
+            <Box>
+              <Text variant={'h3'} fontSize="2xl" mb={2}>
+                Equipment
+              </Text>
+
+              {Object.values(EQUIPMENT).map((equipment) => (
+                <Button key={equipment}>{equipment}</Button>
+              ))}
+            </Box>
+            <Box mt={5}>
+              <Text variant={'h3'} fontSize="2xl" mb={2}>
+                Target Muscle
+              </Text>
+
+              {Object.values(TARGET_MUSCLE).map((targetMuscle) => (
+                <Button key={targetMuscle}>{targetMuscle}</Button>
+              ))}
+            </Box>
+            <Flex>
+              <Button colorScheme={'brandPrimary'} mt={5}>
+                Apply Filters
+              </Button>
+            </Flex>
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
     </Flex>
   );
 }

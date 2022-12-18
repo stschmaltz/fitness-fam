@@ -190,7 +190,6 @@ export default function NewRoutinePage() {
           </Text>
         </Alert>
       )}
-
       <Box pos="fixed" color={theme.colors.brandLight}></Box>
       <Box>
         <Flex mb={5}>
@@ -244,7 +243,7 @@ export default function NewRoutinePage() {
           allExercises={exercises}
           handleExerciseOnClick={handleExerciseOnClick}
         />
-      </Box>
+      </Box>{' '}
     </Layout>
   );
 }
