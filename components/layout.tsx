@@ -10,13 +10,18 @@ import {
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import { ReactNode } from 'react';
 import { useLocalStorage } from '../hooks/use-local-storage.hook';
 import styles from '../styles/layout.module.css';
 import { theme } from '../styles/theme';
 
 export const siteTitle = 'Fitness Fam';
 
-export default function Layout({ children, home }) {
+export default function Layout(input: {
+  children: ReactNode | undefined;
+  home: boolean;
+}) {
+  const { children, home } = input;
   const [isVisible, setIsVisible] = useLocalStorage('alert', true);
 
   return (
@@ -35,7 +40,12 @@ export default function Layout({ children, home }) {
       </Head>
       <header className={styles.header}>
         {isVisible && (
-          <Alert colorScheme="brandPrimary" status="warning" pos="absolute">
+          <Alert
+            zIndex={100}
+            colorScheme="brandPrimary"
+            status="warning"
+            pos="absolute"
+          >
             <AlertIcon color={theme.colors.brandPrimary['50']} />
             <Box color={theme.colors.brandPrimary['50']}>
               <AlertTitle>Warning!</AlertTitle>

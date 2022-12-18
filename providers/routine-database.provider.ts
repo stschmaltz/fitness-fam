@@ -5,10 +5,24 @@ import { getDbClient } from '../data/database/mongodb';
 
 const collectionName = 'routines';
 
+type RoutineDocument = {
+  _id: ObjectId;
+  userId: ObjectId;
+  name: string;
+  order: number;
+  exercises: {
+    id: string;
+    name: string;
+    order: number;
+  }[];
+};
+
 // TODO: Sort out if leaving ids as ObjectIds is a good idea
 // Pros: No mapping, no need for orm, faster for dev
 // Cons: ObjectIds are slightly weird and now I'm committing to mongo shapes
-const mapRoutineDocumentToRoutineObject = (doc): RoutineObject => ({
+const mapRoutineDocumentToRoutineObject = (
+  doc: RoutineDocument
+): RoutineObject => ({
   _id: doc._id,
   userId: doc.userId,
   name: doc.name,
@@ -25,10 +39,10 @@ const mapRoutineDocumentToRoutineObject = (doc): RoutineObject => ({
 async function getRoutinesForUser(userId: string): Promise<RoutineObject[]> {
   const { db } = await getDbClient();
 
-  const routineDocuments = await db
+  const routineDocuments: RoutineDocument[] = (await db
     .collection(collectionName)
     .find({ userId: new ObjectId(userId) })
-    .toArray();
+    .toArray()) as RoutineDocument[];
 
   return routineDocuments.map(mapRoutineDocumentToRoutineObject);
 }
@@ -53,7 +67,7 @@ async function saveRoutine(routine: RoutineObject): Promise<RoutineObject> {
 async function deleteRoutine(routineId: string): Promise<void> {
   try {
     const { db } = await getDbClient();
-    console.log('deleteeee,', routineId);
+    console.log('deleting,', routineId);
     await db
       .collection(collectionName)
       .deleteOne({ _id: new ObjectId(routineId) });

@@ -28,7 +28,7 @@ export default function Home() {
       asyncFetch(signInUserMutationQraphQL, {
         input: { email: user.email },
       }).then((data: SignInUserMutationResponse) => {
-        setCurrentUser(data.userSignIn.user);
+        setCurrentUser && setCurrentUser(data.userSignIn.user);
       });
     }
   }, [user, setCurrentUser]);
@@ -39,14 +39,17 @@ export default function Home() {
     try {
       await asyncFetch(deleteRoutineMutationGraphQL, { input: { routineId } });
 
-      setCurrentUser({
-        ...currentUser,
-        routines: currentUser.routines.filter(
-          (routine: RoutineObject) => routine._id.toString() !== routineId
-        ),
-      });
+      setCurrentUser &&
+        currentUser &&
+        setCurrentUser({
+          ...currentUser,
+          routines: currentUser?.routines.filter(
+            (routine: RoutineObject) => routine._id.toString() !== routineId
+          ),
+        });
     } catch (error) {
-      console.log('Error saving routine', { errorMessage: error.message });
+      const errorMessage = error instanceof Error ? error.message : error;
+      console.log('Error saving routine', { errorMessage });
       toast({
         title: 'Something went wrong saving routine.',
         status: 'error',
@@ -86,7 +89,7 @@ export default function Home() {
           </Link>
         </Flex>
         <Box mt={3}>
-          {currentUser?.routines.length > 0 ? (
+          {currentUser?.routines.length && currentUser.routines.length > 0 ? (
             <List>
               {currentUser?.routines.map((routine: RoutineObject) => (
                 <ListItem key={routine._id.toString()} mb="3">

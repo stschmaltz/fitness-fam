@@ -15,13 +15,14 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { ObjectId } from 'bson';
+import { DropResult } from 'react-beautiful-dnd';
 import Layout from '../components/layout';
 import { ExerciseObject } from '../types/exercise';
-import { RoutineObject } from '../types/routine';
+import { RoutineExerciseObject, RoutineObject } from '../types/routine';
 import {
   addExerciseToRoutine,
   removeExerciseFromRoutine,
-} from '../providers/routine.provider';
+} from '../providers/routine.provider/routine.provider';
 import { asyncFetch } from '../data/graphql/graphql-fetcher';
 import {
   saveRoutineMutationGraphQL,
@@ -31,11 +32,13 @@ import {
 import CurrentRoutineList from '../components/CurrentRoutineList';
 import NoExercisesRoutineList from '../components/NoExercisesRoutineList';
 import ExerciseSearchList from '../components/ExerciseSearchList';
-import { getAllExercises } from '../providers/exercise.provider';
-import { reorderList } from '../providers/list-helpers.provider';
+import { reorderList } from '../lib/list-helpers';
 import { useCurrentUserContext } from '../context/UserContext';
 import { localStorageProvider } from '../providers/local-storage.provider';
 import { theme } from '../styles/theme';
+import { appContainer } from '../container/inversify.config';
+import { ExerciseProviderInterface } from '../providers/exercise.provider/exercise.provider.interface';
+import { TYPES } from '../container/types';
 
 export default function NewRoutinePage() {
   const currentRoutineLocalStorageKey = 'currentRoutine';
@@ -53,7 +56,7 @@ export default function NewRoutinePage() {
       asyncFetch(signInUserMutationQraphQL, {
         input: { email: user.email },
       }).then((data: SignInUserMutationResponse) => {
-        setCurrentUser(data.userSignIn.user);
+        setCurrentUser && setCurrentUser(data.userSignIn.user);
       });
     }
   }, [user, setCurrentUser]);
@@ -65,20 +68,26 @@ export default function NewRoutinePage() {
 
   const [currentRoutine, setCurrentRoutine] = useState<RoutineObject>({
     _id: new ObjectId(),
-    userId: currentUser?._id ? new ObjectId(currentUser._id) : null,
+    userId: currentUser?._id ? new ObjectId(currentUser._id) : new ObjectId(),
     name: 'New Routine ' + '1',
     exercises: [],
+    // TODO: something with order (maybe only useful if user sets it? otherwise sort by creation (_id)?)
     order: -1,
   });
 
   useEffect(() => {
-    const routineFromLocalstorage = localStorageProvider.getItem<RoutineObject>(
+    const routineFromLocalStorage = localStorageProvider.getItem<RoutineObject>(
       currentRoutineLocalStorageKey
     );
-    if (routineFromLocalstorage) {
-      setCurrentRoutine(routineFromLocalstorage);
+    if (routineFromLocalStorage) {
+      setCurrentRoutine({
+        ...routineFromLocalStorage,
+        userId: currentUser?._id
+          ? new ObjectId(currentUser._id)
+          : routineFromLocalStorage.userId,
+      });
     }
-  }, []);
+  }, [currentUser?._id]);
 
   useEffect(() => {
     localStorageProvider.setItem<RoutineObject>(
@@ -87,12 +96,14 @@ export default function NewRoutinePage() {
     );
   }, [currentRoutine]);
 
-  const handleSaveRoutine = async (routine) => {
+  const handleSaveRoutine = async (routine: RoutineObject) => {
     if (!routine.name || !routine.exercises.length) return;
     try {
       await asyncFetch(saveRoutineMutationGraphQL, { input: { routine } });
     } catch (error) {
-      console.log('Error saving routine', { errorMessage: error.message });
+      const errorMessage = error instanceof Error ? error.message : error;
+
+      console.log('Error saving routine', { errorMessage });
       routineSaveToast({
         title: 'Something went wrong saving routine.',
         status: 'error',
@@ -114,18 +125,18 @@ export default function NewRoutinePage() {
   const disableSaveButton =
     !currentRoutine.name || !currentRoutine.exercises.length;
 
-  const onDragEnd = (result) => {
+  const onDragEnd = (result: DropResult) => {
     if (!result.destination) {
       return;
     }
 
-    const newRoutine = {
+    const newRoutine: RoutineObject = {
       ...currentRoutine,
-      exercises: reorderList(
+      exercises: reorderList<RoutineExerciseObject>(
         currentRoutine.exercises,
         result.source.index,
         result.destination.index
-      ).map((exercise: ExerciseObject, index) => ({
+      ).map((exercise: RoutineExerciseObject, index: number) => ({
         ...exercise,
         order: index,
       })),
@@ -134,11 +145,17 @@ export default function NewRoutinePage() {
     setCurrentRoutine(newRoutine);
   };
 
-  const handleRoutineNameChange = (event) => {
+  // TODO: type this event correctly
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleRoutineNameChange = (event: any) => {
     setCurrentRoutine({ ...currentRoutine, name: event.target.value });
   };
 
   /** Exercises */
+  const exerciseProvider = appContainer.get<ExerciseProviderInterface>(
+    TYPES.ExerciseProvider
+  );
+
   const handleExerciseOnClick = (exercise: ExerciseObject) => {
     // Add new exercise to current routine and remove from search results
     const newRoutine: RoutineObject = addExerciseToRoutine(
@@ -158,11 +175,11 @@ export default function NewRoutinePage() {
 
   useEffect(() => {
     const fetchExercises = async () => {
-      const allExercises = await getAllExercises();
+      const allExercises = await exerciseProvider.getAllExercises();
       setExercises(allExercises);
     };
     fetchExercises();
-  }, []);
+  }, [exerciseProvider, setExercises]);
 
   return (
     <Layout home={false}>

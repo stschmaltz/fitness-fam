@@ -23,7 +23,7 @@ export default function Exercise() {
 
   const { exercise } = data;
   return (
-    <Layout home={undefined}>
+    <Layout home={false}>
       <Head>
         <title>{exercise.name}</title>
       </Head>
