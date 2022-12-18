@@ -5,9 +5,13 @@ import { Text } from '@chakra-ui/react';
 import {
   DragDropContext,
   Draggable,
+  DraggingStyle,
   Droppable,
   DropResult,
+  NotDraggingStyle,
 } from 'react-beautiful-dnd';
+import { CSSProperties } from 'react';
+
 import { RoutineExerciseObject, RoutineObject } from '../types/routine';
 import { theme } from '../styles/theme';
 
@@ -17,7 +21,10 @@ export default function CurrentRoutineList(props: {
   handleRemoveExerciseFromRoutine: (exerciseId: string) => void;
 }) {
   const { currentRoutine } = props;
-  const getRoutineItemStyle = (isDragging, draggableStyle) => ({
+  const getRoutineItemStyle = (
+    isDragging: boolean,
+    draggableStyle: DraggingStyle | NotDraggingStyle | undefined
+  ): CSSProperties => ({
     // some basic styles to make the items look a bit nicer
     userSelect: 'none',
     padding: '6px',
@@ -30,7 +37,7 @@ export default function CurrentRoutineList(props: {
     ...draggableStyle,
   });
 
-  const onDragEnd = (result) => {
+  const onDragEnd = (result: DropResult) => {
     if (!result.destination) {
       return;
     }

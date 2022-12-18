@@ -4,8 +4,9 @@ function setItem<T>(key: string, value: T): T {
   return value;
 }
 
-function getItem<T>(key: string): T {
-  return JSON.parse(localStorage.getItem(key));
+function getItem<T>(key: string): T | null {
+  const item = localStorage.getItem(key);
+  return item && JSON.parse(item);
 }
 
 function removeItem(key: string): void {

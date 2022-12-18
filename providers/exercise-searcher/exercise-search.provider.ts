@@ -1,14 +1,14 @@
 import Fuse from 'fuse.js';
-import { ExerciseObject } from '../types/exercise';
-import exercises from '../data/exercises/exercises.json';
+import { injectable } from 'inversify';
 
-class ExerciseSearcher {
+import { ExerciseSearcherInterface } from './exercise-searcher.interface';
+import { ExerciseObject } from '../../types/exercise';
+
+@injectable()
+class ExerciseSearcher implements ExerciseSearcherInterface {
   private fuse: Fuse<ExerciseObject>;
-  private allExercises: ExerciseObject[];
 
-  constructor() {
-    this.allExercises = exercises as ExerciseObject[];
-
+  constructor(private allExercises: ExerciseObject[]) {
     const options = {
       keys: ['id', 'equipment', 'bodyPart', 'equipment', 'name', 'target'],
     };
@@ -17,13 +17,14 @@ class ExerciseSearcher {
       this.allExercises,
       {
         keys: options.keys,
-        threshold: 0.4,
+        threshold: 0.3,
+        includeScore: true,
       },
       exercisesIndex
     );
   }
 
-  searchForExercises(input: string): ExerciseObject[] {
+  public searchForExercises(input: string): ExerciseObject[] {
     // TODO: play with score
     const result = this.fuse.search(input);
     console.log('result', { input, result });

@@ -1,5 +1,5 @@
-import { ExerciseObject } from '../types/exercise';
-import { RoutineExerciseObject, RoutineObject } from '../types/routine';
+import { ExerciseObject } from '../../types/exercise';
+import { RoutineExerciseObject, RoutineObject } from '../../types/routine';
 
 function saveNewOrder(
   exercises: RoutineExerciseObject[]

@@ -7,7 +7,9 @@ import { InferGetStaticPropsType } from 'next';
 import Layout from '../components/layout';
 import { ExerciseObject } from '../types/exercise';
 import { EQUIPMENT } from '../types/exercise';
-import { getAllExercises } from '../providers/exercise.provider';
+import { appContainer } from '../container/inversify.config';
+import { ExerciseProviderInterface } from '../providers/exercise.provider/exercise.provider.interface';
+import { TYPES } from '../container/types';
 
 export default function ExplorePage({
   exercises,
@@ -55,7 +57,12 @@ export default function ExplorePage({
   );
 }
 export async function getStaticProps() {
-  const exercises = await getAllExercises();
+  const exerciseProvider = appContainer.get<ExerciseProviderInterface>(
+    TYPES.ExerciseProvider
+  );
+
+  const exercises = await exerciseProvider.getAllExercises();
+
   return {
     props: { exercises },
   };

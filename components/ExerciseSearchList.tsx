@@ -9,31 +9,32 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { AddIcon, InfoIcon } from '@chakra-ui/icons';
+import { useState } from 'react';
 
-import { useEffect, useState } from 'react';
 import ExerciseInfoModal from './ExerciseInfoModal';
 import { ExerciseObject } from '../types/exercise';
-import { ExerciseSearcher } from '../providers/exercise-search.provider';
 import { theme } from '../styles/theme';
+import { appContainer } from '../container/inversify.config';
+import { TYPES } from '../container/types';
+import { ExerciseSearcherInterface } from '../providers/exercise-searcher/exercise-searcher.interface';
 
 export default function ExerciseSearchList(props: {
   allExercises: ExerciseObject[];
   handleExerciseOnClick: (exercise: ExerciseObject) => void;
 }) {
-  const [searcher, setSearcher] = useState<ExerciseSearcher>(undefined);
+  const exerciseSearcher = appContainer.get<ExerciseSearcherInterface>(
+    TYPES.ExerciseSearcher
+  );
   const [searchResults, setSearchResults] = useState<ExerciseObject[]>([]);
   const [selectedExercise, setSelectedExercise] = useState<
     ExerciseObject | undefined
   >(undefined);
 
-  useEffect(() => {
-    return setSearcher(new ExerciseSearcher());
-  }, []);
-
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const results = searcher?.searchForExercises(event.target.value) || [];
+    const results =
+      exerciseSearcher.searchForExercises(event.target.value) || [];
     //TODO should slice?
-    setSearchResults(results.slice(0, 50));
+    setSearchResults(results.slice(0, 100));
   };
 
   const handleExerciseOnClick = (exercise: ExerciseObject) => {
@@ -113,11 +114,13 @@ export default function ExerciseSearchList(props: {
           </Text>
         )}
       </List>
-      <ExerciseInfoModal
-        exercise={selectedExercise}
-        handleModalOnClose={() => setSelectedExercise(undefined)}
-        isOpen={selectedExercise !== undefined}
-      />
+      {selectedExercise && (
+        <ExerciseInfoModal
+          exercise={selectedExercise}
+          handleModalOnClose={() => setSelectedExercise(undefined)}
+          isOpen={selectedExercise !== undefined}
+        />
+      )}
     </Box>
   );
 }

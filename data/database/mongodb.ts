@@ -13,8 +13,8 @@ if (!MONGODB_DB) {
   throw new Error('Define the MONGODB_DB environmental variable');
 }
 
-let cachedClient = null;
-let cachedDb = null;
+let cachedClient: MongoClient | null = null;
+let cachedDb: Db | null = null;
 
 async function getDbClient(): Promise<{
   client: MongoClient;
@@ -33,7 +33,10 @@ async function getDbClient(): Promise<{
   const opts = {};
 
   // Connect to cluster
-  const client = new MongoClient(MONGODB_URI, opts);
+  const client = MONGODB_URI && new MongoClient(MONGODB_URI, opts);
+
+  if (!client) throw new Error('MongoDB client not found.');
+
   await client.connect();
   const db = client.db(MONGODB_DB);
 
@@ -47,10 +50,4 @@ async function getDbClient(): Promise<{
   };
 }
 
-async function setupMongoDBAdapter(): Promise<MongoClient> {
-  const dbClient = (await getDbClient()).client;
-
-  return dbClient;
-}
-
-export { getDbClient, setupMongoDBAdapter };
+export { getDbClient };

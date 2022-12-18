@@ -9,7 +9,7 @@ const fetcher = (query: string, variables?: object) =>
     .then((res) => res.json())
     .then((json) => json.data);
 
-async function asyncFetch(query, variables?: object) {
+async function asyncFetch(query: string, variables?: object) {
   try {
     const res = await fetch(`/api/graphql`, {
       method: 'POST',
@@ -29,7 +29,7 @@ async function asyncFetch(query, variables?: object) {
     return json.data;
   } catch (error) {
     console.log(error);
-    console.log(error.message);
+    if (error instanceof Error) console.log(error.message);
     throw error;
   }
 }

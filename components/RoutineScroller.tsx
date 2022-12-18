@@ -12,7 +12,7 @@ export default function RoutineScroller(props: {
 }) {
   const listBgColor = theme.colors.accent1['100'];
   const listBorderColor = theme.colors.brandPrimary['100'];
-  const scrollRef = useRef();
+  const scrollRef = useRef<HTMLInputElement>(null);
 
   const defaultExerciseListScrollEventCSS = ``;
   const fullyScrolledStyles = `
@@ -23,7 +23,9 @@ export default function RoutineScroller(props: {
   const [exerciseListScrollEventCSS, setExerciseListScrollEventCSS] =
     useState<string>(defaultExerciseListScrollEventCSS);
   // TODO: type this event properly
-  const handleScroll = ({ target }) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleScroll = (event: { target: any }) => {
+    const { target } = event;
     const endOfScroll =
       target.scrollLeft + target.offsetWidth >= target.scrollWidth;
 
