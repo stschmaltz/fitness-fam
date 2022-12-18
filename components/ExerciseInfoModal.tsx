@@ -5,7 +5,6 @@ import {
   ModalCloseButton,
   ModalContent,
   ModalFooter,
-  ModalHeader,
   ModalOverlay,
 } from '@chakra-ui/react';
 import BasicExerciseInfo from './BasicExerciseInfo';
@@ -25,7 +24,6 @@ export default function ExerciseInfoModal(props: {
     <Modal isOpen={isOpen} onClose={handleModalOnClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Modal Title</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <BasicExerciseInfo exercise={exercise} />

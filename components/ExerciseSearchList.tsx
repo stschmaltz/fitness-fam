@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Flex,
   IconButton,
@@ -51,7 +50,8 @@ export default function ExerciseSearchList(props: {
   };
 
   return (
-    <Box
+    <Flex
+      flexDir="column"
       backgroundColor={theme.colors.brandPrimary['50']}
       maxHeight="inherit"
       minHeight="inherit"
@@ -70,7 +70,7 @@ export default function ExerciseSearchList(props: {
           onChange={handleSearchChange}
         />
       </Flex>
-      <List minHeight="inherit" maxHeight="inherit" overflowY="auto">
+      <List overflowY="auto">
         {searchResults.length > 0 ? (
           searchResults.map((exercise) => (
             <ListItem key={exercise.id}>
@@ -121,6 +121,6 @@ export default function ExerciseSearchList(props: {
           isOpen={selectedExercise !== undefined}
         />
       )}
-    </Box>
+    </Flex>
   );
 }

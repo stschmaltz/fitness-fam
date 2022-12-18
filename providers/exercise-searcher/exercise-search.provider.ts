@@ -10,18 +10,12 @@ class ExerciseSearcher implements ExerciseSearcherInterface {
 
   constructor(private allExercises: ExerciseObject[]) {
     const options = {
-      keys: ['id', 'equipment', 'bodyPart', 'equipment', 'name', 'target'],
+      keys: ['id', 'equipment', 'bodyPart', 'name', 'targetMuscle'],
+      threshold: 0.3,
+      includeScore: true,
     };
     const exercisesIndex = Fuse.createIndex(options.keys, this.allExercises);
-    this.fuse = new Fuse(
-      this.allExercises,
-      {
-        keys: options.keys,
-        threshold: 0.3,
-        includeScore: true,
-      },
-      exercisesIndex
-    );
+    this.fuse = new Fuse(this.allExercises, options, exercisesIndex);
   }
 
   public searchForExercises(input: string): ExerciseObject[] {

@@ -8,7 +8,7 @@ const queryTypeDefs = /* GraphQL */ `
     me: User!
     exercises: [Exercise!]!
     exercisesByEquipment(equipment: String!): [Exercise!]!
-    exercise(id: String!): Exercise!
+    exercise(id: String!): Exercise
   }
 `;
 
@@ -29,9 +29,7 @@ const queryResolver = {
     async exercisesByEquipment(
       _: never,
       { equipment }: { equipment: EQUIPMENT }
-    ): Promise<
-      import('c:/Projects/fitness-fam/types/exercise').ExerciseObject[]
-    > {
+    ) {
       const exerciseProvider = appContainer.get<ExerciseProviderInterface>(
         TYPES.ExerciseProvider
       );
