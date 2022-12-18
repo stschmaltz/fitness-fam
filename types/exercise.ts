@@ -3,32 +3,54 @@ export interface Instruction {
   description: string;
 }
 
+export enum TARGET_MUSCLE {
+  ABDUCTORS = 'Abductors',
+  ABS = 'Abs',
+  ADDUCTORS = 'Adductors',
+  BICEPS = 'Biceps',
+  CALVES = 'Calves',
+  CARDIO = 'Cardio',
+  DELTS = 'Delts',
+  FOREARMS = 'Forearms',
+  GLUTES = 'Glutes',
+  HAMSTRINGS = 'Hamstrings',
+  LATS = 'Lats',
+  NECK = 'Neck',
+  PECTORALS = 'Pectorals',
+  QUADS = 'Quads',
+  SERRATUS_ANTERIOR = 'Serratus Anterior',
+  SPINE = 'Spine',
+  TRAPS = 'Traps',
+  TRICEPS = 'Triceps',
+  UPPER_BACK = 'Upper Back',
+}
+
 export enum EQUIPMENT {
-  ASSISTED = 'ASSISTED',
-  BAND = 'BAND',
-  BARBELL = 'BARBELL',
-  BODY_WEIGHT = 'BODY_WEIGHT',
-  BOSU_BALL = 'BOSU_BALL',
-  CABLE = 'CABLE',
-  DUMBBELL = 'DUMBBELL',
-  ELLIPTICAL_MACHINE = 'ELLIPTICAL_MACHINE',
-  EZ_BARBELL = 'EZ_BARBELL',
-  KETTLEBELL = 'KETTLEBELL',
-  MEDICINE_BALL = 'MEDICINE_BALL',
-  OLYMPIC_BARBELL = 'OLYMPIC_BARBELL',
-  RESISTANCE_BAND = 'RESISTANCE_BAND',
-  FOAM_ROLLER = 'FOAM_ROLLER',
-  ROPE = 'ROPE',
-  LEG_PRESS_MACHINE = 'LEG_PRESS_MACHINE',
-  SMITH_MACHINE = 'SMITH_MACHINE',
-  YOGA_BALL = 'YOGA_BALL',
-  STATIONARY_BIKE = 'STATIONARY_BIKE',
-  STAIR_MASTER = 'STAIR_MASTER',
-  TIRE = 'TIRE',
-  TRAP_BAR = 'TRAP_BAR',
-  GYM_MACHINE = 'GYM_MACHINE',
-  WEIGHTED = 'WEIGHTED',
-  WHEEL_ROLLER = 'WHEEL_ROLLER',
+  ASSISTED = 'Assisted',
+  BAND = 'Band',
+  BARBELL = 'Barbell',
+  BODY_WEIGHT = 'Bodyweight',
+  BOSU_BALL = 'Bosu Ball',
+  CABLE = 'Cable',
+  DUMBBELL = 'Dumbbell',
+  ELLIPTICAL_MACHINE = 'Elliptical Machine',
+  EZ_BARBELL = 'EZ Barbell',
+  KETTLEBELL = 'Kettlebell',
+  MEDICINE_BALL = 'Medicine Ball',
+  OLYMPIC_BARBELL = 'Olympic Barbell',
+  RESISTANCE_BAND = 'Resistance Band',
+  FOAM_ROLLER = 'Foam Roller',
+  ROPE = 'Rope',
+  LEG_PRESS_MACHINE = 'Leg Press Machine',
+  SMITH_MACHINE = 'Smith Machine',
+  YOGA_BALL = 'Yoga Ball',
+  STATIONARY_BIKE = 'Stationary Bike',
+  STAIR_MASTER = 'Stair Master',
+  TIRE = 'Tire',
+  TRAP_BAR = 'Trap Bar',
+  GYM_MACHINE = 'Gym Machine',
+  WEIGHTED = 'Weighted',
+  WHEEL_ROLLER = 'Wheel Roller',
 }
 export interface ExerciseObject {
   id: string;
@@ -37,5 +59,5 @@ export interface ExerciseObject {
   bodyPart: string;
   equipment: EQUIPMENT;
   gifUrl: string;
-  target: string;
+  targetMuscle: TARGET_MUSCLE;
 }

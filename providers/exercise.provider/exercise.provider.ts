@@ -15,29 +15,25 @@ class ExerciseProvider implements ExerciseProviderInterface {
   ): Promise<ExerciseObject[]> {
     const exercises = await this.getAllExercises();
 
-    return exercises
-      .filter((exercise) => {
-        return exercise.equipment === equipment;
-      })
-      .map((exercise) => ({
-        ...exercise,
-        equipment: EQUIPMENT[exercise.equipment],
-      }));
+    return exercises.filter((exercise) => {
+      return exercise.equipment === equipment;
+    });
   }
 
-  async findExerciseById(id: string): Promise<ExerciseObject> {
+  async findExerciseById(id: string): Promise<ExerciseObject | undefined> {
+    console.log('findExerciseById: ', id);
     const exercises = await this.getAllExercises();
 
     const exercise = exercises.find((exercise) => exercise.id === id);
-    // if no exercise throw error else return
+    console.log('exercise: ', exercise);
+
     if (!exercise) {
-      throw new Error('Exercise not found with id: ' + id + '.');
+      console.log('Exercise not found with id: ' + id + '.');
+      // throw new Error('Exercise not found with id: ' + id + '.');
+      return;
     }
 
-    return {
-      ...exercise,
-      equipment: EQUIPMENT[exercise.equipment],
-    };
+    return exercise;
   }
 }
 

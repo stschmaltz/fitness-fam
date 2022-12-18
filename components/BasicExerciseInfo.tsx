@@ -1,25 +1,27 @@
-import { Box, Image, List, ListItem, Text } from '@chakra-ui/react';
+import { Box, Flex, Image, List, ListItem, Text } from '@chakra-ui/react';
 import { ExerciseObject } from '../types/exercise';
 
 export default function BasicExerciseInfo(props: { exercise: ExerciseObject }) {
   const { exercise } = props;
   return (
     <Box>
-      <Text fontSize="3xl">{exercise?.name}</Text>
-      <List>
-        <ListItem key="bodypart">
-          {' '}
-          <Text as="b">Body Part:</Text> {exercise?.bodyPart}
-        </ListItem>
-        <ListItem key="equipment">
-          {' '}
-          <Text as="b">Equipment:</Text> {exercise?.equipment}
-        </ListItem>
-        <ListItem key="target">
-          {' '}
-          <Text as="b">Target:</Text> {exercise?.target}
-        </ListItem>
-        <ListItem key="gif">
+      <Flex justifyContent="center">
+        <Text variant="h1">{exercise?.name}</Text>
+      </Flex>
+      <Flex flexDir="column" alignItems="flex-start" textAlign="left">
+        <Flex mt={5} w="100%" justifyContent="space-between">
+          <Box key="equipment">
+            {' '}
+            <Text variant="h3">Equipment:</Text>
+            <Text>{exercise?.equipment}</Text>
+          </Box>
+          <Box key="target">
+            {' '}
+            <Text variant="h3">Target Muscle:</Text>
+            <Text>{exercise?.targetMuscle}</Text>
+          </Box>
+        </Flex>
+        <Box key="gif">
           <Box>
             <Image
               src={exercise?.gifUrl}
@@ -29,20 +31,23 @@ export default function BasicExerciseInfo(props: { exercise: ExerciseObject }) {
             />
           </Box>
           {}
-        </ListItem>
-        {exercise?.instructions.length > 1 && (
-          <ListItem key="instructions">
-            <Text as="b">Instructions</Text>
+        </Box>
+        {exercise?.instructions?.length > 1 && (
+          <Box key="instructions">
+            <Text variant="h3">Instructions</Text>
             <List>
-              {exercise?.instructions.map((instruction) => (
-                <ListItem key={instruction.number}>
-                  {instruction.description}
+              {exercise?.instructions.map((instruction, index) => (
+                <ListItem mt={3} key={instruction.number}>
+                  <Text fontSize="lg">
+                    <b>{index + 1}. </b>
+                    {instruction.description}
+                  </Text>
                 </ListItem>
               ))}
             </List>
-          </ListItem>
+          </Box>
         )}
-      </List>
+      </Flex>
     </Box>
   );
 }

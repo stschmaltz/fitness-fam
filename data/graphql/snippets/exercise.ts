@@ -1,5 +1,5 @@
 const fullExercise =
-  'id, target, gifUrl, equipment, bodyPart, name, instructions { number, description }';
+  'id, targetMuscle, gifUrl, equipment, bodyPart, name, instructions { number, description }';
 
 const allExercisesQuery = `{ exercises { ${fullExercise} } }`;
 

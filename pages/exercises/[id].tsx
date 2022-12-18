@@ -9,19 +9,20 @@ import BasicExerciseInfo from '../../components/BasicExerciseInfo';
 import { queryExerciseById } from '../../data/graphql/snippets/exercise';
 
 export default function Exercise() {
-  const {
-    query: { id: exerciseId },
-  } = useRouter();
+  const router = useRouter();
 
   const { data, error } = useSWR(
-    queryExerciseById(exerciseId as string),
+    queryExerciseById(router?.query.id as string),
     fetcher
   );
 
   if (error) return <Text>Failed to load</Text>;
   if (!data) return <Text>Loading...</Text>;
 
+  if (!data.exercise) return <Text>Exercise not found</Text>;
+
   const { exercise } = data;
+
   return (
     <Layout home={false}>
       <Head>

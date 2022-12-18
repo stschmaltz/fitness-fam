@@ -46,7 +46,6 @@ const mutationResolver = {
       const {
         input: { routineId },
       } = args;
-      console.log('hello');
       await deleteRoutine(routineId);
 
       return { success: true };
