@@ -26,4 +26,7 @@ appContainer
   .bind<ExerciseProviderInterface>(TYPES.ExerciseProvider)
   .toConstantValue(new ExerciseProvider(allExercises));
 
+appContainer
+  .bind<RoutineProviderInterface>(TYPES.RoutineProvider)
+  .toConstantValue(new RoutineProvider());
 export { appContainer };

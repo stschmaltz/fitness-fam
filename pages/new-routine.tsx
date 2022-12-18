@@ -9,20 +9,15 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { InfoIcon } from '@chakra-ui/icons';
-
 import { useUser } from '@auth0/nextjs-auth0/client';
-
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { ObjectId } from 'bson';
 import { DropResult } from 'react-beautiful-dnd';
+import { ObjectId } from 'bson';
+
 import Layout from '../components/layout';
 import { ExerciseObject } from '../types/exercise';
 import { RoutineExerciseObject, RoutineObject } from '../types/routine';
-import {
-  addExerciseToRoutine,
-  removeExerciseFromRoutine,
-} from '../providers/routine.provider/routine.provider';
 import { asyncFetch } from '../data/graphql/graphql-fetcher';
 import {
   saveRoutineMutationGraphQL,
@@ -39,6 +34,7 @@ import { theme } from '../styles/theme';
 import { appContainer } from '../container/inversify.config';
 import { ExerciseProviderInterface } from '../providers/exercise.provider/exercise.provider.interface';
 import { TYPES } from '../container/types';
+import { RoutineProviderInterface } from '../providers/routine.provider/routine.provider.interface';
 
 export default function NewRoutinePage() {
   const currentRoutineLocalStorageKey = 'currentRoutine';
@@ -62,6 +58,9 @@ export default function NewRoutinePage() {
   }, [user, setCurrentUser]);
 
   /** Routines */
+  const routineProvider = appContainer.get<RoutineProviderInterface>(
+    TYPES.RoutineProvider
+  );
   // TODO: is fetching larger data better in useEffect or getStaticProps?
   const [exercises, setExercises] = useState<ExerciseObject[]>([]);
   const routineSaveToast = useToast();
@@ -158,7 +157,7 @@ export default function NewRoutinePage() {
 
   const handleExerciseOnClick = (exercise: ExerciseObject) => {
     // Add new exercise to current routine and remove from search results
-    const newRoutine: RoutineObject = addExerciseToRoutine(
+    const newRoutine: RoutineObject = routineProvider.addExerciseToRoutine(
       currentRoutine,
       exercise
     );
@@ -166,7 +165,7 @@ export default function NewRoutinePage() {
   };
 
   const handleRemoveExerciseFromRoutine = (exerciseId: string) => {
-    const newRoutine: RoutineObject = removeExerciseFromRoutine(
+    const newRoutine: RoutineObject = routineProvider.removeExerciseFromRoutine(
       currentRoutine,
       exerciseId
     );
