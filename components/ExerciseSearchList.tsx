@@ -176,7 +176,11 @@ export default function ExerciseSearchList(props: {
               ))}
             </Box>
             <Flex>
-              <Button colorScheme={'brandPrimary'} mt={5}>
+              <Button
+                colorScheme={'brandPrimary'}
+                mt={5}
+                onClick={onFiltersClose}
+              >
                 Apply Filters
               </Button>
             </Flex>
