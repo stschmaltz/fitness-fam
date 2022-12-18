@@ -9,8 +9,8 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { AddIcon, InfoIcon } from '@chakra-ui/icons';
-
 import { useState } from 'react';
+
 import ExerciseInfoModal from './ExerciseInfoModal';
 import { ExerciseObject } from '../types/exercise';
 import { theme } from '../styles/theme';

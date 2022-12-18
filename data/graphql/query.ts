@@ -1,7 +1,7 @@
 import { appContainer } from '../../container/inversify.config';
 import { TYPES } from '../../container/types';
 import { ExerciseProviderInterface } from '../../providers/exercise.provider/exercise.provider.interface';
-import { EQUIPMENT } from 'c:/Projects/fitness-fam/types/exercise';
+import { EQUIPMENT } from '../../types/exercise';
 
 const queryTypeDefs = /* GraphQL */ `
   type Query {

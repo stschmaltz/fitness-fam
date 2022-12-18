@@ -50,10 +50,4 @@ async function getDbClient(): Promise<{
   };
 }
 
-async function setupMongoDBAdapter(): Promise<MongoClient> {
-  const dbClient = (await getDbClient()).client;
-
-  return dbClient;
-}
-
-export { getDbClient, setupMongoDBAdapter };
+export { getDbClient };
