@@ -9,6 +9,8 @@ import exercises from '../data/exercises/exercises.json';
 import { ExerciseProviderInterface } from '../providers/exercise.provider/exercise.provider.interface';
 import { ExerciseProvider } from '../providers/exercise.provider/exercise.provider';
 import { EQUIPMENT } from '../types/exercise';
+import { RoutineProvider } from '../providers/routine.provider/routine.provider';
+import { RoutineProviderInterface } from '../providers/routine.provider/routine.provider.interface';
 
 const appContainer = new Container();
 const allExercises = exercises.map((exercise) => ({
