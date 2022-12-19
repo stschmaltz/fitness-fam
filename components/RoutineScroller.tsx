@@ -73,6 +73,7 @@ export default function RoutineScroller(props: {
               overflow="hidden"
               whiteSpace={'nowrap'}
               variant="h3"
+              fontSize={'2xl'}
               className={utilStyles.textOutline}
             >
               {props.routine.name}
@@ -137,7 +138,7 @@ export default function RoutineScroller(props: {
                         variant="bold"
                         color={theme.colors.brandSecondary['700']}
                       >
-                        {exercise.order}
+                        {exercise.order + 1}
                       </Text>
                       <InfoIcon
                         color={theme.colors.brandSecondary['700']}
