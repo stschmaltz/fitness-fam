@@ -10,14 +10,18 @@ import { ExerciseProviderInterface } from '../providers/exercise.provider/exerci
 import { ExerciseProvider } from '../providers/exercise.provider/exercise.provider';
 import { RoutineProvider } from '../providers/routine.provider/routine.provider';
 import { RoutineProviderInterface } from '../providers/routine.provider/routine.provider.interface';
+import { ExerciseObject } from '../types/exercise';
 
 const appContainer = new Container();
 const allExercises = exercises.map((exercise) => ({
-  ...exercise,
   name: titleCase(exercise.name),
   targetMuscle: exercise.targetMuscle,
   equipment: exercise.equipment,
-}));
+  bodyPart: exercise.bodyPart,
+  gifUrl: exercise.gifUrl,
+  id: exercise.id,
+  instructions: exercise.instructions,
+})) as ExerciseObject[]; // TODO fix enum typing
 
 appContainer
   .bind<ExerciseSearchProviderInterface>(TYPES.ExerciseSearcher)
