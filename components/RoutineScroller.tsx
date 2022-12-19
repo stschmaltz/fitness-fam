@@ -45,24 +45,30 @@ export default function RoutineScroller(props: {
   };
   return (
     <Box>
-      <Flex
-        paddingX={2}
-        paddingY={1}
-        zIndex={2}
-        pos="relative"
-        borderTopRadius="md"
-        data-name="Routine name"
-        alignItems="center"
-        borderTop={'1px solid ' + listBorderColor}
-        borderX={'1px solid ' + listBorderColor}
-        display="inline-flex"
-        bgColor={listBgColor}
-        mb={-0.4}
-        maxWidth="220px"
-      >
-        <Box pos="relative" width={'100%'} maxWidth={'66vw'}>
-          <Tooltip label={titleCase(props.routine.name)}>
+      <Box pos="relative" width={'100%'} maxWidth={'70vw'} overflow="hidden">
+        <Flex
+          paddingX={2}
+          paddingY={1}
+          pos="relative"
+          borderTopRadius="md"
+          data-name="Routine name"
+          alignItems="center"
+          borderTop={'1px solid ' + listBorderColor}
+          borderX={'1px solid ' + listBorderColor}
+          display="inline-flex"
+          bgColor={listBgColor}
+          mb={-0.4}
+          zIndex={2}
+          minW={'150px'}
+          maxWidth="587px"
+        >
+          <Tooltip
+            label={titleCase(props.routine.name)}
+            overflow="hidden"
+            maxHeight={'50vh'}
+          >
             <Text
+              maxWidth={'55vw'}
               textOverflow="ellipsis"
               overflow="hidden"
               whiteSpace={'nowrap'}
@@ -80,8 +86,8 @@ export default function RoutineScroller(props: {
               await onDeleteRoutine(props.routine._id.toString())
             }
           />
-        </Box>
-      </Flex>
+        </Flex>
+      </Box>
       <Box
         pos="relative"
         h="11rem"
