@@ -65,7 +65,7 @@ export default function Layout(input: {
                 </Box>
                 <CloseButton
                   size={'lg'}
-                  color={theme.colors.gray['900']}
+                  color={theme.colors.gray['50']}
                   alignSelf="flex-start"
                   position="relative"
                   right={-1}
