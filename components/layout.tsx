@@ -58,7 +58,11 @@ export default function Layout(input: {
                     Features/Visuals are a work in progress and may break or
                     change suddenly. Use with caution. Send feedback to
                     fitnessfam.app@gmail.com
-                    <Button colorScheme={'brandSecondary'} ml={7}>
+                    <Button
+                      onClick={() => setIsVisible(false)}
+                      colorScheme={'brandSecondary'}
+                      ml={7}
+                    >
                       OK
                     </Button>
                   </AlertDescription>
