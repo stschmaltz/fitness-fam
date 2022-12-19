@@ -45,41 +45,49 @@ export default function RoutineScroller(props: {
   };
   return (
     <Box>
-      <Flex
-        paddingX={2}
-        paddingY={1}
-        zIndex={2}
-        pos="relative"
-        borderTopRadius="md"
-        data-name="Routine name"
-        alignItems="center"
-        borderTop={'1px solid ' + listBorderColor}
-        borderX={'1px solid ' + listBorderColor}
-        display="inline-flex"
-        bgColor={listBgColor}
-        mb={-0.4}
-        maxWidth={'66vw'}
-      >
-        <Tooltip label={titleCase(props.routine.name)}>
-          <Text
-            textOverflow="ellipsis"
+      <Box pos="relative" width={'100%'} maxWidth={'70vw'} overflow="hidden">
+        <Flex
+          paddingX={2}
+          paddingY={1}
+          pos="relative"
+          borderTopRadius="md"
+          data-name="Routine name"
+          alignItems="center"
+          borderTop={'1px solid ' + listBorderColor}
+          borderX={'1px solid ' + listBorderColor}
+          display="inline-flex"
+          bgColor={listBgColor}
+          mb={-0.4}
+          zIndex={2}
+          minW={'150px'}
+          maxWidth="587px"
+        >
+          <Tooltip
+            label={titleCase(props.routine.name)}
             overflow="hidden"
-            whiteSpace={'nowrap'}
-            variant="h3"
-            className={utilStyles.textOutline}
+            maxHeight={'50vh'}
           >
-            {props.routine.name}
-          </Text>
-        </Tooltip>
+            <Text
+              maxWidth={'55vw'}
+              textOverflow="ellipsis"
+              overflow="hidden"
+              whiteSpace={'nowrap'}
+              variant="h3"
+              className={utilStyles.textOutline}
+            >
+              {props.routine.name}
+            </Text>
+          </Tooltip>
 
-        <DeleteIcon
-          color={theme.colors.primary}
-          ml={3}
-          onClick={async () =>
-            await onDeleteRoutine(props.routine._id.toString())
-          }
-        />
-      </Flex>
+          <DeleteIcon
+            color={theme.colors.primary}
+            ml={3}
+            onClick={async () =>
+              await onDeleteRoutine(props.routine._id.toString())
+            }
+          />
+        </Flex>
+      </Box>
       <Box
         pos="relative"
         h="11rem"

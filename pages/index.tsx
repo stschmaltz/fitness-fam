@@ -62,7 +62,7 @@ export default function Home() {
 
   return (
     <Layout home>
-      <Container mt={5}>
+      <Container mt={5} p={0}>
         <Flex
           justifyContent={'space-between'}
           alignItems={'center'}
@@ -71,6 +71,7 @@ export default function Home() {
           <Text
             height={'100%'}
             variant="h1"
+            fontSize={'3xl'}
             className={utilStyles.textOutline}
             flexShrink={0}
           >
@@ -82,6 +83,7 @@ export default function Home() {
               colorScheme={'brandSecondary'}
               size={'md'}
               aria-label="add routine"
+              ml={3}
             >
               <Flex height={'100%'} alignItems="center">
                 <AddIcon />
