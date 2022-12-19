@@ -4,8 +4,10 @@ import {
   AlertIcon,
   AlertTitle,
   Box,
+  Button,
   CloseButton,
   Container,
+  Flex,
 } from '@chakra-ui/react';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -46,23 +48,32 @@ export default function Layout(input: {
             status="warning"
             pos="absolute"
           >
-            <AlertIcon color={theme.colors.brandPrimary['50']} />
-            <Box color={theme.colors.brandPrimary['50']}>
-              <AlertTitle>Warning!</AlertTitle>
-              <AlertDescription>
-                This application is actively under development. Features/Visuals
-                are a work in progress and may break or change suddenly. Use
-                with caution. Send feedback to fitnessfam.app@gmail.com
-              </AlertDescription>
-            </Box>
-            <CloseButton
-              color={theme.colors.gray['900']}
-              alignSelf="flex-start"
-              position="relative"
-              right={-1}
-              top={-1}
-              onClick={() => setIsVisible(false)}
-            />
+            <Flex w="100%" justifyContent={'center'}>
+              <Flex maxW={'700px'}>
+                <AlertIcon color={theme.colors.brandPrimary['50']} />
+                <Box color={theme.colors.brandPrimary['50']}>
+                  <AlertTitle>Warning!</AlertTitle>
+                  <AlertDescription>
+                    This application is actively under development.
+                    Features/Visuals are a work in progress and may break or
+                    change suddenly. Use with caution. Send feedback to
+                    fitnessfam.app@gmail.com
+                    <Button colorScheme={'brandSecondary'} ml={7}>
+                      OK
+                    </Button>
+                  </AlertDescription>
+                </Box>
+                <CloseButton
+                  size={'lg'}
+                  color={theme.colors.gray['50']}
+                  alignSelf="flex-start"
+                  position="relative"
+                  right={-1}
+                  top={-1}
+                  onClick={() => setIsVisible(false)}
+                />
+              </Flex>
+            </Flex>
           </Alert>
         )}
         {home && (
