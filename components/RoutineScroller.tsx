@@ -58,16 +58,20 @@ export default function RoutineScroller(props: {
         display="inline-flex"
         bgColor={listBgColor}
         mb={-0.4}
+        maxWidth={'66vw'}
       >
-        <Text
-          textOverflow="ellipsis"
-          overflow="hidden"
-          whiteSpace={'nowrap'}
-          variant="h3"
-          className={utilStyles.textOutline}
-        >
-          {props.routine.name}
-        </Text>
+        <Tooltip label={titleCase(props.routine.name)}>
+          <Text
+            textOverflow="ellipsis"
+            overflow="hidden"
+            whiteSpace={'nowrap'}
+            variant="h3"
+            className={utilStyles.textOutline}
+          >
+            {props.routine.name}
+          </Text>
+        </Tooltip>
+
         <DeleteIcon
           color={theme.colors.primary}
           ml={3}
