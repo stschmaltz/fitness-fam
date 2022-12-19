@@ -145,7 +145,7 @@ const theme = extendTheme({
 
       a: {
         fontSize: 'xl',
-        color: 'cyan.500',
+        color: colors.brandSecondary,
         _hover: {
           textDecoration: 'underline',
         },
