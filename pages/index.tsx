@@ -64,7 +64,6 @@ export default function Home() {
     <Layout home>
       <Container mt={5} p={0}>
         <Flex
-          // mt={5}
           justifyContent={'space-between'}
           alignItems={'center'}
           height="100%"
