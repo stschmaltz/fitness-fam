@@ -51,8 +51,8 @@ export default function Layout(input: {
               <AlertTitle>Warning!</AlertTitle>
               <AlertDescription>
                 This application is actively under development. Features/Visuals
-                are not complete and may break or change suddenly. Use with
-                caution.
+                are a work in progress and may break or change suddenly. Use
+                with caution. Send feedback to fitnessfam.app@gmail.com
               </AlertDescription>
             </Box>
             <CloseButton

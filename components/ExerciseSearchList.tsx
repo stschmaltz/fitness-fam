@@ -1,4 +1,5 @@
 import {
+  Badge,
   Box,
   Button,
   Drawer,
@@ -15,26 +16,37 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { AddIcon, CloseIcon, InfoIcon } from '@chakra-ui/icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import pull from 'lodash/pull';
 
 import ExerciseInfoModal from './ExerciseInfoModal';
-import { EQUIPMENT, ExerciseObject, TARGET_MUSCLE } from '../types/exercise';
+import { EQUIPMENT, ExerciseObject, targetMuscle } from '../types/exercise';
 import { theme } from '../styles/theme';
 import { appContainer } from '../container/inversify.config';
 import { TYPES } from '../container/types';
-import { ExerciseSearcherInterface } from '../providers/exercise-searcher/exercise-searcher.interface';
+import {
+  ExerciseSearchProviderInterface,
+  SearchFilters,
+} from '../providers/exercise-searcher/exercise-search.provider.interface';
 
 export default function ExerciseSearchList(props: {
   allExercises: ExerciseObject[];
   handleExerciseOnClick: (exercise: ExerciseObject) => void;
 }) {
+  const defaultFilters: SearchFilters = {
+    equipmentFilters: [],
+    targetMuscleFilters: [],
+  };
   const {
     isOpen: isFiltersOpen,
     onOpen: OnFiltersOpen,
     onClose: onFiltersClose,
   } = useDisclosure();
 
-  const exerciseSearcher = appContainer.get<ExerciseSearcherInterface>(
+  const [filters, setFilters] = useState<SearchFilters>(defaultFilters);
+  const [searchText, setSearchText] = useState<string>('');
+
+  const exerciseSearcher = appContainer.get<ExerciseSearchProviderInterface>(
     TYPES.ExerciseSearcher
   );
   const [searchResults, setSearchResults] = useState<ExerciseObject[]>([]);
@@ -42,11 +54,17 @@ export default function ExerciseSearchList(props: {
     ExerciseObject | undefined
   >(undefined);
 
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  useEffect(() => {
     const results =
-      exerciseSearcher.searchForExercises(event.target.value) || [];
+      exerciseSearcher.searchForExercises(searchText, filters) || [];
     //TODO should slice?
     setSearchResults(results.slice(0, 100));
+  }, [filters, searchText, exerciseSearcher]);
+
+  const handleSearchInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setSearchText(event.target.value);
   };
 
   const handleExerciseOnClick = (exercise: ExerciseObject) => {
@@ -75,19 +93,24 @@ export default function ExerciseSearchList(props: {
       <Flex>
         <Button mb={3} mr={3} colorScheme="accent2" onClick={OnFiltersOpen}>
           Filters
+          <Badge pos="absolute" top={0} right={0}>
+            {filters.equipmentFilters.length +
+              filters.targetMuscleFilters.length}
+          </Badge>
         </Button>
+
         <Input
           colorScheme="brandPrimary"
           variant="filled"
           placeholder="Search"
-          onChange={handleSearchChange}
+          onChange={handleSearchInputChange}
         />
       </Flex>
       <List overflowY="auto">
         {searchResults.length > 0 ? (
           searchResults.map((exercise) => (
             <ListItem key={exercise.id}>
-              <Flex>
+              <Flex backgroundColor={theme.colors.gray['50']}>
                 <Button
                   aria-label="add exercise to routine"
                   justifyContent="flex-start"
@@ -144,8 +167,9 @@ export default function ExerciseSearchList(props: {
           <DrawerHeader borderBottomWidth="1px">
             <Flex alignItems={'center'} justifyContent="space-between">
               <Text variant={'h1'} fontSize="2xl">
-                Filters{' '}
+                Filters
               </Text>
+
               <IconButton
                 onClick={onFiltersClose}
                 aria-label="close filters"
@@ -162,25 +186,59 @@ export default function ExerciseSearchList(props: {
                 Equipment
               </Text>
 
-              {Object.values(EQUIPMENT).map((equipment) => (
-                <Button key={equipment}>{equipment}</Button>
-              ))}
+              {Object.entries(EQUIPMENT).map((equipment) => {
+                const [key, value] = equipment;
+                const isActive = filters.equipmentFilters?.includes(value);
+
+                return (
+                  <Button
+                    onClick={() => {
+                      setFilters({
+                        ...filters,
+                        equipmentFilters: isActive
+                          ? pull(filters.equipmentFilters, value)
+                          : [...filters.equipmentFilters, value],
+                      });
+                    }}
+                    isActive={isActive}
+                    key={key}
+                  >
+                    {value}
+                  </Button>
+                );
+              })}
             </Box>
             <Box mt={5}>
               <Text variant={'h3'} fontSize="2xl" mb={2}>
                 Target Muscle
               </Text>
 
-              {Object.values(TARGET_MUSCLE).map((targetMuscle) => (
-                <Button key={targetMuscle}>{targetMuscle}</Button>
-              ))}
+              {Object.entries(targetMuscle).map(([key, value]) => {
+                const isActive = filters.targetMuscleFilters?.includes(value);
+
+                return (
+                  <Button
+                    onClick={() => {
+                      setFilters({
+                        ...filters,
+                        targetMuscleFilters: isActive
+                          ? pull(filters.targetMuscleFilters, value)
+                          : [...filters.targetMuscleFilters, value],
+                      });
+                    }}
+                    isActive={isActive}
+                    key={key}
+                  >
+                    {value}
+                  </Button>
+                );
+              })}
             </Box>
-            <Flex>
-              <Button
-                colorScheme={'brandPrimary'}
-                mt={5}
-                onClick={onFiltersClose}
-              >
+            <Flex mt={5}>
+              <Button onClick={() => setFilters(defaultFilters)} mr={5}>
+                Clear Filters
+              </Button>
+              <Button colorScheme={'brandPrimary'} onClick={onFiltersClose}>
                 Apply Filters
               </Button>
             </Flex>
