@@ -110,7 +110,7 @@ export default function ExerciseSearchList(props: {
         {searchResults.length > 0 ? (
           searchResults.map((exercise) => (
             <ListItem key={exercise.id}>
-              <Flex>
+              <Flex backgroundColor={theme.colors.gray['50']}>
                 <Button
                   aria-label="add exercise to routine"
                   justifyContent="flex-start"

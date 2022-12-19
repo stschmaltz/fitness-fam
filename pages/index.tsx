@@ -5,6 +5,7 @@ import { Text, useToast } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { AddIcon } from '@chakra-ui/icons';
+import orderBy from 'lodash/orderBy';
 import Layout from '../components/layout';
 import { asyncFetch } from '../data/graphql/graphql-fetcher';
 import { RoutineObject } from '../types/routine';
@@ -91,14 +92,16 @@ export default function Home() {
         <Box mt={3}>
           {currentUser?.routines.length && currentUser.routines.length > 0 ? (
             <List>
-              {currentUser?.routines.map((routine: RoutineObject) => (
-                <ListItem key={routine._id.toString()} mb="3">
-                  <RoutineScroller
-                    handleDeleteRoutine={handleDeleteRoutine}
-                    routine={routine}
-                  />
-                </ListItem>
-              ))}
+              {orderBy(currentUser.routines, '_id', 'desc').map(
+                (routine: RoutineObject) => (
+                  <ListItem key={routine._id.toString()} mb="3">
+                    <RoutineScroller
+                      handleDeleteRoutine={handleDeleteRoutine}
+                      routine={routine}
+                    />
+                  </ListItem>
+                )
+              )}
             </List>
           ) : (
             <Flex flexWrap="wrap">
