@@ -1,11 +1,14 @@
 import Fuse from 'fuse.js';
 import { injectable } from 'inversify';
 
-import { ExerciseSearcherInterface } from './exercise-searcher.interface';
+import {
+  ExerciseSearchProviderInterface,
+  SearchFilters,
+} from './exercise-search.provider.interface';
 import { ExerciseObject } from '../../types/exercise';
 
 @injectable()
-class ExerciseSearcher implements ExerciseSearcherInterface {
+class ExerciseSearcher implements ExerciseSearchProviderInterface {
   private fuse: Fuse<ExerciseObject>;
 
   constructor(private allExercises: ExerciseObject[]) {
@@ -18,10 +21,41 @@ class ExerciseSearcher implements ExerciseSearcherInterface {
     this.fuse = new Fuse(this.allExercises, options, exercisesIndex);
   }
 
-  public searchForExercises(input: string): ExerciseObject[] {
-    // TODO: play with score
-    const result = this.fuse.search(input);
-    console.log('result', { input, result });
+  public searchForExercises(
+    input: string,
+    filters: SearchFilters
+  ): ExerciseObject[] {
+    // if no filters search fuzzy on all fields
+    if (
+      filters.equipmentFilters.length + filters.targetMuscleFilters.length ===
+      0
+    ) {
+      // TODO: play with score
+      const result = this.fuse.search(input);
+
+      return result.map((exercise) => exercise.item);
+    }
+
+    // if filters, use text for name and apply filters
+    const equipmentFilter = Object.values(filters.equipmentFilters).map(
+      (equipment) => ({
+        equipment,
+      })
+    );
+    // if filters, use text for name and apply filters
+    const targetMuscleFilter = Object.values(filters.targetMuscleFilters).map(
+      (targetMuscle) => ({
+        targetMuscle,
+      })
+    );
+    const searchInput = {
+      $and: [
+        { name: input || ' ' },
+        { $or: [...equipmentFilter, ...targetMuscleFilter] },
+      ],
+    };
+
+    const result = this.fuse.search(searchInput);
 
     return result.map((exercise) => exercise.item);
   }

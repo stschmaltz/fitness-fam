@@ -127,7 +127,10 @@ export default function RoutineScroller(props: {
                       >
                         {exercise.order}
                       </Text>
-                      <InfoIcon color={theme.colors.brandSecondary['700']} />
+                      <InfoIcon
+                        color={theme.colors.brandSecondary['700']}
+                        opacity="0.5"
+                      />
                     </Flex>
                     <Flex
                       textAlign={'center'}
@@ -140,7 +143,7 @@ export default function RoutineScroller(props: {
                           className={utilStyles.lineClamp}
                           fontWeight={'semibold'}
                           overflow="hidden"
-                          fontSize="md"
+                          fontSize="lg"
                           color={theme.colors.brandSecondary['900']}
                         >
                           {titleCase(exercise.name)}
@@ -148,7 +151,7 @@ export default function RoutineScroller(props: {
                       </Tooltip>
                     </Flex>
                   </Link>
-                  <Flex
+                  {/* <Flex
                     justifyContent="space-between"
                     flexShrink={0}
                     flexGrow={0}
@@ -199,7 +202,7 @@ export default function RoutineScroller(props: {
                         reps
                       </Text>
                     </Flex>
-                  </Flex>
+                  </Flex> */}
                 </Flex>
               </Box>
             ))}

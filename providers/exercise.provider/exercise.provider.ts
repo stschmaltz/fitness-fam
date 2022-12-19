@@ -21,14 +21,11 @@ class ExerciseProvider implements ExerciseProviderInterface {
   }
 
   async findExerciseById(id: string): Promise<ExerciseObject | undefined> {
-    console.log('findExerciseById: ', id);
     const exercises = await this.getAllExercises();
 
     const exercise = exercises.find((exercise) => exercise.id === id);
-    console.log('exercise: ', exercise);
 
     if (!exercise) {
-      console.log('Exercise not found with id: ' + id + '.');
       // throw new Error('Exercise not found with id: ' + id + '.');
       return;
     }

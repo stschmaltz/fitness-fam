@@ -11,12 +11,10 @@ export default function BasicExerciseInfo(props: { exercise: ExerciseObject }) {
       <Flex flexDir="column" alignItems="flex-start" textAlign="left">
         <Flex mt={5} w="100%" justifyContent="space-between">
           <Box key="equipment">
-            {' '}
             <Text variant="h3">Equipment:</Text>
             <Text>{exercise?.equipment}</Text>
           </Box>
           <Box key="target">
-            {' '}
             <Text variant="h3">Target Muscle:</Text>
             <Text>{exercise?.targetMuscle}</Text>
           </Box>
@@ -30,7 +28,6 @@ export default function BasicExerciseInfo(props: { exercise: ExerciseObject }) {
               height={360}
             />
           </Box>
-          {}
         </Box>
         {exercise?.instructions?.length > 1 && (
           <Box key="instructions">
