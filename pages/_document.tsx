@@ -83,7 +83,7 @@ export default class MyDocument extends Document {
           <meta name="twitter:title" content="Fitness Fam" />
           <meta
             name="twitter:description"
-            content="Best PWA App in the world"
+            content="Organize your workouts, join the fam."
           />
           <meta
             name="twitter:image"
