@@ -29,16 +29,16 @@ export default class MyDocument extends Document {
           />
           <meta name="format-detection" content="telephone=no" />
           <meta name="mobile-web-app-capable" content="yes" />
-          {/* <meta
+          <meta
             name="msapplication-config"
             content="/icons/browserconfig.xml"
-          /> */}
+          />
           <meta name="msapplication-TileColor" content="#2B5797" />
           <meta name="msapplication-tap-highlight" content="no" />
           <meta name="theme-color" content="#E63946" />
 
-          {/* <link rel="apple-touch-icon" href="/icons/touch-icon-iphone.png" /> */}
-          {/* <link
+          <link rel="apple-touch-icon" href="/icons/touch-icon-iphone.png" />
+          <link
             rel="apple-touch-icon"
             sizes="152x152"
             href="/icons/touch-icon-ipad.png"
@@ -52,7 +52,7 @@ export default class MyDocument extends Document {
             rel="apple-touch-icon"
             sizes="167x167"
             href="/icons/touch-icon-ipad-retina.png"
-          /> */}
+          />
 
           <link
             rel="icon"
@@ -66,8 +66,8 @@ export default class MyDocument extends Document {
             sizes="16x16"
             href="/icons/favicon-16x16.png"
           />
-          {/* <link rel="manifest" href="/manifest.json" />
-          <link
+          <link rel="manifest" href="/manifest.json" />
+          {/* <link
             rel="mask-icon"
             href="/icons/safari-pinned-tab.svg"
             color="#5bbad5"
@@ -90,12 +90,12 @@ export default class MyDocument extends Document {
             content="https://fitnessfam.app/images/profile.png"
           />
           <meta property="og:type" content="website" />
-          <meta property="og:title" content="Fitness Fame" />
+          <meta property="og:title" content="FitnessFam.app" />
           <meta
             property="og:description"
             content="Organize your workouts, join the fam."
           />
-          <meta property="og:site_name" content="Fitness Fame" />
+          <meta property="og:site_name" content="Fitness Fam" />
           <meta property="og:url" content="https://fitnessfam.app" />
           <meta
             property="og:image"
