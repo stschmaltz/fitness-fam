@@ -20,7 +20,7 @@ export default function Exercise() {
   if (!data)
     return (
       <Text>
-        <Spinner />
+        <Spinner size={'xl'} />
       </Text>
     );
 

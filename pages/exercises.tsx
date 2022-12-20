@@ -24,7 +24,7 @@ export default function ExercisesPage() {
   if (!data)
     return (
       <Container>
-        <Spinner />
+        <Spinner size={'xl'} />
       </Container>
     );
 
