@@ -66,8 +66,6 @@ export default function CurrentRoutineList(props: {
     props.handleSetsChange(exercise, value);
   };
 
-  console.log('currentRoutine', currentRoutine);
-
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId={currentRoutine._id.toString()} type="LIST">

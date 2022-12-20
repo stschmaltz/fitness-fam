@@ -206,7 +206,6 @@ export default function NewRoutinePage() {
 
     setCurrentRoutine(newRoutine);
   };
-  console.log('currentRoutine', currentRoutine);
 
   useEffect(() => {
     const fetchExercises = async () => {

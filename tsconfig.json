@@ -17,7 +17,8 @@
     "incremental": true,
     "types": ["reflect-metadata"],
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "typeRoots": ["./src/types"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
