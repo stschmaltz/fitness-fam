@@ -37,7 +37,7 @@ export default class MyDocument extends Document {
           <meta name="msapplication-tap-highlight" content="no" />
           <meta name="theme-color" content="#E63946" />
 
-          <link rel="apple-touch-icon" href="/icons/touch-icon-iphone.png" />
+          {/* <link rel="apple-touch-icon" href="/icons/touch-icon-iphone.png" />
           <link
             rel="apple-touch-icon"
             sizes="152x152"
@@ -52,7 +52,7 @@ export default class MyDocument extends Document {
             rel="apple-touch-icon"
             sizes="167x167"
             href="/icons/touch-icon-ipad-retina.png"
-          />
+          /> */}
 
           <link
             rel="icon"
