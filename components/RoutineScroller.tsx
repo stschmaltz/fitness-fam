@@ -45,7 +45,7 @@ export default function RoutineScroller(props: {
   };
   return (
     <Box>
-      <Box pos="relative" width={'100%'} maxWidth={'85vw'} overflow="hidden">
+      <Box pos="relative" width={'100%'} maxWidth={'75vw'} overflow="hidden">
         <Flex
           paddingX={2}
           paddingY={1}
@@ -68,7 +68,7 @@ export default function RoutineScroller(props: {
             maxHeight={'50vh'}
           >
             <Text
-              maxWidth={'70vw'}
+              maxWidth={'63vw'}
               textOverflow="ellipsis"
               overflow="hidden"
               whiteSpace={'nowrap'}
