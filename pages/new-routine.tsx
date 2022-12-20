@@ -68,7 +68,7 @@ export default function NewRoutinePage() {
   const [currentRoutine, setCurrentRoutine] = useState<RoutineObject>({
     _id: new ObjectId(),
     userId: currentUser?._id ? new ObjectId(currentUser._id) : new ObjectId(),
-    name: 'New Routine ' + '1',
+    name: '',
     exercises: [],
     order: -1,
   });
