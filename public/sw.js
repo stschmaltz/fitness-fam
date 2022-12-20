@@ -29,19 +29,11 @@ if (!self.define) {
 }
 define(['./workbox-588899ac'], function (e) {
   'use strict';
-  importScripts('fallback-X2ib4LgV8TCHmOUXB9iRV.js'),
+  importScripts('fallback-vjMT_39tAUO0UncwDk3g_.js'),
     self.skipWaiting(),
     e.clientsClaim(),
     e.precacheAndRoute(
       [
-        {
-          url: '/_next/static/X2ib4LgV8TCHmOUXB9iRV/_buildManifest.js',
-          revision: '51170628daa089ac8b99576a0ec59e9f',
-        },
-        {
-          url: '/_next/static/X2ib4LgV8TCHmOUXB9iRV/_ssgManifest.js',
-          revision: 'b6652df95db52feb4daf4eca35380933',
-        },
         {
           url: '/_next/static/chunks/203.a92547a29ded5f08.js',
           revision: 'a92547a29ded5f08',
@@ -142,7 +134,15 @@ define(['./workbox-588899ac'], function (e) {
           url: '/_next/static/css/f0261465f1768c79.css',
           revision: 'f0261465f1768c79',
         },
-        { url: '/_offline', revision: 'X2ib4LgV8TCHmOUXB9iRV' },
+        {
+          url: '/_next/static/vjMT_39tAUO0UncwDk3g_/_buildManifest.js',
+          revision: '51170628daa089ac8b99576a0ec59e9f',
+        },
+        {
+          url: '/_next/static/vjMT_39tAUO0UncwDk3g_/_ssgManifest.js',
+          revision: 'b6652df95db52feb4daf4eca35380933',
+        },
+        { url: '/_offline', revision: 'vjMT_39tAUO0UncwDk3g_' },
         { url: '/favicon.ico', revision: '2123f1d78e671653d5af8a37be9a92cd' },
         {
           url: '/icons/android-icon-144x144.png',
