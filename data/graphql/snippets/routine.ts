@@ -6,6 +6,8 @@ const fullRoutine = `{
       order
       id
       name
+      sets
+      reps
     }
   }`;
 

@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
-import { Text } from '@chakra-ui/react';
+import { Spinner, Text } from '@chakra-ui/react';
 
 import { fetcher } from '../../data/graphql/graphql-fetcher';
 import Layout from '../../components/layout';
@@ -17,7 +17,12 @@ export default function Exercise() {
   );
 
   if (error) return <Text>Failed to load</Text>;
-  if (!data) return <Text>Loading...</Text>;
+  if (!data)
+    return (
+      <Text>
+        <Spinner />
+      </Text>
+    );
 
   if (!data.exercise) return <Text>Exercise not found</Text>;
 

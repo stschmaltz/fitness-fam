@@ -27,11 +27,11 @@ export default function Layout(input: {
   const [isVisible, setIsVisible] = useLocalStorage('alert', true);
 
   return (
-    <Container mt={10}>
+    <Container mt={10} maxW={'40rem'}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta name="description" content="App to help organize exercises" />
-        <meta property="og:image" content={`/images/profile.png`} />
+        <meta property="og:image" content={`./profile.png`} />
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>

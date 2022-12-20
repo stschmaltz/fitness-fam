@@ -1,6 +1,13 @@
-import { Box, Flex, IconButton, List } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  IconButton,
+  List,
+  NumberInput,
+  NumberInputField,
+  Text,
+} from '@chakra-ui/react';
 import { MinusIcon } from '@chakra-ui/icons';
-import { Text } from '@chakra-ui/react';
 
 import {
   DragDropContext,
@@ -16,6 +23,8 @@ import { RoutineExerciseObject, RoutineObject } from '../types/routine';
 import { theme } from '../styles/theme';
 
 export default function CurrentRoutineList(props: {
+  handleRepsChange: (exercise: RoutineExerciseObject, value: string) => void;
+  handleSetsChange: (exercise: RoutineExerciseObject, value: string) => void;
   currentRoutine: RoutineObject;
   handleOnDragEnd: (result: DropResult) => void;
   handleRemoveExerciseFromRoutine: (exerciseId: string) => void;
@@ -49,6 +58,16 @@ export default function CurrentRoutineList(props: {
     props.handleRemoveExerciseFromRoutine(exerciseId);
   };
 
+  const handleRepsChange = (exercise: RoutineExerciseObject, value: string) => {
+    props.handleRepsChange(exercise, value);
+  };
+
+  const handleSetsChange = (exercise: RoutineExerciseObject, value: string) => {
+    props.handleSetsChange(exercise, value);
+  };
+
+  console.log('currentRoutine', currentRoutine);
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId={currentRoutine._id.toString()} type="LIST">
@@ -63,8 +82,12 @@ export default function CurrentRoutineList(props: {
                   Exercise
                 </Text>
                 <Text as="b" fontSize="lg">
-                  Remove
+                  Sets
                 </Text>
+                <Text pl={2} as="b" fontSize="lg">
+                  Reps
+                </Text>
+                <Box flexShrink={0} w={12}></Box>
               </Flex>
             </Box>
 
@@ -92,6 +115,30 @@ export default function CurrentRoutineList(props: {
                         </Box>
                         <Box flexGrow="1">
                           <Text fontSize="lg">{exercise.name}</Text>
+                        </Box>
+                        <Box px={1} maxW={'2.8rem'}>
+                          <NumberInput
+                            defaultValue={exercise.sets}
+                            min={1}
+                            max={99}
+                            onChange={(valueString) =>
+                              handleSetsChange(exercise, valueString)
+                            }
+                          >
+                            <NumberInputField p={2} />
+                          </NumberInput>
+                        </Box>
+                        <Box pr={2} maxW={'2.8rem'}>
+                          <NumberInput
+                            defaultValue={exercise.reps}
+                            min={1}
+                            max={99}
+                            onChange={(valueString) =>
+                              handleRepsChange(exercise, valueString)
+                            }
+                          >
+                            <NumberInputField p={2} />
+                          </NumberInput>
                         </Box>
                         <Flex>
                           <IconButton

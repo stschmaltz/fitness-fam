@@ -44,8 +44,8 @@ export default function RoutineScroller(props: {
     return props.handleDeleteRoutine(routineId);
   };
   return (
-    <Box>
-      <Box pos="relative" width={'100%'} maxWidth={'75vw'} overflow="hidden">
+    <Box pos="relative" width={'100%'} overflow="hidden">
+      <Box pos="relative" width={'100%'}>
         <Flex
           paddingX={2}
           paddingY={1}
@@ -73,7 +73,7 @@ export default function RoutineScroller(props: {
               overflow="hidden"
               whiteSpace={'nowrap'}
               variant="h3"
-              fontSize={'2xl'}
+              fontSize={['1xl', '1xl', '2xl']}
               className={utilStyles.textOutline}
             >
               {props.routine.name}
@@ -111,7 +111,7 @@ export default function RoutineScroller(props: {
               <Box
                 key={exercise.id}
                 width="150px"
-                height="10rem"
+                height="10.3rem"
                 paddingY={'10px'}
                 paddingLeft={'10px'}
                 css={'&:last-of-type { padding-right: 10px; }'}
@@ -124,30 +124,29 @@ export default function RoutineScroller(props: {
                   outline={'1px solid ' + theme.colors.brandPrimary['300']}
                   alignItems={'space-between'}
                   justifyContent={'space-between'}
-                  flexDir="column"
+                  flexDir={'column'}
                 >
-                  {' '}
                   <Link href={`/exercises/${exercise.id}`}>
                     <Flex
-                      justifyContent="space-between"
+                      justifyContent={'space-between'}
                       flexShrink={0}
                       flexGrow={0}
                     >
                       <Text
                         lineHeight={1}
-                        variant="bold"
+                        variant={'bold'}
                         color={theme.colors.brandSecondary['700']}
                       >
                         {exercise.order + 1}
                       </Text>
                       <InfoIcon
                         color={theme.colors.brandSecondary['700']}
-                        opacity="0.5"
+                        opacity={'0.5'}
                       />
                     </Flex>
                     <Flex
                       textAlign={'center'}
-                      justifyContent="center"
+                      justifyContent={'center'}
                       alignItems={'flex-start'}
                       flexGrow={1}
                     >
@@ -155,8 +154,8 @@ export default function RoutineScroller(props: {
                         <Text
                           className={utilStyles.lineClamp}
                           fontWeight={'semibold'}
-                          overflow="hidden"
-                          fontSize="lg"
+                          overflow={'hidden'}
+                          fontSize={['md', 'lg']}
                           color={theme.colors.brandSecondary['900']}
                         >
                           {titleCase(exercise.name)}
@@ -164,58 +163,50 @@ export default function RoutineScroller(props: {
                       </Tooltip>
                     </Flex>
                   </Link>
-                  {/* <Flex
+                  <Flex
                     justifyContent="space-between"
                     flexShrink={0}
                     flexGrow={0}
                   >
-                    <Flex
-                      color={theme.colors.brandSecondary['700']}
-                      flexDir="column"
-                      alignItems="center"
-                    >
-                      <Text
-                        fontSize={'md'}
-                        lineHeight={1}
-                        variant="bold"
-                        color="inherit"
+                    {exercise.sets && (
+                      <Flex
+                        color={theme.colors.brandSecondary['700']}
+                        flexDir="column"
+                        alignItems="center"
                       >
-                        {Math.random() > 0.8
-                          ? 2
-                          : Math.random() > 0.5
-                          ? 3
-                          : Math.random() > 0.3
-                          ? 4
-                          : 3}
-                      </Text>
-                      <Text lineHeight={0.2} color="inherit" fontSize={'sm'}>
-                        sets
-                      </Text>
-                    </Flex>
-                    <Flex
-                      color={theme.colors.brandSecondary['700']}
-                      flexDir="column"
-                      alignItems="center"
-                    >
-                      <Text
-                        fontSize={'md'}
-                        lineHeight={1}
-                        variant="bold"
-                        color="inherit"
+                        <Text
+                          fontSize={'md'}
+                          lineHeight={1}
+                          variant="bold"
+                          color="inherit"
+                        >
+                          {exercise.sets}
+                        </Text>
+                        <Text lineHeight={0.2} color="inherit" fontSize={'sm'}>
+                          sets
+                        </Text>
+                      </Flex>
+                    )}
+                    {exercise.reps && (
+                      <Flex
+                        color={theme.colors.brandSecondary['700']}
+                        flexDir="column"
+                        alignItems="center"
                       >
-                        {Math.random() > 0.8
-                          ? 8
-                          : Math.random() > 0.5
-                          ? 10
-                          : Math.random() > 0.3
-                          ? 12
-                          : 16}
-                      </Text>
-                      <Text lineHeight={0.2} color="inherit" fontSize={'sm'}>
-                        reps
-                      </Text>
-                    </Flex>
-                  </Flex> */}
+                        <Text
+                          fontSize={'md'}
+                          lineHeight={1}
+                          variant="bold"
+                          color="inherit"
+                        >
+                          {exercise.reps}
+                        </Text>
+                        <Text lineHeight={0.2} color="inherit" fontSize={'sm'}>
+                          reps
+                        </Text>
+                      </Flex>
+                    )}
+                  </Flex>
                 </Flex>
               </Box>
             ))}

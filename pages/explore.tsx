@@ -37,7 +37,6 @@ export default function ExplorePage({
               <Text>- {exercise.name}</Text>
               {exercise.instructions.length > 0 && (
                 <Container>
-                  {' '}
                   <Text variant="h3">instructions: </Text>
                   <List>
                     {exercise.instructions.map((instruction) => (

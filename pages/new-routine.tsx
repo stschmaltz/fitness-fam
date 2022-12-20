@@ -70,7 +70,6 @@ export default function NewRoutinePage() {
     userId: currentUser?._id ? new ObjectId(currentUser._id) : new ObjectId(),
     name: 'New Routine ' + '1',
     exercises: [],
-    // TODO: something with order (maybe only useful if user sets it? otherwise sort by creation (_id)?)
     order: -1,
   });
 
@@ -156,11 +155,14 @@ export default function NewRoutinePage() {
   );
 
   const handleExerciseOnClick = (exercise: ExerciseObject) => {
+    // TODO somehow get sets and reps here
     // Add new exercise to current routine and remove from search results
-    const newRoutine: RoutineObject = routineProvider.addExerciseToRoutine(
-      currentRoutine,
-      exercise
-    );
+    const newRoutine: RoutineObject = routineProvider.addExerciseToRoutine({
+      routine: currentRoutine,
+      newExercise: exercise,
+      reps: undefined,
+      sets: undefined,
+    });
     setCurrentRoutine(newRoutine);
   };
 
@@ -171,6 +173,40 @@ export default function NewRoutinePage() {
     );
     setCurrentRoutine(newRoutine);
   };
+
+  // TODO: Refactor changes into one
+  const handleRepsChange = (exercise: RoutineExerciseObject, value: string) => {
+    const reps = parseInt(value);
+    if (reps < 0 || reps > 99) return;
+
+    const updatedExercise = {
+      ...exercise,
+      reps,
+    };
+    const newRoutine: RoutineObject = routineProvider.updateExerciseInRoutine({
+      routine: currentRoutine,
+      updatedExercise,
+    });
+
+    setCurrentRoutine(newRoutine);
+  };
+
+  const handleSetsChange = (exercise: RoutineExerciseObject, value: string) => {
+    const sets = parseInt(value);
+    if (sets < 0 || sets > 99) return;
+
+    const updatedExercise = {
+      ...exercise,
+      sets,
+    };
+    const newRoutine: RoutineObject = routineProvider.updateExerciseInRoutine({
+      routine: currentRoutine,
+      updatedExercise,
+    });
+
+    setCurrentRoutine(newRoutine);
+  };
+  console.log('currentRoutine', currentRoutine);
 
   useEffect(() => {
     const fetchExercises = async () => {
@@ -222,6 +258,8 @@ export default function NewRoutinePage() {
         {currentRoutine?.exercises.length > 0 ? (
           <Box maxHeight="35vh" minHeight="35vh" overflowY="auto" pr={1}>
             <CurrentRoutineList
+              handleSetsChange={handleSetsChange}
+              handleRepsChange={handleRepsChange}
               handleOnDragEnd={onDragEnd}
               currentRoutine={currentRoutine}
               handleRemoveExerciseFromRoutine={handleRemoveExerciseFromRoutine}
@@ -243,7 +281,7 @@ export default function NewRoutinePage() {
           allExercises={exercises}
           handleExerciseOnClick={handleExerciseOnClick}
         />
-      </Box>{' '}
+      </Box>
     </Layout>
   );
 }
