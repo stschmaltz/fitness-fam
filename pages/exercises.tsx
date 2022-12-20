@@ -1,5 +1,5 @@
 import useSWR from 'swr';
-import { Container } from '@chakra-ui/react';
+import { Container, Spinner } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Text } from '@chakra-ui/react';
@@ -21,7 +21,12 @@ export default function ExercisesPage() {
   );
 
   if (error) return <Container>Failed to load</Container>;
-  if (!data) return <Container>Loading...</Container>;
+  if (!data)
+    return (
+      <Container>
+        <Spinner />
+      </Container>
+    );
 
   const { exercisesByEquipment } = data;
 

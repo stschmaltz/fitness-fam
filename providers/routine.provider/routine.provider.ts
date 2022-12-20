@@ -22,10 +22,13 @@ class RoutineProvider implements RoutineProviderInterface {
     return newRoutine;
   }
 
-  public addExerciseToRoutine(
-    routine: RoutineObject,
-    newExercise: ExerciseObject
-  ): RoutineObject {
+  public addExerciseToRoutine(input: {
+    routine: RoutineObject;
+    newExercise: ExerciseObject;
+    sets?: number;
+    reps?: number;
+  }): RoutineObject {
+    const { routine, newExercise, sets, reps } = input;
     const newRoutine: RoutineObject = {
       ...routine,
       exercises: [
@@ -34,6 +37,8 @@ class RoutineProvider implements RoutineProviderInterface {
           id: newExercise.id,
           name: newExercise.name,
           order: routine.exercises.length,
+          reps,
+          sets,
         },
       ],
     };
@@ -52,6 +57,30 @@ class RoutineProvider implements RoutineProviderInterface {
       ),
     };
 
+    return newRoutine;
+  }
+
+  public updateExerciseInRoutine(input: {
+    routine: RoutineObject;
+    updatedExercise: RoutineExerciseObject;
+  }): RoutineObject {
+    console.log('updating exercise');
+
+    const { routine, updatedExercise } = input;
+    const newRoutine: RoutineObject = {
+      ...routine,
+      exercises: this.saveNewOrder(
+        routine.exercises.map((exercise) =>
+          exercise.id === updatedExercise.id
+            ? {
+                ...updatedExercise,
+              }
+            : exercise
+        )
+      ),
+    };
+
+    console.log('newRoutine', newRoutine);
     return newRoutine;
   }
 }

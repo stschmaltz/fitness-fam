@@ -7,6 +7,8 @@ const routineTypeDefs = /* GraphQL */ `
     order: Int!
     id: String!
     name: String!
+    sets: Int
+    reps: Int
   }
 
   input RoutineInput {
@@ -37,6 +39,8 @@ const routineTypeDefs = /* GraphQL */ `
     order: Int!
     id: String!
     name: String!
+    sets: Int
+    reps: Int
   }
 
   type Routine {

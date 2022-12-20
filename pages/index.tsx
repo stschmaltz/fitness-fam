@@ -20,9 +20,9 @@ import utilStyles from '../styles/utils.module.css';
 import RoutineScroller from '../components/RoutineScroller';
 
 export default function Home() {
+  const { user } = useUser();
   const { currentUser, setCurrentUser } = useCurrentUserContext();
   const toast = useToast();
-  const { user } = useUser();
 
   useEffect(() => {
     if (user) {
@@ -62,7 +62,7 @@ export default function Home() {
 
   return (
     <Layout home>
-      <Container mt={5} p={0}>
+      <Container pos="relative" mt={5} p={0} width="100%" maxW="inherit">
         <Flex
           justifyContent={'space-between'}
           alignItems={'center'}
@@ -106,7 +106,7 @@ export default function Home() {
               )}
             </List>
           ) : (
-            <Flex flexWrap="wrap">
+            <Flex flexWrap="wrap" flexDir={'column'}>
               <Text
                 mb={'25'}
                 fontStyle={'italic'}
@@ -116,6 +116,7 @@ export default function Home() {
               </Text>
               <Link href="/new-routine">
                 <Button
+                  w={'100%'}
                   colorScheme="accent1"
                   paddingX={30}
                   paddingY={10}

@@ -14,6 +14,8 @@ type RoutineDocument = {
     id: string;
     name: string;
     order: number;
+    reps?: number;
+    sets?: number;
   }[];
 };
 
@@ -32,6 +34,8 @@ const mapRoutineDocumentToRoutineObject = (
       id: exercise.id,
       name: exercise.name,
       order: exercise.order,
+      reps: exercise.reps,
+      sets: exercise.sets,
     })
   ),
 });
