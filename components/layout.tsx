@@ -31,7 +31,7 @@ export default function Layout(input: {
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta name="description" content="App to help organize exercises" />
-        <meta property="og:image" content={`./profile.png`} />
+        <meta property="og:image" content={`/images/profile.png`} />
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
