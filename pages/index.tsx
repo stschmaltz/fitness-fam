@@ -99,7 +99,9 @@ export default function Home() {
           )}
         </Flex>
         <Box mt={3}>
-          {isLoadingRoutines && <Spinner color="brandPrimary.500" />}
+          {!currentUser?.routines.length && isLoadingRoutines && (
+            <Spinner color="brandPrimary.500" />
+          )}
 
           {currentUser?.routines.length && currentUser.routines.length > 0 ? (
             <List>
