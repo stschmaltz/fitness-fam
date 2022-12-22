@@ -4,7 +4,8 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
     "plugin:prettier/recommended",
-    "next/core-web-vitals"
+    "next/core-web-vitals",
+    "next"
   ],
   "plugins": ["@typescript-eslint", "react", "prettier"],
   "rules": {

@@ -13,7 +13,7 @@ const deleteRoutineMutationGraphQL = `mutation deleteRoutine($input: DeleteRouti
   }
 }`;
 
-const signInUserMutationQraphQL = `mutation userSignIn($input: UserSignInInput!) {
+const signInUserMutationGraphQL = `mutation userSignIn($input: UserSignInInput!) {
   userSignIn(input: $input) {
     user ${fullUser}
   }
@@ -27,6 +27,6 @@ export interface SignInUserMutationResponse {
 
 export {
   saveRoutineMutationGraphQL,
-  signInUserMutationQraphQL,
+  signInUserMutationGraphQL,
   deleteRoutineMutationGraphQL,
 };
