@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import { Box, Button, Container, Flex } from '@chakra-ui/react';
+import { Box, Button, Container, Flex, Spinner } from '@chakra-ui/react';
 import { List, ListItem } from '@chakra-ui/react';
 import { Text, useToast } from '@chakra-ui/react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { AddIcon } from '@chakra-ui/icons';
 import orderBy from 'lodash/orderBy';
@@ -24,12 +24,16 @@ export default function Home() {
   const { user, isLoading } = useUser();
   const { currentUser, setCurrentUser } = useCurrentUserContext();
   const toast = useToast();
+  const [isLoadingRoutines, setIsLoadingRoutines] = useState(true);
+
   useEffect(() => {
     if (user) {
+      setIsLoadingRoutines(true);
       asyncFetch(signInUserMutationGraphQL, {
         input: { email: user.email },
       }).then((data: SignInUserMutationResponse) => {
         setCurrentUser && setCurrentUser(data.userSignIn.user);
+        setIsLoadingRoutines(false);
       });
     }
   }, [user, setCurrentUser]);
@@ -79,7 +83,6 @@ export default function Home() {
           >
             Your Routines
           </Text>
-
           {currentUser && currentUser.routines.length < 5 && (
             <Link href="/new-routine">
               <Button
@@ -96,6 +99,8 @@ export default function Home() {
           )}
         </Flex>
         <Box mt={3}>
+          {isLoadingRoutines && <Spinner color="brandPrimary.500" />}
+
           {currentUser?.routines.length && currentUser.routines.length > 0 ? (
             <List>
               {orderBy(currentUser.routines, '_id', 'desc').map(
@@ -110,38 +115,40 @@ export default function Home() {
               )}
             </List>
           ) : (
-            <Flex flexWrap="wrap" flexDir={'column'}>
-              <Text
-                mb={'25'}
-                fontStyle={'italic'}
-                color={theme.colors.accent2['600']}
-              >
-                You have no routines yet
-              </Text>
-              <Link href="/new-routine">
-                <Button
-                  w={'100%'}
-                  colorScheme="accent1"
-                  paddingX={30}
-                  paddingY={10}
-                  variant="solid"
-                  size="lg"
-                  leftIcon={
-                    <AddIcon color={theme.colors.accent2['400']} mr="5" />
-                  }
+            !isLoadingRoutines && (
+              <Flex flexWrap="wrap" flexDir={'column'}>
+                <Text
+                  mb={'25'}
+                  fontStyle={'italic'}
+                  color={theme.colors.accent2['600']}
                 >
-                  <Flex
-                    wrap="wrap"
-                    justifyContent="center"
-                    flexDir="column"
-                    color={theme.colors.accent2['400']}
+                  You have no routines yet
+                </Text>
+                <Link href="/new-routine">
+                  <Button
+                    w={'100%'}
+                    colorScheme="accent1"
+                    paddingX={30}
+                    paddingY={10}
+                    variant="solid"
+                    size="lg"
+                    leftIcon={
+                      <AddIcon color={theme.colors.accent2['400']} mr="5" />
+                    }
                   >
-                    <Text color="inherit">Click here to </Text>
-                    <Text color="inherit">create a new routine </Text>
-                  </Flex>
-                </Button>
-              </Link>
-            </Flex>
+                    <Flex
+                      wrap="wrap"
+                      justifyContent="center"
+                      flexDir="column"
+                      color={theme.colors.accent2['400']}
+                    >
+                      <Text color="inherit">Click here to </Text>
+                      <Text color="inherit">create a new routine </Text>
+                    </Flex>
+                  </Button>
+                </Link>
+              </Flex>
+            )
           )}
         </Box>
 
