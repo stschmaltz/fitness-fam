@@ -5,6 +5,11 @@ import { getDbClient } from '../data/database/mongodb';
 
 const collectionName = 'routines';
 
+enum RoutineStatus {
+  ACTIVE = 'Active',
+  DELETED = 'Deleted',
+}
+
 type RoutineDocument = {
   _id: ObjectId;
   userId: ObjectId;
@@ -45,7 +50,7 @@ async function getRoutinesForUser(userId: string): Promise<RoutineObject[]> {
 
   const routineDocuments: RoutineDocument[] = (await db
     .collection(collectionName)
-    .find({ userId: new ObjectId(userId) })
+    .find({ userId: new ObjectId(userId), status: RoutineStatus.ACTIVE })
     .toArray()) as RoutineDocument[];
 
   return routineDocuments.map(mapRoutineDocumentToRoutineObject);
@@ -59,6 +64,7 @@ async function saveRoutine(routine: RoutineObject): Promise<RoutineObject> {
       ...routine,
       _id: new ObjectId(routine._id),
       userId: new ObjectId(routine.userId),
+      status: RoutineStatus.ACTIVE,
     });
 
     return routine;
@@ -74,7 +80,10 @@ async function deleteRoutine(routineId: string): Promise<void> {
     console.log('deleting,', routineId);
     await db
       .collection(collectionName)
-      .deleteOne({ _id: new ObjectId(routineId) });
+      .findOneAndUpdate(
+        { _id: new ObjectId(routineId) },
+        { $set: { status: RoutineStatus.DELETED } }
+      );
 
     return;
   } catch (error) {

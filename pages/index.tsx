@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Box, Button, Container, Flex } from '@chakra-ui/react';
+import { Box, Button, Container, Flex, Spinner } from '@chakra-ui/react';
 import { List, ListItem } from '@chakra-ui/react';
 import { Text, useToast } from '@chakra-ui/react';
 import { useEffect } from 'react';
@@ -20,7 +20,7 @@ import utilStyles from '../styles/utils.module.css';
 import RoutineScroller from '../components/RoutineScroller';
 
 export default function Home() {
-  const { user } = useUser();
+  const { user, isLoading } = useUser();
   const { currentUser, setCurrentUser } = useCurrentUserContext();
   const toast = useToast();
 
@@ -60,6 +60,20 @@ export default function Home() {
     }
   };
 
+  if (isLoading)
+    <Flex
+      alignItems={'center'}
+      justifyContent={'center'}
+      width="100vw"
+      height={'80vh'}
+    >
+      <Spinner
+        color={theme.colors.brandPrimary['500']}
+        colorScheme={'brandPrimary'}
+        size={'xl'}
+      />
+    </Flex>;
+
   return (
     <Layout home>
       <Container pos="relative" mt={5} p={0} width="100%" maxW="inherit">
@@ -78,18 +92,20 @@ export default function Home() {
             Your Routines
           </Text>
 
-          <Link href="/new-routine">
-            <Button
-              colorScheme={'brandSecondary'}
-              size={'md'}
-              aria-label="add routine"
-              ml={3}
-            >
-              <Flex height={'100%'} alignItems="center">
-                <AddIcon />
-              </Flex>
-            </Button>
-          </Link>
+          {currentUser && currentUser.routines.length < 5 && (
+            <Link href="/new-routine">
+              <Button
+                colorScheme={'brandSecondary'}
+                size={'md'}
+                aria-label="add routine"
+                ml={3}
+              >
+                <Flex height={'100%'} alignItems="center">
+                  <AddIcon />
+                </Flex>
+              </Button>
+            </Link>
+          )}
         </Flex>
         <Box mt={3}>
           {currentUser?.routines.length && currentUser.routines.length > 0 ? (

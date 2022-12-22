@@ -1,8 +1,8 @@
-import { DeleteIcon } from '@chakra-ui/icons';
 import { Box, Flex, Text, Tooltip } from '@chakra-ui/react';
 import { useRef, useState } from 'react';
 import { titleCase } from 'title-case';
 import RoutineScrollerExerciseList from './RoutineScrollerExerciseList';
+import DeleteRoutineButton from './DeleteRoutineButton';
 import { theme } from '../../styles/theme';
 import utilStyles from '../../styles/utils.module.css';
 import { RoutineObject } from '../../types/routine';
@@ -80,14 +80,12 @@ export default function RoutineScroller(props: {
               {props.routine.name}
             </Text>
           </Tooltip>
-
-          <DeleteIcon
-            color={theme.colors.primary}
-            ml={3}
-            onClick={async () =>
-              await onDeleteRoutine(props.routine._id.toString())
-            }
-          />
+          <Box ml={3}>
+            <DeleteRoutineButton
+              onDeleteRoutine={onDeleteRoutine}
+              routineId={props.routine._id.toString()}
+            />
+          </Box>
         </Flex>
       </Box>
       <Box

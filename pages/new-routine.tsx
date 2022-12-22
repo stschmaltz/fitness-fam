@@ -5,6 +5,7 @@ import {
   Flex,
   Input,
   Link,
+  Spinner,
   Text,
   useToast,
 } from '@chakra-ui/react';
@@ -45,7 +46,21 @@ export default function NewRoutinePage() {
   const { currentUser, setCurrentUser } = useCurrentUserContext();
 
   // TODO: figure out how to make this trigger from context change
-  const { user } = useUser();
+  const { user, isLoading } = useUser();
+
+  if (isLoading)
+    <Flex
+      alignItems={'center'}
+      justifyContent={'center'}
+      width="100vw"
+      height={'80vh'}
+    >
+      <Spinner
+        color={theme.colors.brandPrimary['500']}
+        colorScheme={'brandPrimary'}
+        size={'xl'}
+      />
+    </Flex>;
 
   useEffect(() => {
     if (user) {
