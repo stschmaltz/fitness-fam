@@ -21,12 +21,12 @@ import { RoutineExerciseObject, RoutineObject } from '../types/routine';
 import { asyncFetch } from '../data/graphql/graphql-fetcher';
 import {
   saveRoutineMutationGraphQL,
-  signInUserMutationQraphQL,
+  signInUserMutationGraphQL,
   SignInUserMutationResponse,
 } from '../data/graphql/snippets/mutation';
 import CurrentRoutineList from '../components/CurrentRoutineList';
 import NoExercisesRoutineList from '../components/NoExercisesRoutineList';
-import ExerciseSearchList from '../components/ExerciseSearchList';
+import ExerciseSearchList from '../components/ExerciseSearchList/ExerciseSearchList';
 import { reorderList } from '../lib/list-helpers';
 import { useCurrentUserContext } from '../context/UserContext';
 import { localStorageProvider } from '../providers/local-storage.provider';
@@ -49,7 +49,7 @@ export default function NewRoutinePage() {
 
   useEffect(() => {
     if (user) {
-      asyncFetch(signInUserMutationQraphQL, {
+      asyncFetch(signInUserMutationGraphQL, {
         input: { email: user.email },
       }).then((data: SignInUserMutationResponse) => {
         setCurrentUser && setCurrentUser(data.userSignIn.user);
@@ -61,7 +61,7 @@ export default function NewRoutinePage() {
   const routineProvider = appContainer.get<RoutineProviderInterface>(
     TYPES.RoutineProvider
   );
-  // TODO: is fetching larger data better in useEffect or getStaticProps?
+
   const [exercises, setExercises] = useState<ExerciseObject[]>([]);
   const routineSaveToast = useToast();
 
@@ -120,6 +120,7 @@ export default function NewRoutinePage() {
     });
     router.push('/');
   };
+
   const disableSaveButton =
     !currentRoutine.name || !currentRoutine.exercises.length;
 
@@ -174,14 +175,17 @@ export default function NewRoutinePage() {
     setCurrentRoutine(newRoutine);
   };
 
-  // TODO: Refactor changes into one
-  const handleRepsChange = (exercise: RoutineExerciseObject, value: string) => {
-    const reps = parseInt(value);
-    if (reps < 0 || reps > 99) return;
+  const handleSetsRepsChange = (
+    exercise: RoutineExerciseObject,
+    value: string,
+    type: 'sets' | 'reps'
+  ) => {
+    const numberValue = parseInt(value);
+    if (numberValue < 0 || numberValue > 99) return;
 
     const updatedExercise = {
       ...exercise,
-      reps,
+      [type]: numberValue,
     };
     const newRoutine: RoutineObject = routineProvider.updateExerciseInRoutine({
       routine: currentRoutine,
@@ -191,20 +195,12 @@ export default function NewRoutinePage() {
     setCurrentRoutine(newRoutine);
   };
 
+  const handleRepsChange = (exercise: RoutineExerciseObject, value: string) => {
+    handleSetsRepsChange(exercise, value, 'reps');
+  };
+
   const handleSetsChange = (exercise: RoutineExerciseObject, value: string) => {
-    const sets = parseInt(value);
-    if (sets < 0 || sets > 99) return;
-
-    const updatedExercise = {
-      ...exercise,
-      sets,
-    };
-    const newRoutine: RoutineObject = routineProvider.updateExerciseInRoutine({
-      routine: currentRoutine,
-      updatedExercise,
-    });
-
-    setCurrentRoutine(newRoutine);
+    handleSetsRepsChange(exercise, value, 'sets');
   };
 
   useEffect(() => {

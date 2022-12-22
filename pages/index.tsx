@@ -11,13 +11,13 @@ import { asyncFetch } from '../data/graphql/graphql-fetcher';
 import { RoutineObject } from '../types/routine';
 import {
   deleteRoutineMutationGraphQL,
-  signInUserMutationQraphQL,
+  signInUserMutationGraphQL,
   SignInUserMutationResponse,
 } from '../data/graphql/snippets/mutation';
 import { useCurrentUserContext } from '../context/UserContext';
 import { theme } from '../styles/theme';
 import utilStyles from '../styles/utils.module.css';
-import RoutineScroller from '../components/RoutineScroller';
+import RoutineScroller from '../components/RoutineScroller/RoutineScroller';
 
 export default function Home() {
   const { user } = useUser();
@@ -26,7 +26,7 @@ export default function Home() {
 
   useEffect(() => {
     if (user) {
-      asyncFetch(signInUserMutationQraphQL, {
+      asyncFetch(signInUserMutationGraphQL, {
         input: { email: user.email },
       }).then((data: SignInUserMutationResponse) => {
         setCurrentUser && setCurrentUser(data.userSignIn.user);
