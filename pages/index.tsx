@@ -17,7 +17,7 @@ import {
 import { useCurrentUserContext } from '../context/UserContext';
 import { theme } from '../styles/theme';
 import utilStyles from '../styles/utils.module.css';
-import RoutineScroller from '../components/RoutineScroller/RoutineScroller';
+import RoutineScroller from '../components/RoutineScroller';
 
 export default function Home() {
   const { user } = useUser();
