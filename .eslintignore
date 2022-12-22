@@ -1,6 +1,0 @@
-node_modules/**
-.next/**
-.out/**
-node_modules/*
-./node_modules/mongodb/mongodb.d.ts
-node_modules/mongodb/mongodb.d.ts
