@@ -35,6 +35,8 @@ export default function Home() {
         setCurrentUser && setCurrentUser(data.userSignIn.user);
         setIsLoadingRoutines(false);
       });
+    } else {
+      setIsLoadingRoutines(false);
     }
   }, [user, setCurrentUser]);
 
@@ -83,7 +85,7 @@ export default function Home() {
           >
             Your Routines
           </Text>
-          {currentUser && currentUser.routines.length < 5 && (
+          {currentUser && currentUser.routines.length < 25 && (
             <Link href="/new-routine">
               <Button
                 colorScheme={'brandSecondary'}
