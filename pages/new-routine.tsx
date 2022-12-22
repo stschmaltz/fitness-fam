@@ -35,6 +35,7 @@ import { appContainer } from '../container/inversify.config';
 import { ExerciseProviderInterface } from '../providers/exercise.provider/exercise.provider.interface';
 import { TYPES } from '../container/types';
 import { RoutineProviderInterface } from '../providers/routine.provider/routine.provider.interface';
+import BasicLoader from '../components/BasicLoader';
 
 export default function NewRoutinePage() {
   const currentRoutineLocalStorageKey = 'currentRoutine';
@@ -45,7 +46,9 @@ export default function NewRoutinePage() {
   const { currentUser, setCurrentUser } = useCurrentUserContext();
 
   // TODO: figure out how to make this trigger from context change
-  const { user } = useUser();
+  const { user, isLoading } = useUser();
+
+  if (isLoading) <BasicLoader />;
 
   useEffect(() => {
     if (user) {

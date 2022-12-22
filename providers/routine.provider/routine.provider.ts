@@ -64,8 +64,6 @@ class RoutineProvider implements RoutineProviderInterface {
     routine: RoutineObject;
     updatedExercise: RoutineExerciseObject;
   }): RoutineObject {
-    console.log('updating exercise');
-
     const { routine, updatedExercise } = input;
     const newRoutine: RoutineObject = {
       ...routine,
