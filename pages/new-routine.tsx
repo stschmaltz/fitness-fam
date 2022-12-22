@@ -26,7 +26,7 @@ import {
 } from '../data/graphql/snippets/mutation';
 import CurrentRoutineList from '../components/CurrentRoutineList';
 import NoExercisesRoutineList from '../components/NoExercisesRoutineList';
-import ExerciseSearchList from '../components/ExerciseSearchList/ExerciseSearchList';
+import ExerciseSearchList from '../components/ExerciseSearchList';
 import { reorderList } from '../lib/list-helpers';
 import { useCurrentUserContext } from '../context/UserContext';
 import { localStorageProvider } from '../providers/local-storage.provider';
