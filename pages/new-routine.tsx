@@ -5,7 +5,6 @@ import {
   Flex,
   Input,
   Link,
-  Spinner,
   Text,
   useToast,
 } from '@chakra-ui/react';
@@ -36,6 +35,7 @@ import { appContainer } from '../container/inversify.config';
 import { ExerciseProviderInterface } from '../providers/exercise.provider/exercise.provider.interface';
 import { TYPES } from '../container/types';
 import { RoutineProviderInterface } from '../providers/routine.provider/routine.provider.interface';
+import BasicLoader from '../components/BasicLoader';
 
 export default function NewRoutinePage() {
   const currentRoutineLocalStorageKey = 'currentRoutine';
@@ -48,19 +48,7 @@ export default function NewRoutinePage() {
   // TODO: figure out how to make this trigger from context change
   const { user, isLoading } = useUser();
 
-  if (isLoading)
-    <Flex
-      alignItems={'center'}
-      justifyContent={'center'}
-      width="100vw"
-      height={'80vh'}
-    >
-      <Spinner
-        color={theme.colors.brandPrimary['500']}
-        colorScheme={'brandPrimary'}
-        size={'xl'}
-      />
-    </Flex>;
+  if (isLoading) <BasicLoader />;
 
   useEffect(() => {
     if (user) {

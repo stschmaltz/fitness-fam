@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Box, Button, Container, Flex, Spinner } from '@chakra-ui/react';
+import { Box, Button, Container, Flex } from '@chakra-ui/react';
 import { List, ListItem } from '@chakra-ui/react';
 import { Text, useToast } from '@chakra-ui/react';
 import { useEffect } from 'react';
@@ -18,12 +18,12 @@ import { useCurrentUserContext } from '../context/UserContext';
 import { theme } from '../styles/theme';
 import utilStyles from '../styles/utils.module.css';
 import RoutineScroller from '../components/RoutineScroller';
+import BasicLoader from '../components/BasicLoader';
 
 export default function Home() {
   const { user, isLoading } = useUser();
   const { currentUser, setCurrentUser } = useCurrentUserContext();
   const toast = useToast();
-
   useEffect(() => {
     if (user) {
       asyncFetch(signInUserMutationGraphQL, {
@@ -60,19 +60,7 @@ export default function Home() {
     }
   };
 
-  if (isLoading)
-    <Flex
-      alignItems={'center'}
-      justifyContent={'center'}
-      width="100vw"
-      height={'80vh'}
-    >
-      <Spinner
-        color={theme.colors.brandPrimary['500']}
-        colorScheme={'brandPrimary'}
-        size={'xl'}
-      />
-    </Flex>;
+  if (isLoading) <BasicLoader />;
 
   return (
     <Layout home>
