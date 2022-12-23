@@ -1,43 +1,33 @@
-import {
-  Alert,
-  Box,
-  Button,
-  Flex,
-  Input,
-  Link,
-  Text,
-  useToast,
-} from '@chakra-ui/react';
-import { InfoIcon } from '@chakra-ui/icons';
-import { useEffect, useState } from 'react';
+import { Box, Button, Flex, Input, Text, useToast } from '@chakra-ui/react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { DropResult } from 'react-beautiful-dnd';
 import { ObjectId } from 'bson';
 
-import Layout from '../components/layout';
-import { ExerciseObject } from '../types/exercise';
-import { RoutineExerciseObject, RoutineObject } from '../types/routine';
-import { asyncFetch } from '../data/graphql/graphql-fetcher';
-import { saveRoutineMutationGraphQL } from '../data/graphql/snippets/mutation';
-import CurrentRoutineList from '../components/CurrentRoutineList';
-import NoExercisesRoutineList from '../components/NoExercisesRoutineList';
-import ExerciseSearchList from '../components/ExerciseSearchList';
-import { reorderList } from '../lib/list-helpers';
-import { localStorageProvider } from '../providers/local-storage.provider';
-import { theme } from '../styles/theme';
-import { appContainer } from '../container/inversify.config';
-import { TYPES } from '../container/types';
-import { RoutineProviderInterface } from '../providers/routine.provider/routine.provider.interface';
-import BasicLoader from '../components/BasicLoader';
-import { useUserSignIn } from '../hooks/use-user-sign-in.hook';
-import { useGetAllExercises } from '../hooks/use-get-all-exercises.hook';
+import Layout from '../../components/layout';
+import { ExerciseObject } from '../../types/exercise';
+import { RoutineExerciseObject, RoutineObject } from '../../types/routine';
+import { asyncFetch } from '../../data/graphql/graphql-fetcher';
+import { saveRoutineMutationGraphQL } from '../../data/graphql/snippets/mutation';
+import CurrentRoutineList from '../../components/CurrentRoutineList';
+import NoExercisesRoutineList from '../../components/NoExercisesRoutineList';
+import ExerciseSearchList from '../../components/ExerciseSearchList';
+import { reorderList } from '../../lib/list-helpers';
+import { theme } from '../../styles/theme';
+import { appContainer } from '../../container/inversify.config';
+import { TYPES } from '../../container/types';
+import { RoutineProviderInterface } from '../../providers/routine.provider/routine.provider.interface';
+import BasicLoader from '../../components/BasicLoader';
+import { fullRoutine } from '../../data/graphql/snippets/routine';
+import { useUserSignIn } from '../../hooks/use-user-sign-in.hook';
+import { useGetAllExercises } from '../../hooks/use-get-all-exercises.hook';
 
-export default function NewRoutinePage() {
-  const currentRoutineLocalStorageKey = 'currentRoutine';
+export default function EditRoutinePage(props: { routine?: RoutineObject }) {
+  const { routine } = props;
 
   const router = useRouter();
 
-  const [isLoading, currentUser] = useUserSignIn();
+  const [isLoading, currentUser, _setCurrentUser] = useUserSignIn();
 
   /** Routines */
   const routineProvider = appContainer.get<RoutineProviderInterface>(
@@ -47,33 +37,12 @@ export default function NewRoutinePage() {
   const routineSaveToast = useToast();
 
   const [currentRoutine, setCurrentRoutine] = useState<RoutineObject>({
-    _id: new ObjectId(),
-    userId: currentUser?._id ? new ObjectId(currentUser._id) : new ObjectId(),
-    name: '',
-    exercises: [],
-    order: -1,
+    _id: routine?._id ?? new ObjectId(),
+    userId: routine?.userId ?? new ObjectId(),
+    name: routine?.name ?? '',
+    exercises: routine?.exercises ?? [],
+    order: routine?.order ?? 0,
   });
-
-  useEffect(() => {
-    const routineFromLocalStorage = localStorageProvider.getItem<RoutineObject>(
-      currentRoutineLocalStorageKey
-    );
-    if (routineFromLocalStorage) {
-      setCurrentRoutine({
-        ...routineFromLocalStorage,
-        userId: currentUser?._id
-          ? new ObjectId(currentUser._id)
-          : routineFromLocalStorage.userId,
-      });
-    }
-  }, [currentUser?._id]);
-
-  useEffect(() => {
-    localStorageProvider.setItem<RoutineObject>(
-      currentRoutineLocalStorageKey,
-      currentRoutine
-    );
-  }, [currentRoutine]);
 
   const handleSaveRoutine = async (routine: RoutineObject) => {
     if (!routine.name || !routine.exercises.length) return;
@@ -81,17 +50,16 @@ export default function NewRoutinePage() {
       await asyncFetch(saveRoutineMutationGraphQL, { input: { routine } });
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : error;
+      console.error(errorMessage);
 
-      console.log('Error saving routine', { errorMessage });
       routineSaveToast({
-        title: 'Something went wrong saving routine.',
+        title:
+          'Something went wrong saving routine. Send me a message with what happened. fitnessfam.app@gmail.com',
         status: 'error',
         duration: 3000,
         isClosable: true,
       });
     }
-
-    localStorageProvider.removeItem(currentRoutineLocalStorageKey);
 
     routineSaveToast({
       title: 'Routine Saved.',
@@ -184,17 +152,25 @@ export default function NewRoutinePage() {
 
   if (isLoading) return <BasicLoader />;
 
+  if (!currentUser) {
+    return (
+      <Layout home={false}>
+        <div>401: Not Authorized</div>
+      </Layout>
+    );
+  }
+
+  if (!routine) {
+    // TODO: real 404 page
+    return (
+      <Layout home={false}>
+        <div>404: Routine not found</div>
+      </Layout>
+    );
+  }
+
   return (
     <Layout home={false}>
-      {!currentUser && (
-        <Alert status="info" colorScheme="accent1" mb={3}>
-          <InfoIcon color={theme.colors.accent1['900']} />
-          <Text color={theme.colors.accent1['900']} ml={2} fontSize="md">
-            Login to save your routine.
-          </Text>
-        </Alert>
-      )}
-      <Box pos="fixed" color={theme.colors.brandLight}></Box>
       <Box>
         <Flex mb={5}>
           <Input
@@ -205,23 +181,18 @@ export default function NewRoutinePage() {
             pl={0}
             fontSize="3xl"
           />
-          {currentUser ? (
-            <Button
-              ml="4"
-              p={5}
-              colorScheme="brandSecondary"
-              disabled={disableSaveButton}
-              onClick={async () => await handleSaveRoutine(currentRoutine)}
-            >
-              <Text color={theme.colors.white} fontSize="lg">
-                Save
-              </Text>
-            </Button>
-          ) : (
-            <Button ml="3" colorScheme="brandPrimary" size="lg">
-              <Link href="/api/auth/login?returnTo=/new-routine">Login</Link>
-            </Button>
-          )}
+
+          <Button
+            ml="4"
+            p={5}
+            colorScheme="brandSecondary"
+            disabled={disableSaveButton}
+            onClick={async () => await handleSaveRoutine(currentRoutine)}
+          >
+            <Text color={theme.colors.white} fontSize="lg">
+              Save
+            </Text>
+          </Button>
         </Flex>
         {currentRoutine?.exercises.length > 0 ? (
           <Box maxHeight="35vh" minHeight="35vh" overflowY="auto" pr={1}>
@@ -253,3 +224,25 @@ export default function NewRoutinePage() {
     </Layout>
   );
 }
+
+export const getServerSideProps = async ({
+  query,
+}: {
+  query: { id: string };
+}) => {
+  try {
+    const routine = await asyncFetch(
+      `{ routine(id:"${query.id}") ${fullRoutine}  }`
+    );
+
+    return {
+      props: routine,
+    };
+  } catch (error) {
+    console.log('error', error);
+
+    return {
+      props: {},
+    };
+  }
+};
