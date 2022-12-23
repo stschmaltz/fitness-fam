@@ -14,19 +14,18 @@ import {
 } from '@chakra-ui/react';
 import { useRef } from 'react';
 import { theme } from '../../styles/theme';
+import { RoutineObject } from '../../types/routine';
 
 export default function DeleteMenuItem(props: {
-  routineId: string;
+  routine: RoutineObject;
   onDeleteRoutine: (routineId: string) => Promise<void>;
 }) {
-  const { routineId, onDeleteRoutine } = props;
+  const { routine, onDeleteRoutine } = props;
   const { isOpen, onToggle, onClose } = useDisclosure();
   const finalRef = useRef<HTMLButtonElement>(null);
 
   return (
     <MenuItem
-      //   bgColor={theme.colors.accent1['50']}
-      //   _hover={{ bgColor: theme.colors.accent1['100'] }}
       onClick={onToggle}
       bgColor={'inherit'}
       icon={<DeleteIcon color={theme.colors.brandPrimary['600']} />}
@@ -39,7 +38,12 @@ export default function DeleteMenuItem(props: {
         Delete Routine
       </Text>
 
-      <Modal finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose}>
+      <Modal
+        isCentered={true}
+        finalFocusRef={finalRef}
+        isOpen={isOpen}
+        onClose={onClose}
+      >
         <ModalOverlay />
         <ModalContent
           color={theme.colors.gray['50']}
@@ -48,7 +52,19 @@ export default function DeleteMenuItem(props: {
         >
           <ModalHeader> You&apos;re about to delete this routine</ModalHeader>
           <ModalCloseButton />
-          <ModalBody></ModalBody>
+          <ModalBody fontSize={'md'}>
+            Continuing will delete the{' '}
+            <Text
+              as="span"
+              fontWeight={'semibold'}
+              textDecoration={'underline'}
+              color="white"
+              fontSize={'xl'}
+            >
+              {routine.name}
+            </Text>{' '}
+            routine permanently.
+          </ModalBody>
 
           <ModalFooter>
             <Button
@@ -60,7 +76,9 @@ export default function DeleteMenuItem(props: {
               Cancel
             </Button>
             <Button
-              onClick={async () => await onDeleteRoutine(routineId)}
+              onClick={async () =>
+                await onDeleteRoutine(routine._id.toString())
+              }
               colorScheme="brandPrimary"
               backgroundColor={theme.colors.brandPrimary['800']}
             >

@@ -24,7 +24,6 @@ import { useHandleSaveRoutine } from '../../hooks/use-handle-save-routine.hook';
 
 export default function EditRoutinePage(props: { routine?: RoutineObject }) {
   const { routine } = props;
-
   const router = useRouter();
 
   const [isLoading, currentUser, _setCurrentUser] = useUserSignIn();

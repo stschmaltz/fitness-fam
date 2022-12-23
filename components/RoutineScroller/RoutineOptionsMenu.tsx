@@ -10,13 +10,14 @@ import { useRouter } from 'next/router';
 
 import DeleteMenuItem from './DeleteMenuItem';
 import { theme } from '../../styles/theme';
+import { RoutineObject } from '../../types/routine';
 
 export default function RoutineOptionsMenu(props: {
-  routineId: string;
+  routine: RoutineObject;
   onDeleteRoutine: (routineId: string) => Promise<void>;
 }) {
   const router = useRouter();
-  const { routineId, onDeleteRoutine } = props;
+  const { routine, onDeleteRoutine } = props;
 
   return (
     <Menu>
@@ -32,12 +33,9 @@ export default function RoutineOptionsMenu(props: {
         borderColor={theme.colors.accent1['700']}
         borderWidth={1.4}
       >
-        <DeleteMenuItem
-          routineId={routineId}
-          onDeleteRoutine={onDeleteRoutine}
-        />
+        <DeleteMenuItem routine={routine} onDeleteRoutine={onDeleteRoutine} />
         <MenuItem
-          onClick={() => router.push(`/edit-routine/${routineId}`)}
+          onClick={() => router.push(`/edit-routine/${routine._id.toString()}`)}
           bgColor={'inherit'}
           icon={<EditIcon color={theme.colors.brandSecondary['600']} />}
         >
