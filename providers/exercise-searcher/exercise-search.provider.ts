@@ -14,7 +14,7 @@ class ExerciseSearcher implements ExerciseSearchProviderInterface {
   constructor(private allExercises: ExerciseObject[]) {
     const options = {
       keys: ['id', 'equipment', 'bodyPart', 'name', 'targetMuscle'],
-      threshold: 0.3,
+      threshold: 0.35,
       includeScore: true,
     };
     const exercisesIndex = Fuse.createIndex(options.keys, this.allExercises);
@@ -39,25 +39,29 @@ class ExerciseSearcher implements ExerciseSearchProviderInterface {
     // if filters, use text for name and apply filters
     const equipmentFilter = Object.values(filters.equipmentFilters).map(
       (equipment) => ({
-        equipment,
+        equipment: `'${equipment}`,
       })
     );
     // if filters, use text for name and apply filters
     const targetMuscleFilter = Object.values(filters.targetMuscleFilters).map(
       (targetMuscle) => ({
-        targetMuscle,
+        targetMuscle: `'${targetMuscle}`,
       })
     );
+    const appliedFilters = [
+      !!input ? { name: input || ' ' } : null,
+      equipmentFilter.length > 0 ? { $or: [...equipmentFilter] } : null,
+      targetMuscleFilter.length > 0 ? { $or: [...targetMuscleFilter] } : null,
+    ].filter((filter) => filter !== null);
+
     const searchInput = {
-      $and: [
-        { name: input || ' ' },
-        { $or: [...equipmentFilter, ...targetMuscleFilter] },
-      ],
+      $and: [...appliedFilters],
     };
-
-    const result = this.fuse.search(searchInput);
-
-    return result.map((exercise) => exercise.item);
+    console.log(searchInput);
+    if (appliedFilters.length > 0) {
+      const result = this.fuse.search(searchInput as string | Fuse.Expression);
+      return result.map((exercise) => exercise.item);
+    }
   }
 }
 

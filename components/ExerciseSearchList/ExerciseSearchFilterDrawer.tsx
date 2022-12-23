@@ -84,7 +84,43 @@ export default function ExerciseSearchFilterDrawer(props: {
             </IconButton>
           </Flex>
         </DrawerHeader>
+
         <DrawerBody>
+          <Flex>
+            <Button onClick={() => setFilters(defaultFilters)} mr={5}>
+              Clear Filters
+            </Button>
+            <Button colorScheme={'brandPrimary'} onClick={onFiltersClose}>
+              Apply Filters
+            </Button>
+          </Flex>
+          <Box mt={3}>
+            <Text variant={'h3'} fontSize="2xl" mb={2}>
+              Target Muscle
+            </Text>
+
+            {Object.entries(targetMuscle).map(([key, value]) => {
+              const isActive = filters.targetMuscleFilters?.includes(value);
+
+              return (
+                <Button
+                  onClick={() => {
+                    const newFilters = {
+                      ...filters,
+                      targetMuscleFilters: isActive
+                        ? pull(filters.targetMuscleFilters, value)
+                        : [...filters.targetMuscleFilters, value],
+                    };
+                    setFilters(newFilters);
+                  }}
+                  isActive={isActive}
+                  key={key}
+                >
+                  {value}
+                </Button>
+              );
+            })}
+          </Box>
           <Box>
             <Text variant={'h3'} fontSize="2xl" mb={2}>
               Equipment
@@ -113,33 +149,7 @@ export default function ExerciseSearchFilterDrawer(props: {
               );
             })}
           </Box>
-          <Box mt={5}>
-            <Text variant={'h3'} fontSize="2xl" mb={2}>
-              Target Muscle
-            </Text>
 
-            {Object.entries(targetMuscle).map(([key, value]) => {
-              const isActive = filters.targetMuscleFilters?.includes(value);
-
-              return (
-                <Button
-                  onClick={() => {
-                    const newFilters = {
-                      ...filters,
-                      targetMuscleFilters: isActive
-                        ? pull(filters.targetMuscleFilters, value)
-                        : [...filters.targetMuscleFilters, value],
-                    };
-                    setFilters(newFilters);
-                  }}
-                  isActive={isActive}
-                  key={key}
-                >
-                  {value}
-                </Button>
-              );
-            })}
-          </Box>
           <Flex mt={5}>
             <Button onClick={() => setFilters(defaultFilters)} mr={5}>
               Clear Filters

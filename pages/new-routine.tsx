@@ -102,8 +102,6 @@ export default function NewRoutinePage() {
   const [exercises] = useGetAllExercises();
 
   const handleExerciseOnClick = (exercise: ExerciseObject) => {
-    // TODO somehow get sets and reps here
-    // Add new exercise to current routine and remove from search results
     const newRoutine: RoutineObject = routineProvider.addExerciseToRoutine({
       routine: currentRoutine,
       newExercise: exercise,
