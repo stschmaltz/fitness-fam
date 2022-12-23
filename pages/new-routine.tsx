@@ -1,24 +1,13 @@
-import {
-  Alert,
-  Box,
-  Button,
-  Flex,
-  Input,
-  Link,
-  Text,
-  useToast,
-} from '@chakra-ui/react';
+import { Alert, Box, Button, Flex, Input, Link, Text } from '@chakra-ui/react';
 import { InfoIcon } from '@chakra-ui/icons';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import { DropResult } from 'react-beautiful-dnd';
 import { ObjectId } from 'bson';
+import { useRouter } from 'next/router';
 
 import Layout from '../components/layout';
 import { ExerciseObject } from '../types/exercise';
 import { RoutineExerciseObject, RoutineObject } from '../types/routine';
-import { asyncFetch } from '../data/graphql/graphql-fetcher';
-import { saveRoutineMutationGraphQL } from '../data/graphql/snippets/mutation';
 import CurrentRoutineList from '../components/CurrentRoutineList';
 import NoExercisesRoutineList from '../components/NoExercisesRoutineList';
 import ExerciseSearchList from '../components/ExerciseSearchList';
@@ -31,20 +20,25 @@ import { RoutineProviderInterface } from '../providers/routine.provider/routine.
 import BasicLoader from '../components/BasicLoader';
 import { useUserSignIn } from '../hooks/use-user-sign-in.hook';
 import { useGetAllExercises } from '../hooks/use-get-all-exercises.hook';
+import { useHandleSaveRoutine } from '../hooks/use-handle-save-routine.hook';
 
 export default function NewRoutinePage() {
-  const currentRoutineLocalStorageKey = 'currentRoutine';
-
   const router = useRouter();
+  const currentRoutineLocalStorageKey = 'currentRoutine';
 
   const [isLoading, currentUser] = useUserSignIn();
 
   /** Routines */
+  const handleSaveRoutineHookFunction = useHandleSaveRoutine();
+  const handleSaveRoutine = (routine: RoutineObject) => {
+    handleSaveRoutineHookFunction(routine);
+    localStorageProvider.removeItem(currentRoutineLocalStorageKey);
+    router.push('/');
+  };
+
   const routineProvider = appContainer.get<RoutineProviderInterface>(
     TYPES.RoutineProvider
   );
-
-  const routineSaveToast = useToast();
 
   const [currentRoutine, setCurrentRoutine] = useState<RoutineObject>({
     _id: new ObjectId(),
@@ -74,33 +68,6 @@ export default function NewRoutinePage() {
       currentRoutine
     );
   }, [currentRoutine]);
-
-  const handleSaveRoutine = async (routine: RoutineObject) => {
-    if (!routine.name || !routine.exercises.length) return;
-    try {
-      await asyncFetch(saveRoutineMutationGraphQL, { input: { routine } });
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : error;
-
-      console.log('Error saving routine', { errorMessage });
-      routineSaveToast({
-        title: 'Something went wrong saving routine.',
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      });
-    }
-
-    localStorageProvider.removeItem(currentRoutineLocalStorageKey);
-
-    routineSaveToast({
-      title: 'Routine Saved.',
-      status: 'success',
-      duration: 3000,
-      isClosable: true,
-    });
-    router.push('/');
-  };
 
   const disableSaveButton =
     !currentRoutine.name || !currentRoutine.exercises.length;
