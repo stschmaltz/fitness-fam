@@ -2,7 +2,7 @@ import { Box, Flex, Text, Tooltip } from '@chakra-ui/react';
 import { useRef, useState } from 'react';
 import { titleCase } from 'title-case';
 import RoutineScrollerExerciseList from './RoutineScrollerExerciseList';
-import DeleteRoutineButton from './DeleteRoutineButton';
+import RoutineOptionsMenu from './RoutineOptionsMenu';
 import { theme } from '../../styles/theme';
 import utilStyles from '../../styles/utils.module.css';
 import { RoutineObject } from '../../types/routine';
@@ -54,6 +54,7 @@ export default function RoutineScroller(props: {
           borderTopRadius="md"
           data-name="Routine name"
           alignItems="center"
+          justifyContent={'space-between'}
           borderTop={'1px solid ' + listBorderColor}
           borderX={'1px solid ' + listBorderColor}
           display="inline-flex"
@@ -81,7 +82,7 @@ export default function RoutineScroller(props: {
             </Text>
           </Tooltip>
           <Box ml={3}>
-            <DeleteRoutineButton
+            <RoutineOptionsMenu
               onDeleteRoutine={onDeleteRoutine}
               routineId={props.routine._id.toString()}
             />

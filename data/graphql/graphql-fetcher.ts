@@ -10,8 +10,12 @@ const fetcher = (query: string, variables?: object) =>
     .then((json) => json.data);
 
 async function asyncFetch(query: string, variables?: object) {
+  const fetchUrl = process.env.AUTH0_BASE_URL
+    ? `${process.env.AUTH0_BASE_URL}/api/graphql`
+    : '/api/graphql';
+
   try {
-    const res = await fetch(`/api/graphql`, {
+    const res = await fetch(fetchUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

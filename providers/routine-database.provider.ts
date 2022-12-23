@@ -60,12 +60,18 @@ async function saveRoutine(routine: RoutineObject): Promise<RoutineObject> {
   try {
     const { db } = await getDbClient();
 
-    await db.collection(collectionName).insertOne({
-      ...routine,
-      _id: new ObjectId(routine._id),
-      userId: new ObjectId(routine.userId),
-      status: RoutineStatus.ACTIVE,
-    });
+    await db.collection(collectionName).findOneAndUpdate(
+      { _id: new ObjectId(routine._id) },
+      {
+        $set: {
+          ...routine,
+          _id: new ObjectId(routine._id),
+          userId: new ObjectId(routine.userId),
+          status: RoutineStatus.ACTIVE,
+        },
+      },
+      { upsert: true }
+    );
 
     return routine;
   } catch (error) {
@@ -92,9 +98,31 @@ async function deleteRoutine(routineId: string): Promise<void> {
     throw error;
   }
 }
+
+async function findRoutineById(id: string): Promise<RoutineObject | undefined> {
+  try {
+    const { db } = await getDbClient();
+    const routineDocument: RoutineDocument | null = (await db
+      .collection(collectionName)
+      .findOne({ _id: new ObjectId(id) })) as RoutineDocument | null;
+
+    if (!routineDocument) {
+      // throw new Error('Routine not found with id: ' + id + '.');
+      return;
+    }
+
+    return mapRoutineDocumentToRoutineObject(routineDocument);
+  } catch (error) {
+    console.log(error);
+
+    throw error;
+  }
+}
+
 export {
   saveRoutine,
   getRoutinesForUser,
   deleteRoutine,
+  findRoutineById,
   mapRoutineDocumentToRoutineObject,
 };

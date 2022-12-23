@@ -2,6 +2,8 @@ const fullRoutine = `{
     _id  
     order
     name
+    userId
+    
     exercises{
       order
       id

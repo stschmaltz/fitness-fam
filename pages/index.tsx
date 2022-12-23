@@ -2,43 +2,21 @@ import Link from 'next/link';
 import { Box, Button, Container, Flex, Spinner } from '@chakra-ui/react';
 import { List, ListItem } from '@chakra-ui/react';
 import { Text, useToast } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
-import { useUser } from '@auth0/nextjs-auth0/client';
 import { AddIcon } from '@chakra-ui/icons';
 import orderBy from 'lodash/orderBy';
 import Layout from '../components/layout';
 import { asyncFetch } from '../data/graphql/graphql-fetcher';
 import { RoutineObject } from '../types/routine';
-import {
-  deleteRoutineMutationGraphQL,
-  signInUserMutationGraphQL,
-  SignInUserMutationResponse,
-} from '../data/graphql/snippets/mutation';
-import { useCurrentUserContext } from '../context/UserContext';
+import { deleteRoutineMutationGraphQL } from '../data/graphql/snippets/mutation';
 import { theme } from '../styles/theme';
 import utilStyles from '../styles/utils.module.css';
 import RoutineScroller from '../components/RoutineScroller';
 import BasicLoader from '../components/BasicLoader';
+import { useUserSignIn } from '../hooks/use-user-sign-in.hook';
 
 export default function Home() {
-  const { user, isLoading } = useUser();
-  const { currentUser, setCurrentUser } = useCurrentUserContext();
   const toast = useToast();
-  const [isLoadingRoutines, setIsLoadingRoutines] = useState(true);
-
-  useEffect(() => {
-    if (user) {
-      setIsLoadingRoutines(true);
-      asyncFetch(signInUserMutationGraphQL, {
-        input: { email: user.email },
-      }).then((data: SignInUserMutationResponse) => {
-        setCurrentUser && setCurrentUser(data.userSignIn.user);
-        setIsLoadingRoutines(false);
-      });
-    } else {
-      setIsLoadingRoutines(false);
-    }
-  }, [user, setCurrentUser]);
+  const [isLoading, currentUser, setCurrentUser] = useUserSignIn();
 
   const handleDeleteRoutine = async (routineId: string): Promise<void> => {
     console.log('Deleting routine', { routineId });
@@ -101,7 +79,7 @@ export default function Home() {
           )}
         </Flex>
         <Box mt={3}>
-          {!currentUser?.routines.length && isLoadingRoutines && (
+          {!currentUser?.routines.length && isLoading && (
             <Spinner color="brandPrimary.500" />
           )}
 
@@ -119,7 +97,7 @@ export default function Home() {
               )}
             </List>
           ) : (
-            !isLoadingRoutines && (
+            !isLoading && (
               <Flex flexWrap="wrap" flexDir={'column'}>
                 <Text
                   mb={'25'}
@@ -156,7 +134,7 @@ export default function Home() {
           )}
         </Box>
 
-        {user ? (
+        {currentUser ? (
           <Box mt="2">
             <Link href="/api/auth/logout?returnTo=http%3A%2F%2Flocalhost%3A3000">
               Logout

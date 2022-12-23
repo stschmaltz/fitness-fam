@@ -78,7 +78,6 @@ class RoutineProvider implements RoutineProviderInterface {
       ),
     };
 
-    console.log('newRoutine', newRoutine);
     return newRoutine;
   }
 }
