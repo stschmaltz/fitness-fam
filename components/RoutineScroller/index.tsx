@@ -14,7 +14,6 @@ export default function RoutineScroller(props: {
   const listBgColor = theme.colors.accent1['100'];
   const listBorderColor = theme.colors.brandPrimary['100'];
   const scrollRef = useRef<HTMLInputElement>(null);
-
   const defaultExerciseListScrollEventCSS = ``;
   const fullyScrolledStyles = `
       border-bottom-right-radius:4px;
@@ -27,6 +26,7 @@ export default function RoutineScroller(props: {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleScroll = (event: { target: any }) => {
     const { target } = event;
+
     const endOfScroll =
       target.scrollLeft + target.offsetWidth >= target.scrollWidth;
 
@@ -59,7 +59,7 @@ export default function RoutineScroller(props: {
           display="inline-flex"
           bgColor={listBgColor}
           mb={-0.4}
-          zIndex={2}
+          zIndex={5}
           minW={'150px'}
           maxWidth="587px"
         >
@@ -89,10 +89,10 @@ export default function RoutineScroller(props: {
         </Flex>
       </Box>
       <Box
+        overflowX="auto"
         pos="relative"
         h="11rem"
         className={utilStyles.scrollTouch}
-        overflowX="auto"
         ref={scrollRef}
         onScroll={handleScroll}
         overflowY="hidden"
