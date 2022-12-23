@@ -76,7 +76,7 @@
     "equipment": "Bodyweight",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/3294.gif",
     "id": "3294",
-    "name": "archer push up",
+    "name": "archer push-up",
     "targetMuscle": "Pectorals",
     "instructions": []
   },
@@ -3955,7 +3955,7 @@
     "equipment": "Bodyweight",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/1273.gif",
     "id": "1273",
-    "name": "clap push up",
+    "name": "clap push-up",
     "targetMuscle": "Pectorals",
     "instructions": []
   },
@@ -4126,7 +4126,7 @@
     "equipment": "Dumbbell",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/1274.gif",
     "id": "1274",
-    "name": "deep push up",
+    "name": "deep push-up",
     "targetMuscle": "Pectorals",
     "instructions": []
   },
@@ -4153,7 +4153,7 @@
     "equipment": "Bodyweight",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/1275.gif",
     "id": "1275",
-    "name": "drop push up",
+    "name": "drop push-up",
     "targetMuscle": "Pectorals",
     "instructions": []
   },
@@ -6907,7 +6907,7 @@
     "equipment": "Yoga Ball",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/1296.gif",
     "id": "1296",
-    "name": "exercise ball pike push up",
+    "name": "exercise ball pike push-up",
     "targetMuscle": "Pectorals",
     "instructions": []
   },
@@ -7627,7 +7627,7 @@
     "equipment": "Bodyweight",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/0492.gif",
     "id": "0492",
-    "name": "incline push up depth jump",
+    "name": "incline push-up depth jump",
     "targetMuscle": "Pectorals",
     "instructions": []
   },
@@ -7663,7 +7663,7 @@
     "equipment": "Bodyweight",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/3011.gif",
     "id": "3011",
-    "name": "incline scapula push up",
+    "name": "incline scapula push-up",
     "targetMuscle": "Serratus Anterior",
     "instructions": []
   },
@@ -9188,7 +9188,7 @@
     "equipment": "Medicine Ball",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/1701.gif",
     "id": "1701",
-    "name": "medicine ball close grip push up",
+    "name": "medicine ball close grip push-up",
     "targetMuscle": "Triceps",
     "instructions": []
   },
@@ -9233,7 +9233,7 @@
     "equipment": "Bodyweight",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/1421.gif",
     "id": "1421",
-    "name": "modified push up to lower arms",
+    "name": "modified push-up to lower arms",
     "targetMuscle": "Forearms",
     "instructions": []
   },
@@ -9476,7 +9476,7 @@
     "equipment": "Bodyweight",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/1306.gif",
     "id": "1306",
-    "name": "plyo push up",
+    "name": "plyo push-up",
     "targetMuscle": "Pectorals",
     "instructions": []
   },
@@ -9602,7 +9602,7 @@
     "equipment": "Bosu Ball",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/1307.gif",
     "id": "1307",
-    "name": "push up on bosu ball",
+    "name": "push-up on bosu ball (flat side up)",
     "targetMuscle": "Pectorals",
     "instructions": []
   },
@@ -9620,7 +9620,7 @@
     "equipment": "Bosu Ball",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/0653.gif",
     "id": "0653",
-    "name": "push-up (bosu ball)",
+    "name": "push-up on bosu ball (flat side down)",
     "targetMuscle": "Pectorals",
     "instructions": []
   },
@@ -11015,7 +11015,7 @@
     "equipment": "Bodyweight",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/0778.gif",
     "id": "0778",
-    "name": "spider crawl push up",
+    "name": "spider crawl push-up",
     "targetMuscle": "Glutes",
     "instructions": []
   },
@@ -11591,7 +11591,7 @@
     "equipment": "WEIGHTED",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/1310.gif",
     "id": "1310",
-    "name": "weighted drop push up",
+    "name": "weighted drop push-up",
     "targetMuscle": "Pectorals",
     "instructions": []
   },
@@ -11888,7 +11888,7 @@
     "equipment": "Bodyweight",
     "gifUrl": "http://d205bpvrqc9yn1.cloudfront.net/1311.gif",
     "id": "1311",
-    "name": "wide hand push up",
+    "name": "wide hand push-up",
     "targetMuscle": "Pectorals",
     "instructions": []
   },

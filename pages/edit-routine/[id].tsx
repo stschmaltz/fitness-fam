@@ -80,8 +80,6 @@ export default function EditRoutinePage(props: { routine?: RoutineObject }) {
   const [exercises] = useGetAllExercises();
 
   const handleExerciseOnClick = (exercise: ExerciseObject) => {
-    // TODO somehow get sets and reps here
-    // Add new exercise to current routine and remove from search results
     const newRoutine: RoutineObject = routineProvider.addExerciseToRoutine({
       routine: currentRoutine,
       newExercise: exercise,
@@ -131,6 +129,7 @@ export default function EditRoutinePage(props: { routine?: RoutineObject }) {
 
   if (!currentUser) {
     return (
+      // TODO: real 401 page
       <Layout home={false}>
         <div>401: Not Authorized</div>
       </Layout>
