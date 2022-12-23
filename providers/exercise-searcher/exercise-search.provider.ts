@@ -57,11 +57,13 @@ class ExerciseSearcher implements ExerciseSearchProviderInterface {
     const searchInput = {
       $and: [...appliedFilters],
     };
-    console.log(searchInput);
+
     if (appliedFilters.length > 0) {
       const result = this.fuse.search(searchInput as string | Fuse.Expression);
       return result.map((exercise) => exercise.item);
     }
+
+    return [];
   }
 }
 
