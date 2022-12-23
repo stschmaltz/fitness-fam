@@ -84,7 +84,7 @@ export default function RoutineScroller(props: {
           <Box ml={3}>
             <RoutineOptionsMenu
               onDeleteRoutine={onDeleteRoutine}
-              routineId={props.routine._id.toString()}
+              routine={props.routine}
             />
           </Box>
         </Flex>
