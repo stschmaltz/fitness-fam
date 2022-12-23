@@ -56,7 +56,7 @@ export default function App({ Component, pageProps }: AppProps) {
           content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
         />
       </Head>
-      <UserProvider>
+      <UserProvider user={pageProps.user}>
         <ChakraProvider theme={theme}>
           <CurrentUserProvider>
             <Component {...pageProps} />
