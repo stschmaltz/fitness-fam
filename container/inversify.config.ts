@@ -17,7 +17,7 @@ const allExercises = exercises.map((exercise) => ({
   name: titleCase(exercise.name),
   targetMuscle: exercise.targetMuscle,
   equipment: exercise.equipment,
-  bodyPart: exercise.bodyPart,
+  bodyArea: exercise.bodyArea,
   gifUrl: exercise.gifUrl,
   id: exercise.id,
   instructions: exercise.instructions,

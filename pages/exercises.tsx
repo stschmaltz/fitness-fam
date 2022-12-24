@@ -39,7 +39,7 @@ export default function ExercisesPage() {
           <Container key={exercise.id}>
             <Link href={`/exercises/${exercise.id}`}>
               <Text>
-                - {exercise.name} ({exercise.bodyPart})
+                - {exercise.name} ({exercise.bodyArea})
               </Text>
             </Link>
           </Container>

@@ -1,13 +1,18 @@
-import { EQUIPMENT, ExerciseObject, targetMuscle } from '../../types/exercise';
+import {
+  BODY_AREA,
+  EQUIPMENT,
+  ExerciseObject,
+  TARGET_MUSCLE,
+} from '../../types/exercise';
 
 enum SearchFilterType {
-  targetMuscle = 'targetMuscle',
+  TARGET_MUSCLE = 'targetMuscle',
   EQUIPMENT = 'equipment',
 }
 
 export interface TargetMuscleSearchFilter {
-  type: SearchFilterType.targetMuscle;
-  values: targetMuscle[];
+  type: SearchFilterType.TARGET_MUSCLE;
+  values: TARGET_MUSCLE[];
 }
 
 export interface EquipmentSearchFilter {
@@ -16,8 +21,9 @@ export interface EquipmentSearchFilter {
 }
 
 export type SearchFilters = {
-  targetMuscleFilters: targetMuscle[];
+  targetMuscleFilters: TARGET_MUSCLE[];
   equipmentFilters: EQUIPMENT[];
+  bodyAreaFilters: BODY_AREA[];
 };
 
 export interface ExerciseSearchProviderInterface {

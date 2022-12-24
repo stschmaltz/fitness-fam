@@ -1,5 +1,6 @@
 import {
   Badge,
+  Box,
   Button,
   Flex,
   IconButton,
@@ -13,6 +14,7 @@ import { AddIcon, InfoIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
 
 import ExerciseSearchFilterDrawer from './ExerciseSearchFilterDrawer';
+import { BodyAreaToIconMap } from './ExerciseBodyPartToIconMap';
 import ExerciseInfoModal from '../ExerciseInfoModal';
 import { ExerciseObject } from '../../types/exercise';
 import { theme } from '../../styles/theme';
@@ -83,33 +85,51 @@ export default function ExerciseSearchList(props: {
         {searchResults.length > 0 ? (
           searchResults.map((exercise) => (
             <ListItem key={exercise.id}>
-              <Flex backgroundColor={theme.colors.gray['50']}>
+              <Flex
+                justifyContent="space-between"
+                backgroundColor={theme.colors.gray['50']}
+                pr={3}
+              >
                 <Button
+                  w="100%"
+                  justifyContent={'flex-start'}
                   aria-label="add exercise to routine"
-                  justifyContent="flex-start"
                   backgroundColor={theme.colors.gray['50']}
                   leftIcon={
                     <AddIcon
-                      fontSize={'1xl'}
-                      color={theme.colors.brandSecondary['500']}
+                      fontSize={'lg'}
+                      color={theme.colors.green['500']}
                     />
                   }
                   flexGrow="1"
                   flexShrink="1"
-                  overflowX="clip"
                   onClick={() =>
                     handleExerciseOnClick(exercise as ExerciseObject)
                   }
                 >
-                  <Text fontSize="md">{exercise.name}</Text>
+                  <Text
+                    textAlign={'left'}
+                    overflowX="hidden"
+                    textOverflow={'ellipsis'}
+                    whiteSpace="normal"
+                    overflowY={'hidden'}
+                    fontSize="md"
+                  >
+                    {exercise.name}
+                  </Text>
                 </Button>
-                <IconButton
-                  color={theme.colors.secondAccent}
-                  aria-label="add exercise to routine"
-                  icon={<InfoIcon />}
-                  onClick={() => showExerciseInfo(exercise as ExerciseObject)}
-                  backgroundColor={theme.colors.gray['50']}
-                />
+                <Flex alignItems="center">
+                  <Box color="primary">
+                    {BodyAreaToIconMap[exercise.bodyArea].icon}
+                  </Box>
+                  <IconButton
+                    color={theme.colors.accent2['50']}
+                    aria-label="add exercise to routine"
+                    icon={<InfoIcon />}
+                    onClick={() => showExerciseInfo(exercise as ExerciseObject)}
+                    backgroundColor={theme.colors.gray['50']}
+                  />
+                </Flex>
               </Flex>
             </ListItem>
           ))

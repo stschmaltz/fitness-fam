@@ -5,7 +5,7 @@ const exerciseTypeDefs = /* GraphQL */ `
   }
 
   type Exercise {
-    bodyPart: String!
+    bodyArea: String!
     equipment: String!
     gifUrl: String!
     id: String!

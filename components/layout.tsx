@@ -17,7 +17,7 @@ import { useLocalStorage } from '../hooks/use-local-storage.hook';
 import styles from '../styles/layout.module.css';
 import { theme } from '../styles/theme';
 
-export const siteTitle = 'Fitness Fam';
+export const siteTitle = 'FitnessFam.app';
 
 export default function Layout(input: {
   children: ReactNode | undefined;
@@ -31,7 +31,10 @@ export default function Layout(input: {
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta name="description" content="App to help organize exercises" />
-        <meta property="og:image" content={`./profile.png`} />
+        <meta
+          property="og:image"
+          content={`https://fitnessfam.app/images/profile.png`}
+        />
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>

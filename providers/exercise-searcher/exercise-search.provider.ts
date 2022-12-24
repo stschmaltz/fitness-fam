@@ -13,7 +13,7 @@ class ExerciseSearcher implements ExerciseSearchProviderInterface {
 
   constructor(private allExercises: ExerciseObject[]) {
     const options = {
-      keys: ['id', 'equipment', 'bodyPart', 'name', 'targetMuscle'],
+      keys: ['id', 'equipment', 'bodyArea', 'name', 'targetMuscle'],
       threshold: 0.35,
       includeScore: true,
     };
@@ -25,9 +25,12 @@ class ExerciseSearcher implements ExerciseSearchProviderInterface {
     input: string,
     filters: SearchFilters
   ): ExerciseObject[] {
+    console.log('SEARCHING');
     // if no filters search fuzzy on all fields
     if (
-      filters.equipmentFilters.length + filters.targetMuscleFilters.length ===
+      filters.equipmentFilters.length +
+        filters.bodyAreaFilters.length +
+        filters.targetMuscleFilters.length ===
       0
     ) {
       // TODO: play with score
@@ -48,18 +51,30 @@ class ExerciseSearcher implements ExerciseSearchProviderInterface {
         targetMuscle: `'${targetMuscle}`,
       })
     );
+    // if filters, use text for name and apply filters
+    const bodyAreaFilter = Object.values(filters.bodyAreaFilters).map(
+      (bodyArea) => ({
+        bodyArea: `'${bodyArea}`,
+      })
+    );
     const appliedFilters = [
       !!input ? { name: input || ' ' } : null,
       equipmentFilter.length > 0 ? { $or: [...equipmentFilter] } : null,
       targetMuscleFilter.length > 0 ? { $or: [...targetMuscleFilter] } : null,
+      bodyAreaFilter.length > 0 ? { $or: [...bodyAreaFilter] } : null,
     ].filter((filter) => filter !== null);
 
     const searchInput = {
-      $and: [...appliedFilters],
+      ...(appliedFilters.length > 1
+        ? { $and: [...appliedFilters] }
+        : appliedFilters[0]),
     };
+    console.log('searchInput', { searchInput });
 
     if (appliedFilters.length > 0) {
       const result = this.fuse.search(searchInput as string | Fuse.Expression);
+      console.log('result', { result });
+
       return result.map((exercise) => exercise.item);
     }
 
