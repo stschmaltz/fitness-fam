@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200pt" height="1200pt" version="1.1" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">
+ <path transform="scale(50)" d="m11.2 10.9 1.7 3.7c0.3 0.7-0.2 1.4-0.9 1.4h-7" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
+ <path transform="scale(50)" d="m6 5 4.1-1.1c0.6-0.2 1.2 0 1.7 0.3l3.9 2.9c0.4 0.3 0.7 0.7 0.8 1.2l0.2 1.1c0.2 0.9 1 1.6 2 1.6h3.3" fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2"/>
+ <path d="m795 425-180 145v215l-140-195c-30-40-25-100 15-135l225-190 85 60z"/>
+ <path d="m1e3 200c0 55.227-44.773 100-100 100s-100-44.773-100-100 44.773-100 100-100 100 44.773 100 100"/>
+ <path d="m395 1100 195-200h-140l-140 145z"/>
+ <path d="m450 390 55-40h-405v50h335c5-5 10-5 15-10z"/>
+ <path d="m375 550h-275v50h290c-10-15-10-35-15-50z"/>
+ <path d="m395 450h-295v50h280c0-20 10-35 15-50z"/>
+</svg>

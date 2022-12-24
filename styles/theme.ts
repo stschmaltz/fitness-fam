@@ -4,7 +4,7 @@ const brandPrimary = '#E63946';
 const brandLight = '#FFdddd';
 const firstAccent = '#a8dadc';
 const secondAccent = '#1D3557';
-const thirdAccent = '#f1faee';
+const thirdAccent = '#EB603E';
 const brandSecondary = '#457b9d';
 
 const colors = {
@@ -64,16 +64,16 @@ const colors = {
     '900': '#132B4D',
   },
   accent3: {
-    '50': '#FFFFFF',
-    '100': '#FBFFF8',
-    '200': '#F1FAEE',
-    '300': '#E7F0E4',
-    '400': '#DDE6DA',
-    '500': '#D3DCD0',
-    '600': '#C9D2C6',
-    '700': '#BFC8BC',
-    '800': '#B5BEB2',
-    '900': '#A1AA9E',
+    '50': '#FFB08E',
+    '100': '#FFA684',
+    '200': '#FF9C7A',
+    '300': '#FF9270',
+    '400': '#FF8866',
+    '500': '#FF7E5C',
+    '600': '#F56A48',
+    '700': '#EB603E',
+    '800': '#E15634',
+    '900': '#D74C2A',
   },
 };
 
@@ -127,11 +127,11 @@ const theme = extendTheme({
     accent2: colors.accent2,
     accent3: colors.accent3,
 
-    green: colors.accent1,
+    teal: colors.accent1,
     blue: colors.brandSecondaryColors,
     red: colors.brandPrimaryColors,
     purple: colors.accent2,
-    teal: colors.accent3,
+    orange: colors.accent3,
   },
 
   styles: {

@@ -14,7 +14,8 @@ import { CloseIcon } from '@chakra-ui/icons';
 import { useEffect, useState } from 'react';
 import pull from 'lodash/pull';
 
-import { EQUIPMENT, ExerciseObject, targetMuscle } from '../../types/exercise';
+import { BODY_AREA } from './ExerciseBodyPartToIconMap';
+import { EQUIPMENT, ExerciseObject, TARGET_MUSCLE } from '../../types/exercise';
 import { appContainer } from '../../container/inversify.config';
 import { TYPES } from '../../container/types';
 import {
@@ -39,6 +40,7 @@ export default function ExerciseSearchFilterDrawer(props: {
   const defaultFilters: SearchFilters = {
     equipmentFilters: [],
     targetMuscleFilters: [],
+    bodyAreaFilters: [],
   };
   const [filters, setFilters] = useState<SearchFilters>(defaultFilters);
 
@@ -53,15 +55,18 @@ export default function ExerciseSearchFilterDrawer(props: {
   useEffect(() => {
     const exerciseFilterCount = filters.equipmentFilters.length;
     const muscleFilterCount = filters.targetMuscleFilters.length;
+    const bodyAreaFilterCount = filters.bodyAreaFilters.length;
 
-    setFilterCount(exerciseFilterCount + muscleFilterCount);
+    setFilterCount(
+      exerciseFilterCount + muscleFilterCount + bodyAreaFilterCount
+    );
   }, [filters, setFilterCount]);
 
   useEffect(() => {
     const results =
       exerciseSearcher.searchForExercises(searchText, filters) || [];
 
-    updateSearchResults(results.slice(0, 100));
+    updateSearchResults(results.slice(0, 250));
   }, [filters, searchText, exerciseSearcher, updateSearchResults]);
 
   return (
@@ -96,20 +101,20 @@ export default function ExerciseSearchFilterDrawer(props: {
           </Flex>
           <Box mt={3}>
             <Text variant={'h3'} fontSize="2xl" mb={2}>
-              Target Muscle
+              Body Area
             </Text>
 
-            {Object.entries(targetMuscle).map(([key, value]) => {
-              const isActive = filters.targetMuscleFilters?.includes(value);
+            {Object.entries(BODY_AREA).map(([key, value]) => {
+              const isActive = filters.bodyAreaFilters?.includes(value);
 
               return (
                 <Button
                   onClick={() => {
                     const newFilters = {
                       ...filters,
-                      targetMuscleFilters: isActive
-                        ? pull(filters.targetMuscleFilters, value)
-                        : [...filters.targetMuscleFilters, value],
+                      bodyAreaFilters: isActive
+                        ? pull(filters.bodyAreaFilters, value)
+                        : [...filters.bodyAreaFilters, value],
                     };
                     setFilters(newFilters);
                   }}
@@ -121,7 +126,7 @@ export default function ExerciseSearchFilterDrawer(props: {
               );
             })}
           </Box>
-          <Box>
+          <Box mt={3}>
             <Text variant={'h3'} fontSize="2xl" mb={2}>
               Equipment
             </Text>
@@ -138,6 +143,33 @@ export default function ExerciseSearchFilterDrawer(props: {
                       equipmentFilters: isActive
                         ? pull(filters.equipmentFilters, value)
                         : [...filters.equipmentFilters, value],
+                    };
+                    setFilters(newFilters);
+                  }}
+                  isActive={isActive}
+                  key={key}
+                >
+                  {value}
+                </Button>
+              );
+            })}
+          </Box>
+          <Box mt={3}>
+            <Text variant={'h3'} fontSize="2xl" mb={2}>
+              Target Muscle
+            </Text>
+
+            {Object.entries(TARGET_MUSCLE).map(([key, value]) => {
+              const isActive = filters.targetMuscleFilters?.includes(value);
+
+              return (
+                <Button
+                  onClick={() => {
+                    const newFilters = {
+                      ...filters,
+                      targetMuscleFilters: isActive
+                        ? pull(filters.targetMuscleFilters, value)
+                        : [...filters.targetMuscleFilters, value],
                     };
                     setFilters(newFilters);
                   }}

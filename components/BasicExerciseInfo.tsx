@@ -9,15 +9,31 @@ export default function BasicExerciseInfo(props: { exercise: ExerciseObject }) {
         <Text variant="h1">{exercise?.name}</Text>
       </Flex>
       <Flex flexDir="column" alignItems="flex-start" textAlign="left">
-        <Flex mt={5} w="100%" justifyContent="space-between">
-          <Box key="equipment">
-            <Text variant="h3">Equipment:</Text>
-            <Text>{exercise?.equipment}</Text>
-          </Box>
-          <Box key="target">
-            <Text variant="h3">Target Muscle:</Text>
-            <Text>{exercise?.targetMuscle}</Text>
-          </Box>
+        <Flex mt={5} flexDir={'column'}>
+          <Flex justifyContent="space-between" key="equipment">
+            <Text as="span" variant="h3">
+              Equipment:
+            </Text>
+            <Text pl={5} as="span">
+              {exercise?.equipment}
+            </Text>
+          </Flex>
+          <Flex justifyContent="space-between" key="target">
+            <Text as="span" variant="h3">
+              Body Area:
+            </Text>
+            <Text pl={5} as="span">
+              {exercise?.bodyArea}
+            </Text>
+          </Flex>
+          <Flex justifyContent="space-between" key="target">
+            <Text as="span" variant="h3">
+              Target Muscle:
+            </Text>
+            <Text pl={5} as="span">
+              {exercise?.targetMuscle}
+            </Text>
+          </Flex>
         </Flex>
         <Box key="gif">
           <Box>

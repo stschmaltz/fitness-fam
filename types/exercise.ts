@@ -3,7 +3,7 @@ export interface Instruction {
   description: string;
 }
 
-export enum targetMuscle {
+export enum TARGET_MUSCLE {
   ABDUCTORS = 'Abductors',
   ABS = 'Abs',
   ADDUCTORS = 'Adductors',
@@ -51,12 +51,24 @@ export enum EQUIPMENT {
   WEIGHTED = 'Weighted',
   WHEEL_ROLLER = 'Wheel Roller',
 }
+
+export enum BODY_AREA {
+  ARMS = 'Arms',
+  BACK = 'Back',
+  CARDIO = 'Cardio',
+  CHEST = 'Chest',
+  CORE = 'Core',
+  LEGS = 'Legs',
+  NECK = 'Neck',
+  SHOULDERS = 'Shoulders',
+}
+
 export interface ExerciseObject {
   id: string;
   name: string;
   instructions: Instruction[];
-  bodyPart: string;
+  bodyArea: BODY_AREA;
   equipment: EQUIPMENT;
   gifUrl: string;
-  targetMuscle: targetMuscle;
+  targetMuscle: TARGET_MUSCLE;
 }
