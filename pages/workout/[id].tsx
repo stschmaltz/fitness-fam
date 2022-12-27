@@ -13,7 +13,12 @@ import {
 import { Flex, Text } from '@chakra-ui/layout';
 import { Button } from '@chakra-ui/button';
 import Link from 'next/dist/client/link';
-import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import {
+  ArrowBackIcon,
+  ArrowForwardIcon,
+  ViewIcon,
+  ViewOffIcon,
+} from '@chakra-ui/icons';
 import Layout from '../../components/layout';
 import { asyncFetch } from '../../data/graphql/graphql-fetcher';
 import BasicLoader from '../../components/BasicLoader';
@@ -69,8 +74,8 @@ export default function EditRoutinePage(props: { routine?: RoutineObject }) {
   return (
     <Layout showReturnToHome={false}>
       <Link href={'/'}>Return to home</Link>
-      <Box pos="relative" minH="90vh">
-        <Box maxH="90vh" overflow={'auto'} pb={20}>
+      <Box pos="relative" minH="88vh">
+        <Box maxH="81vh" overflow={'auto'} pb={20}>
           <BasicExerciseInfo
             hideGif={hideGif}
             exercise={currentExercise.exercise}
@@ -102,7 +107,13 @@ export default function EditRoutinePage(props: { routine?: RoutineObject }) {
                   value={exerciseSetsValue}
                   max={99}
                 >
-                  <NumberInputField fontWeight={'bold'} fontSize={'3xl'} />
+                  <NumberInputField
+                    color="black"
+                    _disabled={{}}
+                    disabled
+                    fontWeight={'bold'}
+                    fontSize={'3xl'}
+                  />
                   <NumberInputStepper>
                     <NumberIncrementStepper
                       onClick={() =>
@@ -140,6 +151,7 @@ export default function EditRoutinePage(props: { routine?: RoutineObject }) {
             <Flex w={'100%'} justifyContent={'space-between'} mt={2}>
               {currentExerciseIndex && currentExerciseIndex > 0 ? (
                 <Button
+                  leftIcon={<ArrowBackIcon />}
                   variant={'outline'}
                   onClick={() => {
                     setCurrentExercise(
@@ -150,15 +162,18 @@ export default function EditRoutinePage(props: { routine?: RoutineObject }) {
                   Previous
                 </Button>
               ) : (
-                <Box width={58}></Box>
+                <Box width={120}></Box>
               )}
 
-              <Text>
-                {currentExerciseListNumber}/{routine.exercises.length}
-              </Text>
+              <Flex flexGrow={1} justifyContent={'center'}>
+                <Text fontWeight={'bold'}>
+                  {currentExerciseListNumber}/{routine.exercises.length}
+                </Text>
+              </Flex>
               {currentExerciseListNumber < routine.exercises.length ? (
                 <Button
                   colorScheme={'brandPrimary'}
+                  rightIcon={<ArrowForwardIcon />}
                   onClick={() => {
                     setCurrentExercise(
                       routine.exercises[
@@ -176,11 +191,12 @@ export default function EditRoutinePage(props: { routine?: RoutineObject }) {
                 </Button>
               ) : (
                 <Button
+                  colorScheme={'brandPrimary'}
                   onClick={() => {
                     router.push('/');
                   }}
                 >
-                  Finish
+                  Complete
                 </Button>
               )}
             </Flex>
