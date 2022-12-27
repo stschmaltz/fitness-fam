@@ -32,6 +32,16 @@ class ExerciseProvider implements ExerciseProviderInterface {
 
     return exercise;
   }
+
+  async getExercises(ids: string[]): Promise<ExerciseObject[]> {
+    const allExercises = await this.getAllExercises();
+
+    const exercises = allExercises.filter((exercise) =>
+      ids.includes(exercise.id)
+    );
+
+    return exercises;
+  }
 }
 
 export { ExerciseProvider };

@@ -18,7 +18,7 @@ export default function BasicExerciseInfo(props: { exercise: ExerciseObject }) {
               {exercise?.equipment}
             </Text>
           </Flex>
-          <Flex justifyContent="space-between" key="target">
+          <Flex justifyContent="space-between" key="bodyArea">
             <Text as="span" variant="h3">
               Body Area:
             </Text>

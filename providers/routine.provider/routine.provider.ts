@@ -37,6 +37,7 @@ class RoutineProvider implements RoutineProviderInterface {
           id: newExercise.id,
           name: newExercise.name,
           order: routine.exercises.length,
+          exercise: newExercise,
           reps,
           sets,
         },

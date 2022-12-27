@@ -1,5 +1,9 @@
 import { ObjectId } from 'bson';
-import { RoutineExerciseObject, RoutineObject } from '../types/routine';
+import {
+  DBRoutineExerciseObject,
+  DBRoutineObject,
+  RoutineObject,
+} from '../types/routine';
 
 import { getDbClient } from '../data/database/mongodb';
 
@@ -29,13 +33,13 @@ type RoutineDocument = {
 // Cons: ObjectIds are slightly weird and now I'm committing to mongo shapes
 const mapRoutineDocumentToRoutineObject = (
   doc: RoutineDocument
-): RoutineObject => ({
+): DBRoutineObject => ({
   _id: doc._id,
   userId: doc.userId,
   name: doc.name,
   order: doc.order,
   exercises: doc.exercises.map(
-    (exercise): RoutineExerciseObject => ({
+    (exercise): DBRoutineExerciseObject => ({
       id: exercise.id,
       name: exercise.name,
       order: exercise.order,
@@ -45,7 +49,7 @@ const mapRoutineDocumentToRoutineObject = (
   ),
 });
 
-async function getRoutinesForUser(userId: string): Promise<RoutineObject[]> {
+async function getRoutinesForUser(userId: string): Promise<DBRoutineObject[]> {
   const { db } = await getDbClient();
 
   const routineDocuments: RoutineDocument[] = (await db
@@ -99,7 +103,9 @@ async function deleteRoutine(routineId: string): Promise<void> {
   }
 }
 
-async function findRoutineById(id: string): Promise<RoutineObject | undefined> {
+async function findRoutineById(
+  id: string
+): Promise<DBRoutineObject | undefined> {
   try {
     const { db } = await getDbClient();
     const routineDocument: RoutineDocument | null = (await db

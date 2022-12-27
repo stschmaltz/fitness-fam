@@ -46,6 +46,10 @@ export default function Home() {
 
   if (isLoading) <BasicLoader />;
 
+  // currentUser?.routines.forEach((routine) => {
+  //   console.log(routine);
+  // });
+
   return (
     <Layout home>
       <Container pos="relative" mt={5} p={0} width="100%" maxW="inherit">

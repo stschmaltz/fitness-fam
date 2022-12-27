@@ -208,7 +208,7 @@ export const getServerSideProps = async ({
 }) => {
   try {
     const routine = await asyncFetch(
-      `{ routine(id:"${query.id}") ${fullRoutine}  }`
+      `{ routine(id:"${query.id}"){ ${fullRoutine} } }`
     );
 
     return {
