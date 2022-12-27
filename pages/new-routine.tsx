@@ -147,7 +147,12 @@ export default function NewRoutinePage() {
     handleSetsRepsChange(exercise, value, 'sets');
   };
 
-  if (isLoading) return <BasicLoader />;
+  if (isLoading)
+    return (
+      <Box h="80vh">
+        <BasicLoader />
+      </Box>
+    );
 
   return (
     <Layout home={false}>

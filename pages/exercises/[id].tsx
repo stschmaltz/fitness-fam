@@ -1,12 +1,13 @@
 import Head from 'next/head';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
-import { Spinner, Text } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 
 import { fetcher } from '../../data/graphql/graphql-fetcher';
 import Layout from '../../components/layout';
 import BasicExerciseInfo from '../../components/BasicExerciseInfo';
 import { queryExerciseById } from '../../data/graphql/snippets/exercise';
+import BasicLoader from '../../components/BasicLoader';
 
 export default function Exercise() {
   const router = useRouter();
@@ -19,9 +20,9 @@ export default function Exercise() {
   if (error) return <Text>Failed to load</Text>;
   if (!data)
     return (
-      <Text>
-        <Spinner size={'xl'} />
-      </Text>
+      <Box h="80vh">
+        <BasicLoader />
+      </Box>
     );
 
   if (!data.exercise) return <Text>Exercise not found</Text>;

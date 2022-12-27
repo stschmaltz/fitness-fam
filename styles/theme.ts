@@ -83,6 +83,10 @@ const theme = extendTheme({
     useSystemColorMode: false,
   },
   components: {
+    fonts: {
+      heading: `'Open Sans', sans-serif`,
+      body: `'Raleway', sans-serif`,
+    },
     Text: {
       baseStyle: {
         color: 'gray.800',
