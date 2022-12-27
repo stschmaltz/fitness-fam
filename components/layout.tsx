@@ -10,7 +10,6 @@ import {
   Flex,
 } from '@chakra-ui/react';
 import Head from 'next/head';
-import Image from 'next/image';
 import Link from 'next/link';
 import { ReactNode } from 'react';
 import { useLocalStorage } from '../hooks/use-local-storage.hook';
@@ -21,9 +20,9 @@ export const siteTitle = 'FitnessFam.app';
 
 export default function Layout(input: {
   children: ReactNode | undefined;
-  home: boolean;
+  showReturnToHome: boolean;
 }) {
-  const { children, home } = input;
+  const { children, showReturnToHome } = input;
   const [isVisible, setIsVisible] = useLocalStorage('alert', true);
 
   return (
@@ -78,20 +77,9 @@ export default function Layout(input: {
             </Flex>
           </Alert>
         )}
-        {home && (
-          <>
-            <Image
-              priority
-              src="/images/profile.png"
-              height={144}
-              width={144}
-              alt={siteTitle}
-            />
-          </>
-        )}
       </header>
       <main>{children}</main>
-      {!home && (
+      {showReturnToHome && (
         <Container className={styles.backToHome}>
           <Link href="/">← Back to Routines</Link>
         </Container>
