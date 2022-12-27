@@ -1,7 +1,11 @@
 import { useToast } from '@chakra-ui/react';
 import { asyncFetch } from '../data/graphql/graphql-fetcher';
 import { saveRoutineMutationGraphQL } from '../data/graphql/snippets/mutation';
-import { RoutineObject } from '../types/routine';
+import {
+  DBRoutineExerciseObject,
+  DBRoutineObject,
+  RoutineObject,
+} from '../types/routine';
 
 function useHandleSaveRoutine(): (routine: RoutineObject) => Promise<void> {
   const routineSaveToast = useToast();
@@ -9,7 +13,17 @@ function useHandleSaveRoutine(): (routine: RoutineObject) => Promise<void> {
   const handleSaveRoutine = async (routine: RoutineObject) => {
     if (!routine.name || !routine.exercises.length) return;
     try {
-      await asyncFetch(saveRoutineMutationGraphQL, { input: { routine } });
+      const saveRoutineApiInput: DBRoutineObject = {
+        ...routine,
+        exercises: routine.exercises.map(
+          ({ exercise: _, ...rest }): DBRoutineExerciseObject => ({
+            ...rest,
+          })
+        ),
+      };
+      await asyncFetch(saveRoutineMutationGraphQL, {
+        input: { routine: saveRoutineApiInput },
+      });
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : error;
 

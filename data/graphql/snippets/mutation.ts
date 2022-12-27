@@ -3,7 +3,7 @@ import { ApiUser, fullUser } from './user';
 
 const saveRoutineMutationGraphQL = `mutation saveRoutine($input: SaveRoutineInput!){
   saveRoutine(input:$input){
-    routine ${fullRoutine}
+    routine { ${fullRoutine} }
   }
 }`;
 

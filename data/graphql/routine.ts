@@ -1,5 +1,9 @@
 import sortBy from 'lodash/sortBy';
+import { appContainer } from '../../container/inversify.config';
+import { TYPES } from '../../container/types';
+import { ExerciseProviderInterface } from '../../providers/exercise.provider/exercise.provider.interface';
 import { getRoutinesForUser } from '../../providers/routine-database.provider';
+import { RoutineExerciseObject } from '../../types/routine';
 import { UserObject } from '../../types/user';
 
 const routineTypeDefs = /* GraphQL */ `
@@ -38,6 +42,7 @@ const routineTypeDefs = /* GraphQL */ `
   type RoutineExercise {
     order: Int!
     id: String!
+    exercise: Exercise!
     name: String!
     sets: Int
     reps: Int
@@ -62,6 +67,15 @@ const routineResolver = {
         console.log(error);
         return [];
       }
+    },
+  },
+  RoutineExercise: {
+    async exercise(parent: Omit<RoutineExerciseObject, 'exercise'>) {
+      const exerciseProvider = appContainer.get<ExerciseProviderInterface>(
+        TYPES.ExerciseProvider
+      );
+
+      return exerciseProvider.findExerciseById(parent.id);
     },
   },
 };

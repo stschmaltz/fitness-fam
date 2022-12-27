@@ -62,6 +62,6 @@ export default function Exercise() {
 //   console.log(exercise);
 
 //   return {
-//     props: exercise,
+//     props: exercise,Fc
 //   };
 // }
