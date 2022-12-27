@@ -2,7 +2,9 @@ import Link from 'next/link';
 import { Box, Button, Container, Flex, Spinner } from '@chakra-ui/react';
 import { List, ListItem } from '@chakra-ui/react';
 import { Text, useToast } from '@chakra-ui/react';
+import Image from 'next/image';
 import { AddIcon } from '@chakra-ui/icons';
+
 import orderBy from 'lodash/orderBy';
 import Layout from '../components/layout';
 import { asyncFetch } from '../data/graphql/graphql-fetcher';
@@ -13,6 +15,8 @@ import utilStyles from '../styles/utils.module.css';
 import RoutineScroller from '../components/RoutineScroller';
 import BasicLoader from '../components/BasicLoader';
 import { useUserSignIn } from '../hooks/use-user-sign-in.hook';
+
+export const siteTitle = 'FitnessFam.app';
 
 export default function Home() {
   const toast = useToast();
@@ -46,12 +50,17 @@ export default function Home() {
 
   if (isLoading) <BasicLoader />;
 
-  // currentUser?.routines.forEach((routine) => {
-  //   console.log(routine);
-  // });
-
   return (
-    <Layout home>
+    <Layout showReturnToHome={false}>
+      <Box>
+        <Image
+          priority
+          src="/images/profile.png"
+          height={144}
+          width={144}
+          alt={siteTitle}
+        />
+      </Box>
       <Container pos="relative" mt={5} p={0} width="100%" maxW="inherit">
         <Flex
           justifyContent={'space-between'}

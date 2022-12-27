@@ -31,7 +31,7 @@ export default function ExercisesPage() {
   const { exercisesByEquipment } = data;
 
   return (
-    <Layout home={false}>
+    <Layout showReturnToHome={true}>
       <Container>
         <Text variant="h1">Exercises: {equipment}</Text>
         Total: {exercisesByEquipment?.length}

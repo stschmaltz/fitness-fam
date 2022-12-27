@@ -155,7 +155,7 @@ export default function NewRoutinePage() {
     );
 
   return (
-    <Layout home={false}>
+    <Layout showReturnToHome={true}>
       {!currentUser && (
         <Alert status="info" colorScheme="accent1" mb={3}>
           <InfoIcon color={theme.colors.accent1['900']} />

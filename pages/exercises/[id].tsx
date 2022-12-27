@@ -30,7 +30,7 @@ export default function Exercise() {
   const { exercise } = data;
 
   return (
-    <Layout home={false}>
+    <Layout showReturnToHome={false}>
       <Head>
         <title>{exercise.name}</title>
       </Head>
