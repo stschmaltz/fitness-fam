@@ -7,7 +7,7 @@ import {
   NumberInputField,
   Text,
 } from '@chakra-ui/react';
-import { InfoIcon, MinusIcon } from '@chakra-ui/icons';
+import { MinusIcon } from '@chakra-ui/icons';
 
 import {
   DragDropContext,
@@ -128,21 +128,12 @@ export default function CurrentRoutineList(props: {
                       >
                         <Flex minW="4rem" pl="1rem">
                           <Text fontSize="lg">{exercise.order + 1}</Text>
-                          <Box pr={0}>
-                            <InfoIcon
-                              m={1}
-                              ml={6}
-                              color={theme.colors.accent2['50']}
-                              aria-label="add exercise to routine"
-                              onClick={() =>
-                                showExerciseInfo(exercise.exercise)
-                              }
-                              backgroundColor={theme.colors.gray['50']}
-                            />
-                          </Box>
                         </Flex>
 
-                        <Box flexGrow="1">
+                        <Box
+                          onClick={() => showExerciseInfo(exercise.exercise)}
+                          flexGrow="1"
+                        >
                           <Text fontSize="lg">{exercise.name}</Text>
                         </Box>
                         <Box px={1} maxW={'2.8rem'}>
