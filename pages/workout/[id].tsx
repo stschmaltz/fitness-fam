@@ -75,6 +75,8 @@ export default function EditRoutinePage(props: { routine?: RoutineObject }) {
             hideGif={hideGif}
             exercise={currentExercise.exercise}
           ></BasicExerciseInfo>
+        </Box>
+        <Box pos="absolute" bottom={0} w={'100%'} backgroundColor="white">
           {hideGif ? (
             <ViewIcon
               color={'gray'}
@@ -86,8 +88,6 @@ export default function EditRoutinePage(props: { routine?: RoutineObject }) {
               onClick={() => setHideGif(!hideGif)}
             ></ViewOffIcon>
           )}
-        </Box>
-        <Box pos="absolute" bottom={0} w={'100%'} backgroundColor="white">
           <Flex justifyContent={'flex-start'}>
             {currentExercise.sets ? (
               <>
@@ -140,13 +140,14 @@ export default function EditRoutinePage(props: { routine?: RoutineObject }) {
             <Flex w={'100%'} justifyContent={'space-between'} mt={2}>
               {currentExerciseIndex && currentExerciseIndex > 0 ? (
                 <Button
+                  variant={'outline'}
                   onClick={() => {
                     setCurrentExercise(
                       routine.exercises[Math.max(currentExerciseIndex - 1, 0)]
                     );
                   }}
                 >
-                  Prev
+                  Previous
                 </Button>
               ) : (
                 <Box width={58}></Box>
@@ -157,6 +158,7 @@ export default function EditRoutinePage(props: { routine?: RoutineObject }) {
               </Text>
               {currentExerciseListNumber < routine.exercises.length ? (
                 <Button
+                  colorScheme={'brandPrimary'}
                   onClick={() => {
                     setCurrentExercise(
                       routine.exercises[
@@ -168,7 +170,9 @@ export default function EditRoutinePage(props: { routine?: RoutineObject }) {
                     );
                   }}
                 >
-                  Next
+                  <Text fontWeight={'semibold'} fontSize={'lg'} color="white">
+                    Next
+                  </Text>
                 </Button>
               ) : (
                 <Button
