@@ -65,7 +65,7 @@ export default function Home() {
             className={utilStyles.textOutline}
             flexShrink={0}
           >
-            Your Routines
+            {/* Your Routines */}
           </Text>
           {currentUser && currentUser.routines.length < 25 && (
             <Link href="/new-routine">
