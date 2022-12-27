@@ -1,8 +1,11 @@
 import { Box, Flex, Image, List, ListItem, Text } from '@chakra-ui/react';
 import { ExerciseObject } from '../types/exercise';
 
-export default function BasicExerciseInfo(props: { exercise: ExerciseObject }) {
-  const { exercise } = props;
+export default function BasicExerciseInfo(props: {
+  hideGif?: boolean;
+  exercise: ExerciseObject;
+}) {
+  const { exercise, hideGif = false } = props;
   return (
     <Box>
       <Flex justifyContent="center">
@@ -35,16 +38,18 @@ export default function BasicExerciseInfo(props: { exercise: ExerciseObject }) {
             </Text>
           </Flex>
         </Flex>
-        <Box key="gif">
-          <Box>
-            <Image
-              src={exercise?.gifUrl}
-              alt="my gif"
-              width={360}
-              height={360}
-            />
+        {!hideGif && (
+          <Box key="gif">
+            <Box>
+              <Image
+                src={exercise?.gifUrl}
+                alt="my gif"
+                width={360}
+                height={360}
+              />
+            </Box>
           </Box>
-        </Box>
+        )}
         {exercise?.instructions?.length > 1 && (
           <Box key="instructions">
             <Text variant="h3">Instructions</Text>

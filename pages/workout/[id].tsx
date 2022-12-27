@@ -13,6 +13,7 @@ import {
 import { Flex, Text } from '@chakra-ui/layout';
 import { Button } from '@chakra-ui/button';
 import Link from 'next/dist/client/link';
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import Layout from '../../components/layout';
 import { asyncFetch } from '../../data/graphql/graphql-fetcher';
 import BasicLoader from '../../components/BasicLoader';
@@ -25,6 +26,7 @@ export default function EditRoutinePage(props: { routine?: RoutineObject }) {
   const { routine } = props;
   const router = useRouter();
 
+  const [hideGif, setHideGif] = useState(false);
   const [exerciseSetsValue, setExerciseSetsValue] = useState(0);
   const [currentExercise, setCurrentExercise] = useState<
     RoutineExerciseObject | undefined
@@ -70,10 +72,21 @@ export default function EditRoutinePage(props: { routine?: RoutineObject }) {
       <Box pos="relative" minH="90vh">
         <Box maxH="90vh" overflow={'auto'} pb={20}>
           <BasicExerciseInfo
+            hideGif={hideGif}
             exercise={currentExercise.exercise}
           ></BasicExerciseInfo>
+          {hideGif ? (
+            <ViewIcon
+              color={'gray'}
+              onClick={() => setHideGif(!hideGif)}
+            ></ViewIcon>
+          ) : (
+            <ViewOffIcon
+              color={'gray'}
+              onClick={() => setHideGif(!hideGif)}
+            ></ViewOffIcon>
+          )}
         </Box>
-
         <Box pos="absolute" bottom={0} w={'100%'} backgroundColor="white">
           <Flex justifyContent={'flex-start'}>
             {currentExercise.sets ? (

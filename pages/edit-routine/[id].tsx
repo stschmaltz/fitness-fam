@@ -130,7 +130,7 @@ export default function EditRoutinePage(props: { routine?: RoutineObject }) {
   if (!currentUser) {
     return (
       // TODO: real 401 page
-      <Layout home={false}>
+      <Layout showReturnToHome={true}>
         <div>401: Not Authorized</div>
       </Layout>
     );
@@ -139,14 +139,14 @@ export default function EditRoutinePage(props: { routine?: RoutineObject }) {
   if (!routine) {
     // TODO: real 404 page
     return (
-      <Layout home={false}>
+      <Layout showReturnToHome={true}>
         <div>404: Routine not found</div>
       </Layout>
     );
   }
 
   return (
-    <Layout home={false}>
+    <Layout showReturnToHome={true}>
       <Box>
         <Flex mb={5}>
           <Input
