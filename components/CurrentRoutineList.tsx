@@ -7,7 +7,7 @@ import {
   NumberInputField,
   Text,
 } from '@chakra-ui/react';
-import { MinusIcon } from '@chakra-ui/icons';
+import { InfoIcon, MinusIcon } from '@chakra-ui/icons';
 
 import {
   DragDropContext,
@@ -17,10 +17,12 @@ import {
   DropResult,
   NotDraggingStyle,
 } from 'react-beautiful-dnd';
-import { CSSProperties } from 'react';
+import { CSSProperties, useState } from 'react';
 
+import ExerciseInfoModal from './ExerciseInfoModal';
 import { RoutineExerciseObject, RoutineObject } from '../types/routine';
 import { theme } from '../styles/theme';
+import { ExerciseObject } from '../types/exercise';
 
 export default function CurrentRoutineList(props: {
   handleRepsChange: (exercise: RoutineExerciseObject, value: string) => void;
@@ -30,6 +32,10 @@ export default function CurrentRoutineList(props: {
   handleRemoveExerciseFromRoutine: (exerciseId: string) => void;
 }) {
   const { currentRoutine } = props;
+  const [selectedExercise, setSelectedExercise] = useState<
+    ExerciseObject | undefined
+  >(undefined);
+
   const getRoutineItemStyle = (
     isDragging: boolean,
     draggableStyle: DraggingStyle | NotDraggingStyle | undefined
@@ -66,11 +72,23 @@ export default function CurrentRoutineList(props: {
     props.handleSetsChange(exercise, value);
   };
 
+  const showExerciseInfo = (exercise: ExerciseObject) => {
+    setSelectedExercise(exercise);
+  };
+
+  // TODO: refactor info button to be a component with the info modal
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId={currentRoutine._id.toString()} type="LIST">
         {(provided, _snapshot) => (
           <List {...provided.droppableProps} ref={provided.innerRef}>
+            {selectedExercise && (
+              <ExerciseInfoModal
+                exercise={selectedExercise}
+                handleModalOnClose={() => setSelectedExercise(undefined)}
+                isOpen={selectedExercise !== undefined}
+              />
+            )}
             <Box>
               <Flex justifyContent="space-between" pr={1}>
                 <Text minW="5rem" pr="2rem" as="b" fontSize="lg">
@@ -108,9 +126,22 @@ export default function CurrentRoutineList(props: {
                           provided.draggableProps.style
                         )}
                       >
-                        <Box minW="4rem" pr="3.2rem" pl="1rem">
+                        <Flex minW="4rem" pl="1rem">
                           <Text fontSize="lg">{exercise.order + 1}</Text>
-                        </Box>
+                          <Box pr={0}>
+                            <InfoIcon
+                              m={1}
+                              ml={6}
+                              color={theme.colors.accent2['50']}
+                              aria-label="add exercise to routine"
+                              onClick={() =>
+                                showExerciseInfo(exercise.exercise)
+                              }
+                              backgroundColor={theme.colors.gray['50']}
+                            />
+                          </Box>
+                        </Flex>
+
                         <Box flexGrow="1">
                           <Text fontSize="lg">{exercise.name}</Text>
                         </Box>
