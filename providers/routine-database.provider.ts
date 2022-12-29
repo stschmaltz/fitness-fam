@@ -60,9 +60,18 @@ async function getRoutinesForUser(userId: string): Promise<DBRoutineObject[]> {
   return routineDocuments.map(mapRoutineDocumentToRoutineObject);
 }
 
-async function saveRoutine(routine: RoutineObject): Promise<RoutineObject> {
+async function saveRoutine(
+  routine: RoutineObject,
+  userId: string
+): Promise<RoutineObject> {
   try {
     const { db } = await getDbClient();
+
+    if (routine.userId.toString() !== userId) {
+      throw new Error(
+        "Routine not found or you don't have permission to delete it."
+      );
+    }
 
     await db.collection(collectionName).findOneAndUpdate(
       { _id: new ObjectId(routine._id) },
@@ -84,10 +93,24 @@ async function saveRoutine(routine: RoutineObject): Promise<RoutineObject> {
   }
 }
 
-async function deleteRoutine(routineId: string): Promise<void> {
+async function deleteRoutine(routineId: string, userId: string): Promise<void> {
   try {
     const { db } = await getDbClient();
+
     console.log('deleting,', routineId);
+
+    const routine: RoutineDocument | undefined = (await db
+      .collection(collectionName)
+      .findOne({ _id: new ObjectId(routineId) })) as
+      | RoutineDocument
+      | undefined;
+
+    if (!routine || routine.userId.toString() !== userId) {
+      throw new Error(
+        "Routine not found or you don't have permission to delete it."
+      );
+    }
+
     await db
       .collection(collectionName)
       .findOneAndUpdate(

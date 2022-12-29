@@ -1,33 +1,16 @@
 import Head from 'next/head';
-import useSWR from 'swr';
-import { useRouter } from 'next/router';
-import { Box, Text } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
 
-import { fetcher } from '../../data/graphql/graphql-fetcher';
+import { asyncFetch } from '../../data/graphql/graphql-fetcher';
 import Layout from '../../components/layout';
 import BasicExerciseInfo from '../../components/BasicExerciseInfo';
-import { queryExerciseById } from '../../data/graphql/snippets/exercise';
-import BasicLoader from '../../components/BasicLoader';
+import { fullExercise } from '../../data/graphql/snippets/exercise';
+import { ExerciseObject } from '../../types/exercise';
 
-export default function Exercise() {
-  const router = useRouter();
+export default function Exercise(props: { exercise?: ExerciseObject }) {
+  const { exercise } = props;
 
-  const { data, error } = useSWR(
-    queryExerciseById(router?.query.id as string),
-    fetcher
-  );
-
-  if (error) return <Text>Failed to load</Text>;
-  if (!data)
-    return (
-      <Box h="80vh">
-        <BasicLoader />
-      </Box>
-    );
-
-  if (!data.exercise) return <Text>Exercise not found</Text>;
-
-  const { exercise } = data;
+  if (!exercise) return <Text>Exercise not found</Text>;
 
   return (
     <Layout showReturnToHome={false}>
@@ -41,28 +24,29 @@ export default function Exercise() {
   );
 }
 
-// export async function getStaticPaths() {
-//   const exerciseIds = await asyncFetch(`{ exercises { id } }`);
-//   const paths = exerciseIds.exercises.map((exercise) => ({
-//     params: {
-//       id: exercise.id,
-//     },
-//   }));
-//   console.log(paths);
-//   return {
-//     paths,
-//     fallback: false,
-//   };
-// }
+export async function getStaticPaths() {
+  const exerciseIds = await asyncFetch(`{ exercises { id } }`);
+  const paths = exerciseIds.exercises.map((exercise: ExerciseObject) => ({
+    params: {
+      id: exercise.id,
+    },
+  }));
+  return {
+    paths,
+    fallback: false,
+  };
+}
 
-// export async function getStaticProps({ params }) {
-//   console.log(params);
-//   const exercise = await asyncFetch(
-//     `{ exercise(id:"${params.id}"){ ${fullExercise} } }`
-//   );
-//   console.log(exercise);
+export async function getStaticProps({
+  params: { id },
+}: {
+  params: { id: string };
+}) {
+  const exercise = await asyncFetch(
+    `{ exercise(id:"${id}"){ ${fullExercise} } }`
+  );
 
-//   return {
-//     props: exercise,Fc
-//   };
-// }
+  return {
+    props: exercise,
+  };
+}

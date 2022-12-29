@@ -4,8 +4,8 @@ import { List, ListItem } from '@chakra-ui/react';
 import { Text, useToast } from '@chakra-ui/react';
 import Image from 'next/image';
 import { AddIcon } from '@chakra-ui/icons';
-
 import orderBy from 'lodash/orderBy';
+
 import Layout from '../components/layout';
 import { asyncFetch } from '../data/graphql/graphql-fetcher';
 import { RoutineObject } from '../types/routine';

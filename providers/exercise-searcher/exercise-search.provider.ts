@@ -25,7 +25,7 @@ class ExerciseSearcher implements ExerciseSearchProviderInterface {
     input: string,
     filters: SearchFilters
   ): ExerciseObject[] {
-    console.log('SEARCHING');
+    console.log('SEARCHING', { input, filters });
     // if no filters search fuzzy on all fields
     if (
       filters.equipmentFilters.length +
@@ -69,11 +69,9 @@ class ExerciseSearcher implements ExerciseSearchProviderInterface {
         ? { $and: [...appliedFilters] }
         : appliedFilters[0]),
     };
-    console.log('searchInput', { searchInput });
 
     if (appliedFilters.length > 0) {
       const result = this.fuse.search(searchInput as string | Fuse.Expression);
-      console.log('result', { result });
 
       return result.map((exercise) => exercise.item);
     }
