@@ -12,6 +12,9 @@ export default class MyDocument extends Document {
     return { ...initialProps, ...page };
   }
 
+  private siteDescription =
+    'A free app to help organize workout routines by searching and choosing from an extensive catalogue of exercises. Get your fitness on and join the fam today.';
+
   render() {
     return (
       <Html lang="en">
@@ -23,10 +26,7 @@ export default class MyDocument extends Document {
             content="default"
           />
           <meta name="apple-mobile-web-app-title" content="Fitness Fam" />
-          <meta
-            name="description"
-            content="A free app to help organize workout routines by searching and choosing from an extensive catalogue of exercises. Get your fitness on and join the fam today."
-          />
+          <meta name="description" content={this.siteDescription} />
           <meta name="format-detection" content="telephone=no" />
           <meta name="mobile-web-app-capable" content="yes" />
           <meta
@@ -59,20 +59,14 @@ export default class MyDocument extends Document {
           <meta name="twitter:card" content="summary" />
           <meta name="twitter:url" content="https://fitnessfam.app" />
           <meta name="twitter:title" content="Fitness Fam" />
-          <meta
-            name="twitter:description"
-            content="A free app to help organize workout routines by searching and choosing from an extensive catalogue of exercises. Get your fitness on and join the fam today."
-          />
+          <meta name="twitter:description" content={this.siteDescription} />
           <meta
             name="twitter:image"
             content="https://fitnessfam.app/images/profile.png"
           />
           <meta property="og:type" content="website" />
           <meta property="og:title" content="FitnessFam.app" />
-          <meta
-            property="og:description"
-            content="A free app to help organize workout routines by searching and choosing from an extensive catalogue of exercises. Get your fitness on and join the fam today."
-          />
+          <meta property="og:description" content={this.siteDescription} />
           <meta property="og:site_name" content="Fitness Fam" />
           <meta property="og:url" content="https://fitnessfam.app" />
           <meta
