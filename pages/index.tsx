@@ -11,7 +11,6 @@ import { asyncFetch } from '../data/graphql/graphql-fetcher';
 import { RoutineObject } from '../types/routine';
 import { deleteRoutineMutationGraphQL } from '../data/graphql/snippets/mutation';
 import { theme } from '../styles/theme';
-import utilStyles from '../styles/utils.module.css';
 import RoutineScroller from '../components/RoutineScroller';
 import BasicLoader from '../components/BasicLoader';
 import { useUserSignIn } from '../hooks/use-user-sign-in.hook';
@@ -67,15 +66,7 @@ export default function Home() {
           alignItems={'center'}
           height="100%"
         >
-          <Text
-            height={'100%'}
-            variant="h1"
-            fontSize={'3xl'}
-            className={utilStyles.textOutline}
-            flexShrink={0}
-          >
-            {/* Your Routines */}
-          </Text>
+          <Box></Box>
           {currentUser && currentUser.routines.length < 25 && (
             <Link href="/new-routine">
               <Button
