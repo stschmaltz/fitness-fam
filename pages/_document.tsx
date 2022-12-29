@@ -25,7 +25,7 @@ export default class MyDocument extends Document {
           <meta name="apple-mobile-web-app-title" content="Fitness Fam" />
           <meta
             name="description"
-            content="Organize your workouts, join the fam."
+            content="A free app to help organize workout routines by searching and choosing from an extensive catalogue of exercises. Get your fitness on and join the fam today."
           />
           <meta name="format-detection" content="telephone=no" />
           <meta name="mobile-web-app-capable" content="yes" />
@@ -61,7 +61,7 @@ export default class MyDocument extends Document {
           <meta name="twitter:title" content="Fitness Fam" />
           <meta
             name="twitter:description"
-            content="Organize your workouts, join the fam."
+            content="A free app to help organize workout routines by searching and choosing from an extensive catalogue of exercises. Get your fitness on and join the fam today."
           />
           <meta
             name="twitter:image"
@@ -71,7 +71,7 @@ export default class MyDocument extends Document {
           <meta property="og:title" content="FitnessFam.app" />
           <meta
             property="og:description"
-            content="Organize your workouts, join the fam."
+            content="A free app to help organize workout routines by searching and choosing from an extensive catalogue of exercises. Get your fitness on and join the fam today."
           />
           <meta property="og:site_name" content="Fitness Fam" />
           <meta property="og:url" content="https://fitnessfam.app" />

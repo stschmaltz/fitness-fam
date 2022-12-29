@@ -18,7 +18,7 @@ export default function Layout(input: {
         <link rel="icon" href="/favicon.ico" />
         <meta
           name="description"
-          content="An app to help organize workout routines using a dataset of exercises to choose from."
+          content="A free app to help organize workout routines by searching and choosing from an extensive catalogue of exercises. Get your fitness on and join the fam today."
         />
         <meta name="robots" content="all" />
         <meta
