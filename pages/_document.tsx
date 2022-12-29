@@ -2,6 +2,7 @@ import { ColorModeScript } from '@chakra-ui/react';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 import { DocumentContext } from 'next/document';
 import { resetServerContext } from 'react-beautiful-dnd';
+
 import { theme } from '../styles/theme';
 
 export default class MyDocument extends Document {
