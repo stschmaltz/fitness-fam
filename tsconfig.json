@@ -18,8 +18,14 @@
     "types": ["reflect-metadata"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "typeRoots": ["./src/types"]
+    "typeRoots": ["./types"]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "next.config.js",
+    "scripts/generate-sitemap.mjs"
+  ],
   "exclude": ["node_modules"]
 }
