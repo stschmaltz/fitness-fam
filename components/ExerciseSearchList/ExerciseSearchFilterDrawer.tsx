@@ -109,6 +109,7 @@ export default function ExerciseSearchFilterDrawer(props: {
 
               return (
                 <Button
+                  m={0.5}
                   onClick={() => {
                     const newFilters = {
                       ...filters,
@@ -131,12 +132,12 @@ export default function ExerciseSearchFilterDrawer(props: {
               Equipment
             </Text>
 
-            {Object.entries(EQUIPMENT).map((equipment) => {
-              const [key, value] = equipment;
+            {Object.entries(EQUIPMENT).map(([key, value]) => {
               const isActive = filters.equipmentFilters?.includes(value);
 
               return (
                 <Button
+                  m={0.5}
                   onClick={() => {
                     const newFilters = {
                       ...filters,
@@ -164,6 +165,7 @@ export default function ExerciseSearchFilterDrawer(props: {
 
               return (
                 <Button
+                  m={0.5}
                   onClick={() => {
                     const newFilters = {
                       ...filters,
