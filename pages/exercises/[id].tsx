@@ -13,7 +13,7 @@ export default function Exercise(props: { exercise?: ExerciseObject }) {
   if (!exercise) return <Text>Exercise not found</Text>;
 
   return (
-    <Layout showReturnToHome={false}>
+    <Layout showReturnToHome={true}>
       <Head>
         <title>{exercise.name}</title>
       </Head>
