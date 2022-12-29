@@ -50,11 +50,6 @@ export default class MyDocument extends Document {
             href="/icons/favicon-16x16.png"
           />
           <link rel="manifest" href="/manifest.json" />
-          {/* <link
-            rel="mask-icon"
-            href="/icons/safari-pinned-tab.svg"
-            color="#5bbad5"
-          /> */}
           <link rel="shortcut icon" href="/favicon.ico" />
           <link
             rel="stylesheet"
