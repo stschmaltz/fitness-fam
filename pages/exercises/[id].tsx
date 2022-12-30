@@ -38,6 +38,7 @@ export async function getStaticPaths() {
       id: exercise.id,
     },
   }));
+
   return {
     paths,
     fallback: false,
@@ -55,6 +56,6 @@ export async function getStaticProps({
   const exercise = await exerciseProvider.findExerciseById(id);
 
   return {
-    props: exercise,
+    props: { exercise },
   };
 }
