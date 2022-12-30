@@ -53,6 +53,9 @@ export default function StopWatch(props: {
   return (
     <Box>
       <Flex flexDir={'column'} alignItems={'center'}>
+        <Text variant="h3" fontSize={'md'}>
+          Timer
+        </Text>
         <Text>{formatTime()}</Text>
         <Flex>
           <Button onClick={handleReset} disabled={!isActive}>
