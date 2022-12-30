@@ -1,45 +1,28 @@
 import { useRouter } from 'next/router';
 
-import { useEffect, useState } from 'react';
-import {
-  Box,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  Progress,
-} from '@chakra-ui/react';
+import { useState } from 'react';
+import { Box, Progress } from '@chakra-ui/react';
 import { Flex, Text } from '@chakra-ui/layout';
 import { Button } from '@chakra-ui/button';
 import Link from 'next/dist/client/link';
-import {
-  ArrowBackIcon,
-  ArrowForwardIcon,
-  ViewIcon,
-  ViewOffIcon,
-} from '@chakra-ui/icons';
+import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
 import Layout from '../../components/layout';
 import { asyncFetch } from '../../data/graphql/graphql-fetcher';
 import BasicLoader from '../../components/BasicLoader';
 import { fullRoutine } from '../../data/graphql/snippets/routine';
 import { useUserSignIn } from '../../hooks/use-user-sign-in.hook';
 import { RoutineExerciseObject, RoutineObject } from '../../types/routine';
-import BasicExerciseInfo from '../../components/BasicExerciseInfo';
+import WorkoutModeExerciseInfo from '../../components/WorkoutModeExerciseInfo/WorkoutModeExerciseInfoBox';
+import WorkoutModeSetsAndReps from '../../components/WorkoutModeExerciseInfo/WorkoutModeSetsAndReps';
+import StopWatch from '../../components/StopWatch';
 
 export default function EditRoutinePage(props: { routine?: RoutineObject }) {
   const { routine } = props;
   const router = useRouter();
 
-  const [hideGif, setHideGif] = useState(false);
-  const [exerciseSetsValue, setExerciseSetsValue] = useState(0);
   const [currentExercise, setCurrentExercise] = useState<
     RoutineExerciseObject | undefined
   >(routine?.exercises[0]);
-
-  useEffect(() => {
-    setExerciseSetsValue(currentExercise?.sets ?? 0);
-  }, [currentExercise]);
 
   const currentExerciseIndex = currentExercise?.order ?? 0;
   const currentExerciseListNumber = currentExerciseIndex + 1;
@@ -76,70 +59,13 @@ export default function EditRoutinePage(props: { routine?: RoutineObject }) {
       <Link href={'/'}>Return to home</Link>
       <Box pos="relative" minH="88vh">
         <Box maxH="81vh" overflow={'auto'} pb={20}>
-          <BasicExerciseInfo
-            hideGif={hideGif}
+          <WorkoutModeExerciseInfo
             exercise={currentExercise.exercise}
-          ></BasicExerciseInfo>
+          ></WorkoutModeExerciseInfo>
+          <StopWatch currentExercise={currentExercise} />
         </Box>
         <Box pos="absolute" bottom={0} w={'100%'} backgroundColor="white">
-          {hideGif ? (
-            <ViewIcon
-              color={'gray'}
-              onClick={() => setHideGif(!hideGif)}
-            ></ViewIcon>
-          ) : (
-            <ViewOffIcon
-              color={'gray'}
-              onClick={() => setHideGif(!hideGif)}
-            ></ViewOffIcon>
-          )}
-          <Flex justifyContent={'flex-start'}>
-            {currentExercise.sets ? (
-              <>
-                <Text fontSize={'3xl'} fontWeight={'bold'}>
-                  Sets:{' '}
-                </Text>
-                <NumberInput
-                  pl={1}
-                  maxW={'5.3rem'}
-                  size="lg"
-                  defaultValue={currentExercise.sets}
-                  value={exerciseSetsValue}
-                  max={99}
-                >
-                  <NumberInputField
-                    color="black"
-                    _disabled={{}}
-                    disabled
-                    fontWeight={'bold'}
-                    fontSize={'3xl'}
-                  />
-                  <NumberInputStepper>
-                    <NumberIncrementStepper
-                      onClick={() =>
-                        setExerciseSetsValue(exerciseSetsValue + 1)
-                      }
-                    />
-                    <NumberDecrementStepper
-                      onClick={() =>
-                        setExerciseSetsValue(exerciseSetsValue - 1)
-                      }
-                    />
-                  </NumberInputStepper>
-                </NumberInput>
-              </>
-            ) : (
-              <Box />
-            )}
-            {currentExercise.reps ? (
-              <Text fontSize={'3xl'} fontWeight={'bold'} pl={5}>
-                Reps: {currentExercise.reps}
-              </Text>
-            ) : (
-              <Box />
-            )}
-          </Flex>
-
+          <WorkoutModeSetsAndReps currentExercise={currentExercise} />
           <Flex justifyContent={'space-between'}></Flex>
           <Box mt={3}>
             <Progress
@@ -149,23 +75,20 @@ export default function EditRoutinePage(props: { routine?: RoutineObject }) {
               colorScheme="brandPrimary"
             />
             <Flex w={'100%'} justifyContent={'space-between'} mt={2}>
-              {currentExerciseIndex && currentExerciseIndex > 0 ? (
-                <Button
-                  leftIcon={<ArrowBackIcon />}
-                  variant={'outline'}
-                  onClick={() => {
-                    setCurrentExercise(
-                      routine.exercises[Math.max(currentExerciseIndex - 1, 0)]
-                    );
-                  }}
-                >
-                  Previous
-                </Button>
-              ) : (
-                <Box width={120}></Box>
-              )}
+              <Button
+                disabled={!currentExerciseIndex || currentExerciseIndex === 0}
+                leftIcon={<ArrowBackIcon />}
+                variant={'outline'}
+                onClick={() => {
+                  setCurrentExercise(
+                    routine.exercises[Math.max(currentExerciseIndex - 1, 0)]
+                  );
+                }}
+              >
+                Previous
+              </Button>
 
-              <Flex flexGrow={1} justifyContent={'center'}>
+              <Flex flexGrow={2} flexShrink={1} justifyContent={'center'}>
                 <Text fontWeight={'bold'}>
                   {currentExerciseListNumber}/{routine.exercises.length}
                 </Text>
