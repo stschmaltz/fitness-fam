@@ -1,4 +1,4 @@
-import { Container } from '@chakra-ui/react';
+import { Box, Container } from '@chakra-ui/react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { ReactNode } from 'react';
@@ -13,7 +13,7 @@ export default function Layout(input: {
   const { children, showReturnToHome } = input;
 
   return (
-    <Container mt={10} maxW={'40rem'}>
+    <Container maxW={'40rem'} pos={'relative'}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta
@@ -28,8 +28,7 @@ export default function Layout(input: {
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <header className={styles.header}></header>
-      <main>{children}</main>
+      <Box mt={10}>{children}</Box>
       {showReturnToHome && (
         <Container className={styles.backToHome}>
           <Link href="/">← Back to Routines</Link>

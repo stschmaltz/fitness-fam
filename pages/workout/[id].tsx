@@ -57,23 +57,34 @@ export default function EditRoutinePage(props: { routine?: RoutineObject }) {
   return (
     <Layout showReturnToHome={false}>
       <Link href={'/'}>Return to home</Link>
-      <Box pos="relative" minH="88vh">
-        <Box maxH="81vh" overflow={'auto'} pb={20}>
-          <WorkoutModeExerciseInfo
-            exercise={currentExercise.exercise}
-          ></WorkoutModeExerciseInfo>
-          <StopWatch currentExercise={currentExercise} />
+      <Box pos="relative" h={'85vh'}>
+        <Box>
+          <WorkoutModeExerciseInfo exercise={currentExercise.exercise} />
         </Box>
-        <Box pos="absolute" bottom={0} w={'100%'} backgroundColor="white">
+      </Box>
+      <Box pos={'relative'} h="100%" mt={4}>
+        <Box pos="absolute" bottom={0} w={'100%'}>
+          <Flex mb={1} justifyContent={'center'}>
+            <Box p={2} bgColor={'white'} borderRadius={'lg'}>
+              <StopWatch currentExercise={currentExercise} />
+            </Box>
+            {/* <Box p={2} bgColor={'white'} borderRadius={'lg'}>
+              <Text variant={'h3'} fontSize={'md'}>
+                Notes
+              </Text>
+              <Textarea>This does nothing yet, save coming soon.</Textarea>
+            </Box> */}
+          </Flex>
           <WorkoutModeSetsAndReps currentExercise={currentExercise} />
           <Flex justifyContent={'space-between'}></Flex>
-          <Box mt={3}>
+          <Box backgroundColor={'white'}>
             <Progress
               max={routine.exercises.length}
               value={currentExerciseListNumber}
               size="sm"
               colorScheme="brandPrimary"
             />
+
             <Flex w={'100%'} justifyContent={'space-between'} mt={2}>
               <Button
                 disabled={!currentExerciseIndex || currentExerciseIndex === 0}

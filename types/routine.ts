@@ -23,6 +23,7 @@ export interface RoutineExerciseObject {
   exercise: ExerciseObject;
   sets?: number;
   reps?: number;
+  supersetExercise?: ExerciseObject;
 }
 export interface RoutineObject {
   _id: ObjectId;
