@@ -53,9 +53,6 @@ export default function WorkoutModePage(props: { routine?: RoutineObject }) {
       </Layout>
     );
   }
-  console.log('yo', currentExercise);
-  console.log('yoho', currentExercise.supersetExercise);
-  console.log('yohoho', showSuperset);
 
   return (
     <Layout showReturnToHome={false}>

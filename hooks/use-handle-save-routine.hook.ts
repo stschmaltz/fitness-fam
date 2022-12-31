@@ -16,7 +16,11 @@ function useHandleSaveRoutine(): (routine: RoutineObject) => Promise<void> {
       const saveRoutineApiInput: DBRoutineObject = {
         ...routine,
         exercises: routine.exercises.map(
-          ({ exercise: _, ...rest }): DBRoutineExerciseObject => ({
+          ({
+            exercise: _,
+            supersetExercise: __,
+            ...rest
+          }): DBRoutineExerciseObject => ({
             ...rest,
           })
         ),
