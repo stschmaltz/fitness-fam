@@ -9,8 +9,6 @@ export default function RoutineScrollerExerciseList(props: {
   return (
     <Flex flexDir="row" data-name="Routine exercise list" height="100%">
       {props.exercises.map((exercise) => {
-        console.log(exercise.supersetExercise);
-
         return exercise.supersetExercise ? (
           <RoutineScrollerExerciseListSupersetItem
             key={exercise.id}

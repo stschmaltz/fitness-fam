@@ -10,8 +10,6 @@ export default function RoutineScrollerExerciseListSupersetItem(props: {
 }) {
   const { exercise } = props;
 
-  console.log('nice to be here', exercise);
-  console.log('bet', exercise.supersetExercise);
   return (
     <Flex
       width="300px"
