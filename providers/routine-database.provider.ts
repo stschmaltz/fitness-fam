@@ -25,6 +25,8 @@ type RoutineDocument = {
     order: number;
     reps?: number;
     sets?: number;
+    supersetExerciseId?: string;
+    supersetReps?: number;
   }[];
 };
 
@@ -45,6 +47,8 @@ const mapRoutineDocumentToRoutineObject = (
       order: exercise.order,
       reps: exercise.reps,
       sets: exercise.sets,
+      supersetExerciseId: exercise.supersetExerciseId,
+      supersetReps: exercise.supersetReps,
     })
   ),
 });

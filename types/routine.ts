@@ -7,6 +7,8 @@ export interface DBRoutineExerciseObject {
   id: string;
   sets?: number;
   reps?: number;
+  supersetExerciseId?: string;
+  supersetReps?: number;
 }
 export interface DBRoutineObject {
   _id: ObjectId;
@@ -23,7 +25,9 @@ export interface RoutineExerciseObject {
   exercise: ExerciseObject;
   sets?: number;
   reps?: number;
+  supersetExerciseId?: string;
   supersetExercise?: ExerciseObject;
+  supersetReps?: number;
 }
 export interface RoutineObject {
   _id: ObjectId;
