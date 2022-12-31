@@ -11,66 +11,89 @@ export default function WorkoutModeExerciseInfo(props: {
   const [hideGif, setHideGif] = useState(false);
 
   return (
-    <Box>
-      <Flex justifyContent="center">
-        <Text variant="h1">{exercise?.name}</Text>
-      </Flex>
-      <Flex flexDir={'column'}>
-        <Flex
-          flexDir={'row'}
-          justifyContent={'space-between'}
-          width={'100%'}
-          fontSize={'md'}
+    <Box pos={'relative'} w="100%">
+      <Flex
+        top={0}
+        justifyContent="center"
+        w="100%"
+        pos={'absolute'}
+        alignItems={'center'}
+        h={[32, 32, 32, 32, 32, 44]}
+      >
+        <Text
+          textAlign={'center'}
+          variant="h1"
+          lineHeight={'shorter'}
+          fontSize={['3xl', '3xl', '3xl', '3xl', '3xl', '5xl']}
         >
-          <WorkoutModeExerciseInfoBox
-            title={'Equipment'}
-            value={exercise?.equipment}
-          />
-          <WorkoutModeExerciseInfoBox
-            title={'Body Area'}
-            value={exercise?.bodyArea}
-          />
-          <WorkoutModeExerciseInfoBox
-            title={'Target Muscle'}
-            value={exercise?.targetMuscle}
-          />
-        </Flex>
-        <Box key="gif">
-          <Image
-            opacity={hideGif ? 0 : 1}
-            src={exercise?.gifUrl}
-            alt="my gif"
-            width={360}
-            height={360}
-          />
-        </Box>
-        {hideGif ? (
-          <ViewIcon
-            color={'gray'}
-            onClick={() => setHideGif(!hideGif)}
-          ></ViewIcon>
-        ) : (
-          <ViewOffIcon
-            color={'gray'}
-            onClick={() => setHideGif(!hideGif)}
-          ></ViewOffIcon>
-        )}
-        {/* {exercise?.instructions?.length > 1 && (
-          <Box key="instructions">
-            <Text variant="h3">Instructions</Text>
-            <List>
-              {exercise?.instructions.map((instruction, index) => (
-                <ListItem mt={3} key={instruction.number}>
-                  <Text fontSize="lg">
-                    <b>{index + 1}. </b>
-                    {instruction.description}
-                  </Text>
-                </ListItem>
-              ))}
-            </List>
-          </Box>
-        )} */}
+          {exercise?.name}
+        </Text>
       </Flex>
+      <Box pt={[32, 32, 32, 32, 32, 44]}>
+        <Box
+          maxH={['43vh', '41vh', '41vh', '31vh', '41vh', '48vh']}
+          overflow={'auto'}
+        >
+          <Flex flexDir={'column'}>
+            <Flex
+              flexDir={'row'}
+              justifyContent={'space-between'}
+              width={'100%'}
+              fontSize={'md'}
+            >
+              <WorkoutModeExerciseInfoBox
+                title={'Equipment'}
+                value={exercise?.equipment}
+              />
+              <WorkoutModeExerciseInfoBox
+                title={'Body Area'}
+                value={exercise?.bodyArea}
+              />
+              <WorkoutModeExerciseInfoBox
+                title={'Target Muscle'}
+                value={exercise?.targetMuscle}
+              />
+            </Flex>
+
+            <Flex justifyContent={'center'} key="gif">
+              <Image
+                opacity={hideGif ? 0 : 1}
+                src={exercise?.gifUrl}
+                width={['300px', '300px', '300px', '300px', '300px', '500px']}
+                alt="my gif"
+                fill={'contain'}
+              />
+              {hideGif ? (
+                <ViewIcon
+                  color={'gray'}
+                  onClick={() => setHideGif(!hideGif)}
+                ></ViewIcon>
+              ) : (
+                <ViewOffIcon
+                  color={'gray'}
+                  onClick={() => setHideGif(!hideGif)}
+                ></ViewOffIcon>
+              )}
+            </Flex>
+
+            {/* {exercise?.instructions?.length > 1 && (
+          <Box key="instructions">
+          <Text variant="h3">Instructions</Text>
+          <List>
+          {exercise?.instructions.map((instruction, index) => (
+            <ListItem mt={3} key={instruction.number}>
+            <Text fontSize="lg">
+            <b>{index + 1}. </b>
+            {instruction.description}
+            </Text>
+            </ListItem>
+            ))}
+            </List>
+            </Box>
+          )} */}
+          </Flex>
+        </Box>
+      </Box>
     </Box>
   );
 }
