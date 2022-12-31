@@ -1,5 +1,5 @@
 import { InfoIcon } from '@chakra-ui/icons';
-import { Box, Flex, Link, Text, Tooltip } from '@chakra-ui/react';
+import { Flex, Link, Text, Tooltip } from '@chakra-ui/react';
 import { titleCase } from 'title-case';
 import { theme } from '../../styles/theme';
 import utilStyles from '../../styles/utils.module.css';
