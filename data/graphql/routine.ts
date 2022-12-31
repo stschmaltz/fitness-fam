@@ -13,6 +13,8 @@ const routineTypeDefs = /* GraphQL */ `
     name: String!
     sets: Int
     reps: Int
+    supersetReps: Int
+    supersetExerciseId: String
   }
 
   input RoutineInput {
@@ -46,6 +48,8 @@ const routineTypeDefs = /* GraphQL */ `
     name: String!
     sets: Int
     reps: Int
+    supersetReps: Int
+    supersetExercise: Exercise
   }
 
   type Routine {
@@ -70,12 +74,25 @@ const routineResolver = {
     },
   },
   RoutineExercise: {
-    async exercise(parent: Omit<RoutineExerciseObject, 'exercise'>) {
+    async exercise(
+      parent: Omit<RoutineExerciseObject, 'exercise' | 'supersetExercise'>
+    ) {
       const exerciseProvider = appContainer.get<ExerciseProviderInterface>(
         TYPES.ExerciseProvider
       );
 
       return exerciseProvider.findExerciseById(parent.id);
+    },
+    async supersetExercise(
+      parent: Omit<RoutineExerciseObject, 'exercise' | 'supersetExercise'>
+    ) {
+      const exerciseProvider = appContainer.get<ExerciseProviderInterface>(
+        TYPES.ExerciseProvider
+      );
+
+      return parent.supersetExerciseId
+        ? exerciseProvider.findExerciseById(parent.supersetExerciseId)
+        : undefined;
     },
   },
 };

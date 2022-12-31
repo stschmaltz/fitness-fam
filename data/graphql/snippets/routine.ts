@@ -10,9 +10,11 @@ const fullRoutine = `
       order
       id
       exercise { ${fullExercise} }
+      supersetExercise { ${fullExercise} }
       name
       sets
       reps
+      supersetReps
     }
   `;
 

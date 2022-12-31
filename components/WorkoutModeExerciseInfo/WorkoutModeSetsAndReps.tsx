@@ -14,15 +14,20 @@ import { RoutineExerciseObject } from '../../types/routine';
 
 export default function WorkoutModeSetsAndReps(props: {
   currentExercise: RoutineExerciseObject;
+  showSuperset: boolean;
 }) {
-  const { currentExercise } = props;
+  const { currentExercise, showSuperset } = props;
   const [exerciseSetsValue, setExerciseSetsValue] = useState(0);
+
+  const reps = showSuperset
+    ? currentExercise.supersetReps
+    : currentExercise.reps;
 
   useEffect(() => {
     setExerciseSetsValue(currentExercise?.sets ?? 0);
   }, [currentExercise]);
   return (
-    <Flex justifyContent={'flex-start'}>
+    <Flex justifyContent={'flex-start'} minW={'300px'}>
       {currentExercise.sets ? (
         <Flex>
           <Text
@@ -61,14 +66,14 @@ export default function WorkoutModeSetsAndReps(props: {
         <Box />
       )}
 
-      {currentExercise.reps ? (
+      {reps ? (
         <Text
           color={theme.colors.gray[700]}
           fontSize={'3xl'}
           fontWeight={'bold'}
           pl={5}
         >
-          Reps: {currentExercise.reps}
+          Reps: {reps}
         </Text>
       ) : (
         <Box />

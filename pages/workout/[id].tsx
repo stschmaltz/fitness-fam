@@ -1,11 +1,9 @@
 import { useRouter } from 'next/router';
 
 import { useState } from 'react';
-import { Box, Progress } from '@chakra-ui/react';
+import { Box, Switch } from '@chakra-ui/react';
 import { Flex, Text } from '@chakra-ui/layout';
-import { Button } from '@chakra-ui/button';
 import Link from 'next/dist/client/link';
-import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
 import Layout from '../../components/layout';
 import { asyncFetch } from '../../data/graphql/graphql-fetcher';
 import BasicLoader from '../../components/BasicLoader';
@@ -15,8 +13,9 @@ import { RoutineExerciseObject, RoutineObject } from '../../types/routine';
 import WorkoutModeExerciseInfo from '../../components/WorkoutModeExerciseInfo/WorkoutModeExerciseInfoBox';
 import WorkoutModeSetsAndReps from '../../components/WorkoutModeExerciseInfo/WorkoutModeSetsAndReps';
 import StopWatch from '../../components/StopWatch';
+import WorkoutModeProgressBar from '../../components/WorkoutModeExerciseInfo/WorkoutModeProgressBar';
 
-export default function EditRoutinePage(props: { routine?: RoutineObject }) {
+export default function WorkoutModePage(props: { routine?: RoutineObject }) {
   const { routine } = props;
   const router = useRouter();
 
@@ -26,6 +25,7 @@ export default function EditRoutinePage(props: { routine?: RoutineObject }) {
 
   const currentExerciseIndex = currentExercise?.order ?? 0;
   const currentExerciseListNumber = currentExerciseIndex + 1;
+  const [showSuperset, setShowSuperset] = useState(false);
 
   const [isLoading, currentUser, _setCurrentUser] = useUserSignIn();
 
@@ -53,13 +53,22 @@ export default function EditRoutinePage(props: { routine?: RoutineObject }) {
       </Layout>
     );
   }
+  console.log('yo', currentExercise);
+  console.log('yoho', currentExercise.supersetExercise);
+  console.log('yohoho', showSuperset);
 
   return (
     <Layout showReturnToHome={false}>
       <Link href={'/'}>Return to home</Link>
       <Box pos="relative" h={'85vh'}>
         <Box>
-          <WorkoutModeExerciseInfo exercise={currentExercise.exercise} />
+          <WorkoutModeExerciseInfo
+            exercise={
+              showSuperset && currentExercise.supersetExercise
+                ? currentExercise.supersetExercise
+                : currentExercise.exercise
+            }
+          />
         </Box>
       </Box>
       <Box pos={'relative'} h="100%" mt={4}>
@@ -75,66 +84,48 @@ export default function EditRoutinePage(props: { routine?: RoutineObject }) {
               <Textarea>This does nothing yet, save coming soon.</Textarea>
             </Box> */}
           </Flex>
-          <WorkoutModeSetsAndReps currentExercise={currentExercise} />
-          <Flex justifyContent={'space-between'}></Flex>
-          <Box backgroundColor={'white'}>
-            <Progress
-              max={routine.exercises.length}
-              value={currentExerciseListNumber}
-              size="sm"
-              colorScheme="brandPrimary"
+          <Flex justifyContent={'space-between'}>
+            <WorkoutModeSetsAndReps
+              currentExercise={currentExercise}
+              showSuperset={showSuperset}
             />
-
-            <Flex w={'100%'} justifyContent={'space-between'} mt={2}>
-              <Button
-                disabled={!currentExerciseIndex || currentExerciseIndex === 0}
-                leftIcon={<ArrowBackIcon />}
-                variant={'outline'}
-                onClick={() => {
-                  setCurrentExercise(
-                    routine.exercises[Math.max(currentExerciseIndex - 1, 0)]
-                  );
-                }}
+            {currentExercise.supersetExercise && (
+              <Flex
+                flexDir={'column'}
+                justifyContent={'center'}
+                alignItems={'center'}
               >
-                Previous
-              </Button>
-
-              <Flex flexGrow={2} flexShrink={1} justifyContent={'center'}>
-                <Text fontWeight={'bold'}>
-                  {currentExerciseListNumber}/{routine.exercises.length}
+                <Text as="span" fontSize={'sm'}>
+                  Superset
                 </Text>
+                <Switch
+                  colorScheme={'brandSecondary'}
+                  onChange={() => {
+                    setShowSuperset(!showSuperset);
+                  }}
+                ></Switch>
               </Flex>
-              {currentExerciseListNumber < routine.exercises.length ? (
-                <Button
-                  colorScheme={'brandPrimary'}
-                  rightIcon={<ArrowForwardIcon />}
-                  onClick={() => {
-                    setCurrentExercise(
-                      routine.exercises[
-                        Math.min(
-                          currentExerciseListNumber,
-                          routine.exercises.length
-                        )
-                      ]
-                    );
-                  }}
-                >
-                  <Text fontWeight={'semibold'} fontSize={'lg'} color="white">
-                    Next
-                  </Text>
-                </Button>
-              ) : (
-                <Button
-                  colorScheme={'brandPrimary'}
-                  onClick={() => {
-                    router.push('/');
-                  }}
-                >
-                  Complete
-                </Button>
-              )}
-            </Flex>
-          </Box>
+            )}
+          </Flex>
+          <WorkoutModeProgressBar
+            currentValue={currentExerciseListNumber}
+            maxValue={routine.exercises.length}
+            handlePreviousClicked={() => {
+              setCurrentExercise(
+                routine.exercises[Math.max(currentExerciseIndex - 1, 0)]
+              );
+            }}
+            handleNextClicked={() => {
+              setCurrentExercise(
+                routine.exercises[
+                  Math.min(currentExerciseListNumber, routine.exercises.length)
+                ]
+              );
+            }}
+            handleCompleteClicked={() => {
+              router.push('/');
+            }}
+          />
         </Box>
       </Box>
     </Layout>
