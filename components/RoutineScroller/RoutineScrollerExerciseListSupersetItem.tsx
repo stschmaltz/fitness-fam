@@ -1,5 +1,5 @@
 import { InfoIcon } from '@chakra-ui/icons';
-import { Flex, Link, Text, Tooltip } from '@chakra-ui/react';
+import { Box, Flex, Link, Text, Tooltip } from '@chakra-ui/react';
 import { titleCase } from 'title-case';
 import { theme } from '../../styles/theme';
 import utilStyles from '../../styles/utils.module.css';
@@ -11,7 +11,7 @@ export default function RoutineScrollerExerciseListSupersetItem(props: {
   const { exercise } = props;
 
   return (
-    <Flex
+    <Box
       width="300px"
       height="10.3rem"
       paddingY={'10px'}
@@ -19,55 +19,171 @@ export default function RoutineScrollerExerciseListSupersetItem(props: {
       css={'&:last-of-type { padding-right: 10px; }'}
     >
       <Flex
-        width="150px"
-        bgColor={theme.colors.brandPrimary['500']}
         height="100%"
+        pos={'relative'}
         p={2}
+        flexDir={'column'}
         borderRadius="md"
         outline={'1px solid ' + theme.colors.brandPrimary['300']}
-        alignItems={'space-between'}
-        justifyContent={'space-between'}
-        flexDir={'column'}
+        bgColor={theme.colors.brandPrimary['50']}
       >
-        <Link href={`/exercises/${exercise.id}`}>
-          <Flex justifyContent={'space-between'} flexShrink={0} flexGrow={0}>
-            <Text
-              lineHeight={1}
-              variant={'bold'}
-              color={theme.colors.brandSecondary['700']}
-            >
-              {exercise.order + 1}
-            </Text>
-            <InfoIcon
-              color={theme.colors.brandSecondary['700']}
-              opacity={'0.5'}
-            />
-          </Flex>
-          <Flex
-            textAlign={'center'}
-            justifyContent={'center'}
-            alignItems={'flex-start'}
-            flexGrow={1}
+        <Flex justifyContent={'space-between'}>
+          <Text
+            lineHeight={1}
+            variant={'bold'}
+            color={theme.colors.brandSecondary['700']}
           >
-            <Tooltip label={titleCase(exercise.name)}>
-              <Text
-                className={utilStyles.lineClamp}
-                fontWeight={'semibold'}
-                overflow={'hidden'}
-                fontSize={['md', 'lg']}
+            {exercise.order + 1}
+          </Text>
+          <Text
+            lineHeight={1}
+            variant={'bold'}
+            color={theme.colors.brandSecondary['700']}
+            fontSize="sm"
+          >
+            Superset
+          </Text>
+        </Flex>
+        <Flex flexDir={'row'} justifyContent="space-between" h="100%">
+          <Flex flexDir={'column'} justifyContent={'center'}>
+            <Link href={`/exercises/${exercise.id}`}>
+              <Flex width="135px" flexDir={'column'}>
+                <Flex
+                  textAlign={'center'}
+                  justifyContent={'center'}
+                  alignItems={'flex-start'}
+                  flexGrow={1}
+                >
+                  <Tooltip label={titleCase(exercise.name)}>
+                    <Text
+                      className={utilStyles.lineClamp}
+                      fontWeight={'semibold'}
+                      overflow={'hidden'}
+                      fontSize={['md', 'lg']}
+                      color={theme.colors.brandSecondary['900']}
+                    >
+                      {titleCase(exercise.name)}
+                    </Text>
+                  </Tooltip>
+                </Flex>
+
+                <Flex mt={0.5} justifyContent={'center'}>
+                  <InfoIcon
+                    color={theme.colors.brandSecondary['700']}
+                    opacity={'0.5'}
+                    mr={4}
+                  />
+                  {exercise.reps && (
+                    <Flex
+                      pl={2}
+                      color={theme.colors.brandSecondary['700']}
+                      flexDir="column"
+                      alignItems="center"
+                    >
+                      <Text
+                        fontSize={'md'}
+                        lineHeight={1}
+                        variant="bold"
+                        color="inherit"
+                      >
+                        {exercise.reps}
+                      </Text>
+                      <Text
+                        mt={0.5}
+                        lineHeight={0.2}
+                        color="inherit"
+                        fontSize={'sm'}
+                      >
+                        reps
+                      </Text>
+                    </Flex>
+                  )}
+                </Flex>
+              </Flex>
+            </Link>
+          </Flex>
+
+          {exercise.supersetExercise && (
+            <>
+              <Flex
+                justifyContent={'center'}
+                alignItems="center"
                 color={theme.colors.brandSecondary['900']}
               >
-                {titleCase(exercise.name)}
-              </Text>
-            </Tooltip>
-          </Flex>
-        </Link>
-        <Flex justifyContent="space-between" flexShrink={0} flexGrow={0}>
+                <Box
+                  width={'1px'}
+                  height="100%"
+                  backgroundColor={theme.colors.brandPrimary['100']}
+                />
+              </Flex>
+              <Flex flexDir={'column'} justifyContent={'center'}>
+                <Link href={`/exercises/${exercise.supersetExercise.id}`}>
+                  <Flex width="135px" flexDir={'column'}>
+                    <Flex
+                      textAlign={'center'}
+                      justifyContent={'center'}
+                      alignItems={'flex-start'}
+                      flexGrow={1}
+                    >
+                      <Tooltip
+                        label={titleCase(exercise.supersetExercise.name)}
+                      >
+                        <Text
+                          className={utilStyles.lineClamp}
+                          fontWeight={'semibold'}
+                          overflow={'hidden'}
+                          fontSize={['md', 'lg']}
+                          color={theme.colors.brandSecondary['900']}
+                        >
+                          {titleCase(exercise.supersetExercise.name)}
+                        </Text>
+                      </Tooltip>
+                    </Flex>
+
+                    <Flex mt={0.5} justifyContent={'center'}>
+                      <InfoIcon
+                        color={theme.colors.brandSecondary['700']}
+                        opacity={'0.5'}
+                        mr={4}
+                      />
+                      {exercise.supersetReps && (
+                        <Flex
+                          pl={2}
+                          color={theme.colors.brandSecondary['700']}
+                          flexDir="column"
+                          alignItems="center"
+                        >
+                          <Text
+                            fontSize={'md'}
+                            lineHeight={1}
+                            variant="bold"
+                            color="inherit"
+                          >
+                            {exercise.supersetReps}
+                          </Text>
+                          <Text
+                            mt={0.5}
+                            lineHeight={0.2}
+                            color="inherit"
+                            fontSize={'sm'}
+                          >
+                            reps
+                          </Text>
+                        </Flex>
+                      )}
+                    </Flex>
+                  </Flex>
+                </Link>
+              </Flex>
+            </>
+          )}
+        </Flex>
+        <Flex position={'absolute'} bottom={2}>
           {exercise.sets && (
             <Flex
               color={theme.colors.brandSecondary['700']}
               flexDir="column"
-              alignItems="center"
+              alignItems={'center'}
             >
               <Text
                 fontSize={'md'}
@@ -77,119 +193,13 @@ export default function RoutineScrollerExerciseListSupersetItem(props: {
               >
                 {exercise.sets}
               </Text>
-              <Text lineHeight={0.2} color="inherit" fontSize={'sm'}>
+              <Text mt={0.5} lineHeight={0.2} color="inherit" fontSize={'sm'}>
                 sets
-              </Text>
-            </Flex>
-          )}
-          {exercise.reps && (
-            <Flex
-              color={theme.colors.brandSecondary['700']}
-              flexDir="column"
-              alignItems="center"
-            >
-              <Text
-                fontSize={'md'}
-                lineHeight={1}
-                variant="bold"
-                color="inherit"
-              >
-                {exercise.reps}
-              </Text>
-              <Text lineHeight={0.2} color="inherit" fontSize={'sm'}>
-                reps
               </Text>
             </Flex>
           )}
         </Flex>
       </Flex>
-      {exercise.supersetExercise && (
-        <Flex
-          bgColor={theme.colors.brandPrimary['900']}
-          height="100%"
-          width="150px"
-          p={2}
-          borderRadius="md"
-          outline={'1px solid ' + theme.colors.brandPrimary['300']}
-          alignItems={'space-between'}
-          justifyContent={'space-between'}
-          flexDir={'column'}
-        >
-          <Link href={`/exercises/${exercise.id}`}>
-            <Flex justifyContent={'space-between'} flexShrink={0} flexGrow={0}>
-              <Text
-                lineHeight={1}
-                variant={'bold'}
-                color={theme.colors.brandSecondary['700']}
-              >
-                {exercise.order + 1}
-              </Text>
-              <InfoIcon
-                color={theme.colors.brandSecondary['700']}
-                opacity={'0.5'}
-              />
-            </Flex>
-            <Flex
-              textAlign={'center'}
-              justifyContent={'center'}
-              alignItems={'flex-start'}
-              flexGrow={1}
-            >
-              <Tooltip label={titleCase(exercise.supersetExercise.name)}>
-                <Text
-                  className={utilStyles.lineClamp}
-                  fontWeight={'semibold'}
-                  overflow={'hidden'}
-                  fontSize={['md', 'lg']}
-                  color={theme.colors.brandSecondary['900']}
-                >
-                  {titleCase(exercise.supersetExercise.name)}
-                </Text>
-              </Tooltip>
-            </Flex>
-          </Link>
-          <Flex justifyContent="space-between" flexShrink={0} flexGrow={0}>
-            {exercise.sets && (
-              <Flex
-                color={theme.colors.brandSecondary['700']}
-                flexDir="column"
-                alignItems="center"
-              >
-                <Text
-                  fontSize={'md'}
-                  lineHeight={1}
-                  variant="bold"
-                  color="inherit"
-                >
-                  {exercise.sets}
-                </Text>
-                <Text lineHeight={0.2} color="inherit" fontSize={'sm'}>
-                  sets
-                </Text>
-              </Flex>
-            )}
-            {exercise.reps && (
-              <Flex
-                color={theme.colors.brandSecondary['700']}
-                flexDir="column"
-                alignItems="center"
-              >
-                <Text
-                  fontSize={'md'}
-                  lineHeight={1}
-                  variant="bold"
-                  color="inherit"
-                >
-                  {exercise.reps}
-                </Text>
-                <Text lineHeight={0.2} color="inherit" fontSize={'sm'}>
-                  reps
-                </Text>
-              </Flex>
-            )}
-          </Flex>
-        </Flex>
-      )}
-    </Flex>
+    </Box>
   );
 }

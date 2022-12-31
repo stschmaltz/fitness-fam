@@ -75,7 +75,7 @@ export default function RoutineScrollerExerciseList(props: {
               >
                 {exercise.sets}
               </Text>
-              <Text lineHeight={0.2} color="inherit" fontSize={'sm'}>
+              <Text mt={0.5} lineHeight={0.2} color="inherit" fontSize={'sm'}>
                 sets
               </Text>
             </Flex>
@@ -94,7 +94,7 @@ export default function RoutineScrollerExerciseList(props: {
               >
                 {exercise.reps}
               </Text>
-              <Text lineHeight={0.2} color="inherit" fontSize={'sm'}>
+              <Text mt={0.5} lineHeight={0.2} color="inherit" fontSize={'sm'}>
                 reps
               </Text>
             </Flex>
