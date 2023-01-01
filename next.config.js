@@ -5,23 +5,27 @@ const withPWA = require('next-pwa')({
   skipWaiting: true,
   disable: process.env.NODE_ENV === 'development',
 });
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
+module.exports = withBundleAnalyzer({
+  ...withPWA({
+    images: {
+      remotePatterns: [
+        {
+          protocol: 'http',
+          hostname: 'd205bpvrqc9yn1.cloudfront.net',
+          pathname: '/**.gif',
+        },
+      ],
+    },
+    webpack(config) {
+      config.module.rules.push({
+        test: /\.svg$/,
+        use: ['@svgr/webpack'],
+      });
 
-module.exports = withPWA({
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'http',
-        hostname: 'd205bpvrqc9yn1.cloudfront.net',
-        pathname: '/**.gif',
-      },
-    ],
-  },
-  webpack(config) {
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: ['@svgr/webpack'],
-    });
-
-    return config;
-  },
+      return config;
+    },
+  }),
 });
