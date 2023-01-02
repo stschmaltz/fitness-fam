@@ -5,7 +5,7 @@ import { theme } from '../../styles/theme';
 import utilStyles from '../../styles/utils.module.css';
 import { RoutineExerciseObject } from '../../types/routine';
 
-export default function RoutineScrollerExerciseList(props: {
+export default function RoutineScrollerExerciseListItem(props: {
   exercise: RoutineExerciseObject;
 }) {
   const { exercise } = props;
@@ -30,6 +30,7 @@ export default function RoutineScrollerExerciseList(props: {
         <Link href={`/exercises/${exercise.id}`}>
           <Flex justifyContent={'space-between'} flexShrink={0} flexGrow={0}>
             <Text
+              opacity={'0.6'}
               lineHeight={1}
               variant={'bold'}
               color={theme.colors.brandSecondary['700']}

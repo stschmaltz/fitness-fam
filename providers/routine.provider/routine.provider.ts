@@ -5,6 +5,88 @@ import { RoutineExerciseObject, RoutineObject } from '../../types/routine';
 
 @injectable()
 class RoutineProvider implements RoutineProviderInterface {
+  splitSuperset(input: {
+    routine: RoutineObject;
+    parentExerciseId: string;
+  }): RoutineObject {
+    const { routine, parentExerciseId } = input;
+
+    const parentExercise = routine.exercises.find(
+      (exercise) => exercise.id === parentExerciseId
+    );
+
+    if (!parentExercise?.supersetExerciseId || !parentExercise.supersetExercise)
+      return routine;
+
+    const splitExercise: RoutineExerciseObject = {
+      id: parentExercise.supersetExerciseId,
+      exercise: parentExercise.supersetExercise,
+      name: parentExercise.supersetExercise.name,
+      order: parentExercise.order + 1,
+      reps: parentExercise.supersetReps,
+      sets: parentExercise.sets,
+      supersetExerciseId: undefined,
+      supersetExercise: undefined,
+      supersetReps: undefined,
+    };
+
+    const exerciseListWithoutSuperset = routine.exercises.map((exercise) => {
+      if (exercise.id === parentExerciseId) {
+        return {
+          ...exercise,
+          supersetExerciseId: undefined,
+          supersetExercise: undefined,
+          supersetReps: undefined,
+        };
+      }
+
+      return exercise;
+    });
+    const updatedExerciseList = [
+      ...exerciseListWithoutSuperset.slice(0, splitExercise.order),
+      splitExercise,
+      ...exerciseListWithoutSuperset.slice(splitExercise.order),
+    ];
+
+    const newRoutine: RoutineObject = {
+      ...routine,
+      exercises: this.saveNewOrder(updatedExerciseList),
+    };
+
+    return newRoutine;
+  }
+
+  public createSuperset(input: {
+    routine: RoutineObject;
+    destinationExerciseId: string;
+    supersetExercise: ExerciseObject;
+    supersetReps: number;
+  }): RoutineObject {
+    const { routine, destinationExerciseId, supersetExercise, supersetReps } =
+      input;
+
+    const updatedExerciseList = routine.exercises
+      .map((exercise) => {
+        if (exercise.id === destinationExerciseId) {
+          return {
+            ...exercise,
+            supersetExerciseId: supersetExercise.id,
+            supersetExercise,
+            supersetReps,
+          };
+        }
+        return exercise;
+      })
+      .filter((exercise) => exercise.id !== supersetExercise.id);
+
+    const newRoutine: RoutineObject = {
+      ...routine,
+      exercises: this.saveNewOrder(updatedExerciseList),
+    };
+
+    return newRoutine;
+  }
+
   public saveNewOrder(
     exercises: RoutineExerciseObject[]
   ): RoutineExerciseObject[] {
@@ -40,6 +122,9 @@ class RoutineProvider implements RoutineProviderInterface {
           exercise: newExercise,
           reps,
           sets,
+          supersetExerciseId: undefined,
+          supersetExercise: undefined,
+          supersetReps: undefined,
         },
       ],
     };

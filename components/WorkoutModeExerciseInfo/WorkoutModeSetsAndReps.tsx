@@ -29,9 +29,9 @@ export default function WorkoutModeSetsAndReps(props: {
   return (
     <Flex justifyContent={'flex-start'} minW={'300px'}>
       {currentExercise.sets ? (
-        <Flex>
+        <Flex mb={1}>
           <Text
-            color={theme.colors.gray[700]}
+            color={theme.colors.brandSecondary[700]}
             fontSize={'3xl'}
             fontWeight={'bold'}
           >
@@ -46,8 +46,8 @@ export default function WorkoutModeSetsAndReps(props: {
             max={99}
           >
             <NumberInputField
-              color={theme.colors.gray[700]}
-              _disabled={{ color: theme.colors.gray[700] }}
+              color={theme.colors.brandSecondary[700]}
+              _disabled={{ color: theme.colors.brandSecondary[700] }}
               disabled
               fontWeight={'bold'}
               fontSize={'3xl'}
@@ -68,7 +68,7 @@ export default function WorkoutModeSetsAndReps(props: {
 
       {reps ? (
         <Text
-          color={theme.colors.gray[700]}
+          color={theme.colors.brandSecondary[700]}
           fontSize={'3xl'}
           fontWeight={'bold'}
           pl={5}

@@ -18,4 +18,14 @@ export interface RoutineProviderInterface {
     routine: RoutineObject,
     exerciseId: string
   ): RoutineObject;
+  createSuperset(input: {
+    routine: RoutineObject;
+    destinationExerciseId: string;
+    supersetExercise: ExerciseObject;
+    supersetReps?: number;
+  }): RoutineObject;
+  splitSuperset(input: {
+    routine: RoutineObject;
+    parentExerciseId: string;
+  }): RoutineObject;
 }
