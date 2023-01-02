@@ -1,4 +1,4 @@
-import { InfoIcon } from '@chakra-ui/icons';
+import { InfoIcon, LinkIcon } from '@chakra-ui/icons';
 import { Box, Flex, Link, Text, Tooltip } from '@chakra-ui/react';
 import { titleCase } from 'title-case';
 import { theme } from '../../styles/theme';
@@ -27,25 +27,46 @@ export default function RoutineScrollerExerciseListSupersetItem(props: {
         outline={'1px solid ' + theme.colors.brandPrimary['300']}
         bgColor={theme.colors.brandPrimary['50']}
       >
-        <Flex justifyContent={'space-between'}>
+        <Flex justifyContent={'space-between'} alignItems={'center'}>
           <Text
             lineHeight={1}
+            opacity={'0.6'}
             variant={'bold'}
             color={theme.colors.brandSecondary['700']}
           >
             {exercise.order + 1}
           </Text>
-          <Text
-            lineHeight={1}
-            variant={'bold'}
-            color={theme.colors.brandSecondary['700']}
-            fontSize="sm"
+          <Flex>
+            <Text
+              lineHeight={1}
+              variant={'bold'}
+              color={theme.colors.brandSecondary['700']}
+              fontSize="sm"
+              opacity={'0.5'}
+            >
+              Superset
+            </Text>
+            <LinkIcon
+              ml={2}
+              opacity={'0.8'}
+              color={theme.colors.accent2['50']}
+              fontSize={'sm'}
+            />
+          </Flex>
+
+          <Link
+            href={`/exercises/${exercise.id}?supersetId=${exercise.supersetExerciseId}`}
           >
-            Superset
-          </Text>
+            <InfoIcon
+              fontSize={'xl'}
+              color={theme.colors.brandSecondary['700']}
+              opacity={'0.5'}
+            />
+          </Link>
         </Flex>
         <Flex flexDir={'row'} justifyContent="space-between" h="100%">
           <Flex flexDir={'column'} justifyContent={'center'}>
+            <Flex justifyContent={'flex-end'}></Flex>
             <Link href={`/exercises/${exercise.id}`}>
               <Flex width="135px" flexDir={'column'}>
                 <Flex
@@ -68,11 +89,6 @@ export default function RoutineScrollerExerciseListSupersetItem(props: {
                 </Flex>
 
                 <Flex mt={0.5} justifyContent={'center'}>
-                  <InfoIcon
-                    color={theme.colors.brandSecondary['700']}
-                    opacity={'0.5'}
-                    mr={4}
-                  />
                   {exercise.reps && (
                     <Flex
                       pl={2}
@@ -113,6 +129,7 @@ export default function RoutineScrollerExerciseListSupersetItem(props: {
                 <Box
                   width={'1px'}
                   height="100%"
+                  opacity={'0.5'}
                   backgroundColor={theme.colors.brandPrimary['100']}
                 />
               </Flex>
@@ -141,11 +158,6 @@ export default function RoutineScrollerExerciseListSupersetItem(props: {
                     </Flex>
 
                     <Flex mt={0.5} justifyContent={'center'}>
-                      <InfoIcon
-                        color={theme.colors.brandSecondary['700']}
-                        opacity={'0.5'}
-                        mr={4}
-                      />
                       {exercise.supersetReps && (
                         <Flex
                           pl={2}

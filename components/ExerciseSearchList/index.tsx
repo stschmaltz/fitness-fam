@@ -124,7 +124,7 @@ export default function ExerciseSearchList(props: {
                   </Box>
                   <IconButton
                     color={theme.colors.accent2['50']}
-                    aria-label="add exercise to routine"
+                    aria-label="see exercise info"
                     icon={<InfoIcon />}
                     onClick={() => showExerciseInfo(exercise as ExerciseObject)}
                     backgroundColor={theme.colors.gray['50']}

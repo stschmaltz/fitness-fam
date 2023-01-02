@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import Layout from '../components/layout';
 import { ExerciseObject } from '../types/exercise';
 import { RoutineExerciseObject, RoutineObject } from '../types/routine';
-import CurrentRoutineList from '../components/CurrentRoutineList';
+import CurrentRoutineList from '../components/CurrentRoutineList/CurrentRoutineList';
 import NoExercisesRoutineList from '../components/NoExercisesRoutineList';
 import ExerciseSearchList from '../components/ExerciseSearchList';
 import { reorderList } from '../lib/list-helpers';
@@ -21,6 +21,7 @@ import BasicLoader from '../components/BasicLoader';
 import { useUserSignIn } from '../hooks/use-user-sign-in.hook';
 import { useGetAllExercises } from '../hooks/use-get-all-exercises.hook';
 import { useHandleSaveRoutine } from '../hooks/use-handle-save-routine.hook';
+import { useHandleCreateSupersetDuringCombine } from '../hooks/use-handle-create-superset-during-combine.hook';
 
 export default function NewRoutinePage() {
   const router = useRouter();
@@ -72,7 +73,16 @@ export default function NewRoutinePage() {
   const disableSaveButton =
     !currentRoutine.name || !currentRoutine.exercises.length;
 
+  const { handleCombine, handleSplit } = useHandleCreateSupersetDuringCombine({
+    currentRoutine,
+    setCurrentRoutine,
+  });
+
   const onDragEnd = (result: DropResult) => {
+    if (result.combine) {
+      handleCombine(result);
+    }
+
     if (!result.destination) {
       return;
     }
@@ -122,7 +132,7 @@ export default function NewRoutinePage() {
   const handleSetsRepsChange = (
     exercise: RoutineExerciseObject,
     value: string,
-    type: 'sets' | 'reps'
+    type: 'sets' | 'reps' | 'supersetReps'
   ) => {
     const numberValue = parseInt(value);
     if (numberValue < 0 || numberValue > 99) return;
@@ -141,6 +151,13 @@ export default function NewRoutinePage() {
 
   const handleRepsChange = (exercise: RoutineExerciseObject, value: string) => {
     handleSetsRepsChange(exercise, value, 'reps');
+  };
+
+  const handleSupersetRepsChange = (
+    exercise: RoutineExerciseObject,
+    value: string
+  ) => {
+    handleSetsRepsChange(exercise, value, 'supersetReps');
   };
 
   const handleSetsChange = (exercise: RoutineExerciseObject, value: string) => {
@@ -198,9 +215,11 @@ export default function NewRoutinePage() {
             <CurrentRoutineList
               handleSetsChange={handleSetsChange}
               handleRepsChange={handleRepsChange}
+              handleSupersetRepsChange={handleSupersetRepsChange}
               handleOnDragEnd={onDragEnd}
               currentRoutine={currentRoutine}
               handleRemoveExerciseFromRoutine={handleRemoveExerciseFromRoutine}
+              handleSplitExerciseSuperset={handleSplit}
             />
           </Box>
         ) : (

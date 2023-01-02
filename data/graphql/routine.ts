@@ -49,6 +49,7 @@ const routineTypeDefs = /* GraphQL */ `
     sets: Int
     reps: Int
     supersetReps: Int
+    supersetExerciseId: String
     supersetExercise: Exercise
   }
 

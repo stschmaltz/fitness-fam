@@ -57,7 +57,7 @@ export default function WorkoutModePage(props: { routine?: RoutineObject }) {
   return (
     <Layout showReturnToHome={false}>
       <Link href={'/'}>Return to home</Link>
-      <Box pos="relative" h={'85vh'}>
+      <Box bgColor={'white'} pos="relative" h={'85vh'}>
         <Box>
           <WorkoutModeExerciseInfo
             exercise={
@@ -78,7 +78,9 @@ export default function WorkoutModePage(props: { routine?: RoutineObject }) {
               <Text variant={'h3'} fontSize={'md'}>
                 Notes
               </Text>
-              <Textarea>This does nothing yet, save coming soon.</Textarea>
+              <Textarea
+                defaultValue={'This does nothing yet, save coming soon.'}
+              />
             </Box> */}
           </Flex>
           <Flex justifyContent={'space-between'}>
@@ -91,8 +93,14 @@ export default function WorkoutModePage(props: { routine?: RoutineObject }) {
                 flexDir={'column'}
                 justifyContent={'center'}
                 alignItems={'center'}
+                textAlign={'center'}
               >
-                <Text as="span" fontSize={'sm'}>
+                <Text
+                  color={'secondary'}
+                  fontWeight={'semibold'}
+                  as="span"
+                  fontSize={'sm'}
+                >
                   Superset
                 </Text>
                 <Switch

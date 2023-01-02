@@ -25,7 +25,6 @@ class ExerciseSearcher implements ExerciseSearchProviderInterface {
     input: string,
     filters: SearchFilters
   ): ExerciseObject[] {
-    console.log('SEARCHING', { input, filters });
     // if no filters search fuzzy on all fields
     if (
       filters.equipmentFilters.length +

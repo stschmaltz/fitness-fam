@@ -14,6 +14,7 @@ const fullRoutine = `
       name
       sets
       reps
+      supersetExerciseId
       supersetReps
     }
   `;

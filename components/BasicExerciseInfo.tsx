@@ -1,15 +1,29 @@
-import { Box, Flex, Image, List, ListItem, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  Image,
+  List,
+  ListItem,
+  Switch,
+  Text,
+} from '@chakra-ui/react';
+import { useState } from 'react';
 import { ExerciseObject } from '../types/exercise';
 
 export default function BasicExerciseInfo(props: {
   hideGif?: boolean;
   exercise: ExerciseObject;
+  supersetExercise?: ExerciseObject | null;
 }) {
-  const { exercise, hideGif = false } = props;
+  const { exercise, hideGif = false, supersetExercise } = props;
+  const [showSuperset, setShowSuperset] = useState(false);
+
+  const currentExercise =
+    showSuperset && supersetExercise ? supersetExercise : exercise;
   return (
     <Box>
       <Flex justifyContent="center">
-        <Text variant="h1">{exercise?.name}</Text>
+        <Text variant="h1">{currentExercise?.name}</Text>
       </Flex>
       <Flex flexDir="column" alignItems="flex-start" textAlign="left">
         <Flex mt={5} flexDir={'column'}>
@@ -18,7 +32,7 @@ export default function BasicExerciseInfo(props: {
               Equipment:
             </Text>
             <Text pl={5} as="span">
-              {exercise?.equipment}
+              {currentExercise?.equipment}
             </Text>
           </Flex>
           <Flex justifyContent="space-between" key="bodyArea">
@@ -26,7 +40,7 @@ export default function BasicExerciseInfo(props: {
               Body Area:
             </Text>
             <Text pl={5} as="span">
-              {exercise?.bodyArea}
+              {currentExercise?.bodyArea}
             </Text>
           </Flex>
           <Flex justifyContent="space-between" key="target">
@@ -34,7 +48,7 @@ export default function BasicExerciseInfo(props: {
               Target Muscle:
             </Text>
             <Text pl={5} as="span">
-              {exercise?.targetMuscle}
+              {currentExercise?.targetMuscle}
             </Text>
           </Flex>
         </Flex>
@@ -42,7 +56,7 @@ export default function BasicExerciseInfo(props: {
           <Box key="gif">
             <Box>
               <Image
-                src={exercise?.gifUrl}
+                src={currentExercise?.gifUrl}
                 alt="my gif"
                 width={360}
                 height={360}
@@ -50,11 +64,11 @@ export default function BasicExerciseInfo(props: {
             </Box>
           </Box>
         )}
-        {exercise?.instructions?.length > 1 && (
+        {currentExercise?.instructions?.length > 1 && (
           <Box key="instructions">
             <Text variant="h3">Instructions</Text>
             <List>
-              {exercise?.instructions.map((instruction, index) => (
+              {currentExercise?.instructions.map((instruction, index) => (
                 <ListItem mt={3} key={instruction.number}>
                   <Text fontSize="lg">
                     <b>{index + 1}. </b>
@@ -64,6 +78,31 @@ export default function BasicExerciseInfo(props: {
               ))}
             </List>
           </Box>
+        )}
+        {supersetExercise && (
+          <Flex w="100%" justifyContent={'center'}>
+            <Flex
+              flexDir={'column'}
+              justifyContent={'center'}
+              alignItems={'center'}
+              textAlign={'center'}
+            >
+              <Text
+                color={'secondary'}
+                fontWeight={'semibold'}
+                as="span"
+                fontSize={'sm'}
+              >
+                Show Superset
+              </Text>
+              <Switch
+                colorScheme={'brandSecondary'}
+                onChange={() => {
+                  setShowSuperset(!showSuperset);
+                }}
+              ></Switch>
+            </Flex>
+          </Flex>
         )}
       </Flex>
     </Box>
