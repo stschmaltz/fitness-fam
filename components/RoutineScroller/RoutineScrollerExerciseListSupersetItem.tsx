@@ -71,8 +71,9 @@ export default function RoutineScrollerExerciseListSupersetItem(props: {
         <Flex flexDir={'row'} justifyContent="space-between" h="100%">
           <Flex flexDir={'column'} justifyContent={'flex-start'}>
             <Link href={`/exercises/${exercise.id}`}>
-              <Flex width="130px" flexDir={'column'}>
+              <Flex width="125px" flexDir={'column'}>
                 <Flex
+                  minH={'3rem'}
                   textAlign={'center'}
                   justifyContent={'center'}
                   alignItems={'flex-start'}
@@ -140,8 +141,9 @@ export default function RoutineScrollerExerciseListSupersetItem(props: {
               </Flex>
               <Flex flexDir={'column'} justifyContent={'flex-start'}>
                 <Link href={`/exercises/${exercise.supersetExercise.id}`}>
-                  <Flex width="130px" flexDir={'column'}>
+                  <Flex width="125px" flexDir={'column'}>
                     <Flex
+                      minH={'3rem'}
                       textAlign={'center'}
                       justifyContent={'center'}
                       alignItems={'flex-start'}
