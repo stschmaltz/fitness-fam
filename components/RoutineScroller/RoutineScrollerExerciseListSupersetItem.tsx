@@ -27,7 +27,11 @@ export default function RoutineScrollerExerciseListSupersetItem(props: {
         outline={'1px solid ' + theme.colors.brandPrimary['300']}
         bgColor={theme.colors.brandPrimary['50']}
       >
-        <Flex justifyContent={'space-between'} alignItems={'center'}>
+        <Flex
+          maxH={'24px'}
+          justifyContent={'space-between'}
+          alignItems={'center'}
+        >
           <Text
             lineHeight={1}
             opacity={'0.6'}
@@ -65,10 +69,9 @@ export default function RoutineScrollerExerciseListSupersetItem(props: {
           </Link>
         </Flex>
         <Flex flexDir={'row'} justifyContent="space-between" h="100%">
-          <Flex flexDir={'column'} justifyContent={'center'}>
-            <Flex justifyContent={'flex-end'}></Flex>
+          <Flex flexDir={'column'} justifyContent={'flex-start'}>
             <Link href={`/exercises/${exercise.id}`}>
-              <Flex width="135px" flexDir={'column'}>
+              <Flex width="130px" flexDir={'column'}>
                 <Flex
                   textAlign={'center'}
                   justifyContent={'center'}
@@ -122,6 +125,8 @@ export default function RoutineScrollerExerciseListSupersetItem(props: {
           {exercise.supersetExercise && (
             <>
               <Flex
+                flexShrink={0}
+                width={'16px'}
                 justifyContent={'center'}
                 alignItems="center"
                 color={theme.colors.brandSecondary['900']}
@@ -133,9 +138,9 @@ export default function RoutineScrollerExerciseListSupersetItem(props: {
                   backgroundColor={theme.colors.brandPrimary['100']}
                 />
               </Flex>
-              <Flex flexDir={'column'} justifyContent={'center'}>
+              <Flex flexDir={'column'} justifyContent={'flex-start'}>
                 <Link href={`/exercises/${exercise.supersetExercise.id}`}>
-                  <Flex width="135px" flexDir={'column'}>
+                  <Flex width="130px" flexDir={'column'}>
                     <Flex
                       textAlign={'center'}
                       justifyContent={'center'}
