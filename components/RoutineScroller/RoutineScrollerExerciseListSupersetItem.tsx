@@ -69,9 +69,9 @@ export default function RoutineScrollerExerciseListSupersetItem(props: {
           </Link>
         </Flex>
         <Flex flexDir={'row'} justifyContent="space-between" h="100%">
-          <Flex flexDir={'column'} justifyContent={'flex-start'}>
-            <Link href={`/exercises/${exercise.id}`}>
-              <Flex width="125px" flexDir={'column'}>
+          <Link href={`/exercises/${exercise.id}`}>
+            <Flex flexDir={'column'} justifyContent={'flex-start'}>
+              <Flex pos={'relative'} width="125px" flexDir={'column'}>
                 <Flex
                   minH={'3rem'}
                   textAlign={'center'}
@@ -92,36 +92,37 @@ export default function RoutineScrollerExerciseListSupersetItem(props: {
                   </Tooltip>
                 </Flex>
 
-                <Flex mt={0.5} justifyContent={'center'}>
-                  {exercise.reps && (
-                    <Flex
-                      pl={2}
-                      color={theme.colors.brandSecondary['700']}
-                      flexDir="column"
-                      alignItems="center"
+                {exercise.reps && (
+                  <Flex
+                    pos={'absolute'}
+                    top="5.2rem"
+                    right={1}
+                    pl={2}
+                    color={theme.colors.brandSecondary['700']}
+                    flexDir="column"
+                    alignItems="center"
+                  >
+                    <Text
+                      fontSize={'md'}
+                      lineHeight={1}
+                      variant="bold"
+                      color="inherit"
                     >
-                      <Text
-                        fontSize={'md'}
-                        lineHeight={1}
-                        variant="bold"
-                        color="inherit"
-                      >
-                        {exercise.reps}
-                      </Text>
-                      <Text
-                        mt={0.5}
-                        lineHeight={0.2}
-                        color="inherit"
-                        fontSize={'sm'}
-                      >
-                        reps
-                      </Text>
-                    </Flex>
-                  )}
-                </Flex>
+                      {exercise.reps}
+                    </Text>
+                    <Text
+                      mt={0.5}
+                      lineHeight={0.2}
+                      color="inherit"
+                      fontSize={'sm'}
+                    >
+                      reps
+                    </Text>
+                  </Flex>
+                )}
               </Flex>
-            </Link>
-          </Flex>
+            </Flex>
+          </Link>
 
           {exercise.supersetExercise && (
             <>
@@ -139,9 +140,9 @@ export default function RoutineScrollerExerciseListSupersetItem(props: {
                   backgroundColor={theme.colors.brandPrimary['100']}
                 />
               </Flex>
-              <Flex flexDir={'column'} justifyContent={'flex-start'}>
-                <Link href={`/exercises/${exercise.supersetExercise.id}`}>
-                  <Flex width="125px" flexDir={'column'}>
+              <Link href={`/exercises/${exercise.supersetExercise.id}`}>
+                <Flex flexDir={'column'} justifyContent={'flex-start'}>
+                  <Flex pos={'relative'} width="125px" flexDir={'column'}>
                     <Flex
                       minH={'3rem'}
                       textAlign={'center'}
@@ -164,36 +165,37 @@ export default function RoutineScrollerExerciseListSupersetItem(props: {
                       </Tooltip>
                     </Flex>
 
-                    <Flex mt={0.5} justifyContent={'center'}>
-                      {exercise.supersetReps && (
-                        <Flex
-                          pl={2}
-                          color={theme.colors.brandSecondary['700']}
-                          flexDir="column"
-                          alignItems="center"
+                    {exercise.supersetReps && (
+                      <Flex
+                        pos={'absolute'}
+                        top="5.2rem"
+                        right={1}
+                        pl={2}
+                        color={theme.colors.brandSecondary['700']}
+                        flexDir="column"
+                        alignItems="center"
+                      >
+                        <Text
+                          fontSize={'md'}
+                          lineHeight={1}
+                          variant="bold"
+                          color="inherit"
                         >
-                          <Text
-                            fontSize={'md'}
-                            lineHeight={1}
-                            variant="bold"
-                            color="inherit"
-                          >
-                            {exercise.supersetReps}
-                          </Text>
-                          <Text
-                            mt={0.5}
-                            lineHeight={0.2}
-                            color="inherit"
-                            fontSize={'sm'}
-                          >
-                            reps
-                          </Text>
-                        </Flex>
-                      )}
-                    </Flex>
+                          {exercise.supersetReps}
+                        </Text>
+                        <Text
+                          mt={0.5}
+                          lineHeight={0.2}
+                          color="inherit"
+                          fontSize={'sm'}
+                        >
+                          reps
+                        </Text>
+                      </Flex>
+                    )}
                   </Flex>
-                </Link>
-              </Flex>
+                </Flex>
+              </Link>
             </>
           )}
         </Flex>
