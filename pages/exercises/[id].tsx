@@ -27,7 +27,6 @@ export default function Exercise(props: { exercise?: ExerciseObject }) {
     if (!supersetExerciseId) return;
 
     const getSupersetExercise = async () => {
-      // get the data from the api
       const supersetExercise = await exerciseProvider.findExerciseById(
         supersetExerciseId
       );
