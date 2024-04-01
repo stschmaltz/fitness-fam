@@ -15,12 +15,15 @@ import { ExerciseObject } from '../types/exercise';
 const appContainer = new Container();
 const allExercises = exercises.map((exercise) => ({
   name: titleCase(exercise.name),
-  targetMuscle: exercise.targetMuscle,
+  targetMuscle: exercise.target,
   equipment: exercise.equipment,
-  bodyArea: exercise.bodyArea,
+  bodyArea: exercise.secondaryMuscles[0],
   gifUrl: exercise.gifUrl,
   id: exercise.id,
-  instructions: exercise.instructions,
+  instructions: exercise.instructions.map((instruction, index) => ({
+    number: index + 1,
+    description: instruction,
+  })),
 })) as ExerciseObject[]; // TODO fix enum typing
 
 appContainer
