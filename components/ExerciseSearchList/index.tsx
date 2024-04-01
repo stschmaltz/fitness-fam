@@ -83,56 +83,60 @@ export default function ExerciseSearchList(props: {
       </Flex>
       <List overflowY="auto">
         {searchResults.length > 0 ? (
-          searchResults.map((exercise) => (
-            <ListItem key={exercise.id}>
-              <Flex
-                justifyContent="space-between"
-                backgroundColor={theme.colors.gray['50']}
-                pr={3}
-              >
-                <Button
-                  w="100%"
-                  justifyContent={'flex-start'}
-                  aria-label="add exercise to routine"
+          searchResults.map((exercise) => {
+            return (
+              <ListItem key={exercise.id}>
+                <Flex
+                  justifyContent="space-between"
                   backgroundColor={theme.colors.gray['50']}
-                  leftIcon={
-                    <AddIcon
-                      fontSize={'lg'}
-                      color={theme.colors.green['500']}
-                    />
-                  }
-                  flexGrow="1"
-                  flexShrink="1"
-                  onClick={() =>
-                    handleExerciseOnClick(exercise as ExerciseObject)
-                  }
+                  pr={3}
                 >
-                  <Text
-                    textAlign={'left'}
-                    overflowX="hidden"
-                    textOverflow={'ellipsis'}
-                    whiteSpace="normal"
-                    overflowY={'hidden'}
-                    fontSize="md"
-                  >
-                    {exercise.name}
-                  </Text>
-                </Button>
-                <Flex alignItems="center">
-                  <Box color="primary">
-                    {BodyAreaToIconMap[exercise.bodyArea].icon}
-                  </Box>
-                  <IconButton
-                    color={theme.colors.accent2['50']}
-                    aria-label="see exercise info"
-                    icon={<InfoIcon />}
-                    onClick={() => showExerciseInfo(exercise as ExerciseObject)}
+                  <Button
+                    w="100%"
+                    justifyContent={'flex-start'}
+                    aria-label="add exercise to routine"
                     backgroundColor={theme.colors.gray['50']}
-                  />
+                    leftIcon={
+                      <AddIcon
+                        fontSize={'lg'}
+                        color={theme.colors.green['500']}
+                      />
+                    }
+                    flexGrow="1"
+                    flexShrink="1"
+                    onClick={() =>
+                      handleExerciseOnClick(exercise as ExerciseObject)
+                    }
+                  >
+                    <Text
+                      textAlign={'left'}
+                      overflowX="hidden"
+                      textOverflow={'ellipsis'}
+                      whiteSpace="normal"
+                      overflowY={'hidden'}
+                      fontSize="md"
+                    >
+                      {exercise.name}
+                    </Text>
+                  </Button>
+                  <Flex alignItems="center">
+                    <Box color="primary">
+                      {BodyAreaToIconMap[exercise.bodyArea].icon}
+                    </Box>
+                    <IconButton
+                      color={theme.colors.accent2['50']}
+                      aria-label="see exercise info"
+                      icon={<InfoIcon />}
+                      onClick={() =>
+                        showExerciseInfo(exercise as ExerciseObject)
+                      }
+                      backgroundColor={theme.colors.gray['50']}
+                    />
+                  </Flex>
                 </Flex>
-              </Flex>
-            </ListItem>
-          ))
+              </ListItem>
+            );
+          })
         ) : (
           <Text
             fontSize="2xl"

@@ -16,8 +16,9 @@ The goal of this app is to be able to easily look through a large database of ex
 
 Those include:
 
-- Chakra UI (never used before)
-- NextJS route apis (never used)
-- General refresher on React (I've been a backend dev for the last couple of years)
+- Chakra UI
+- NextJS route apis
+- Auth0
 
-Copyright (C) 2022 Shane Schmaltz
+
+Copyright (C) 2024 Shane Schmaltz
