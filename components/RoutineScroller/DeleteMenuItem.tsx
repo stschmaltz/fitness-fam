@@ -16,7 +16,7 @@ import { useRef } from 'react';
 import { theme } from '../../styles/theme';
 import { RoutineObject } from '../../types/routine';
 
-export default function DeleteMenuItem(props: {
+export function DeleteMenuItem(props: {
   routine: RoutineObject;
   onDeleteRoutine: (routineId: string) => Promise<void>;
 }) {

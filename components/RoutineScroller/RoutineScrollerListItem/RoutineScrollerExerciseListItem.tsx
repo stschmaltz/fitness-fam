@@ -1,21 +1,19 @@
 import { InfoIcon } from '@chakra-ui/icons';
 import { Box, Flex, Link, Text, Tooltip } from '@chakra-ui/react';
 import { titleCase } from 'title-case';
-import { theme } from '../../styles/theme';
-import utilStyles from '../../styles/utils.module.css';
-import { RoutineExerciseObject } from '../../types/routine';
+import { theme } from '../../../styles/theme';
+import utilStyles from '../../../styles/utils.module.css';
+import { RoutineExerciseObject } from '../../../types/routine';
 
-export default function RoutineScrollerExerciseListItem(props: {
+export function RoutineScrollerExerciseListItem(props: {
   exercise: RoutineExerciseObject;
 }) {
   const { exercise } = props;
   return (
     <Box
-      width="150px"
-      height="10.3rem"
-      paddingY={'10px'}
-      paddingLeft={'10px'}
-      css={'&:last-of-type { padding-right: 10px; }'}
+      width="10rem"
+      paddingLeft={3}
+      css={'&:last-of-type { padding-right: 0.7rem; }'}
     >
       <Flex
         bgColor={theme.colors.brandPrimary['50']}
@@ -47,13 +45,14 @@ export default function RoutineScrollerExerciseListItem(props: {
             justifyContent={'center'}
             alignItems={'flex-start'}
             flexGrow={1}
+            maxH={'24px'}
           >
             <Tooltip label={titleCase(exercise.name)}>
               <Text
                 className={utilStyles.lineClamp}
                 fontWeight={'semibold'}
                 overflow={'hidden'}
-                fontSize={['md', 'lg']}
+                fontSize={['md']}
                 color={theme.colors.brandSecondary['900']}
               >
                 {titleCase(exercise.name)}

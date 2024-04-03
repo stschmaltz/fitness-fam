@@ -17,7 +17,7 @@ import {
 import { useRef } from 'react';
 import { theme } from '../../styles/theme';
 
-export default function DeleteRoutineButton(props: {
+export function DeleteRoutineButton(props: {
   routineId: string;
   onDeleteRoutine: (routineId: string) => Promise<void>;
 }) {
