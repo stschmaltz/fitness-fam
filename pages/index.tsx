@@ -1,45 +1,44 @@
 import Link from 'next/link';
 import { Box, Button, Container, Flex, Spinner } from '@chakra-ui/react';
 import { List, ListItem } from '@chakra-ui/react';
-import { Text, useToast } from '@chakra-ui/react';
+import { useToast } from '@chakra-ui/react';
 import Image from 'next/image';
 import { AddIcon } from '@chakra-ui/icons';
 import orderBy from 'lodash/orderBy';
 
 import Layout from '../components/layout';
-import { asyncFetch } from '../data/graphql/graphql-fetcher';
 import { RoutineObject } from '../types/routine';
-import { deleteRoutineMutationGraphQL } from '../data/graphql/snippets/mutation';
 import { theme } from '../styles/theme';
 import RoutineScroller from '../components/RoutineScroller';
 import BasicLoader from '../components/BasicLoader';
 import { useUserSignIn } from '../hooks/use-user-sign-in.hook';
+import EmptyState from '../components/HomePage/EmptyState';
+import { useDeleteRoutine } from '../hooks/use-delete-routine';
 
 export const siteTitle = 'FitnessFam.app';
 
 export default function Home() {
   const toast = useToast();
   const [isLoading, currentUser, setCurrentUser] = useUserSignIn();
+  const { deleteRoutine } = useDeleteRoutine();
 
   const handleDeleteRoutine = async (routineId: string): Promise<void> => {
-    console.log('Deleting routine', { routineId });
+    if (!currentUser || !setCurrentUser || !deleteRoutine) return;
 
-    try {
-      await asyncFetch(deleteRoutineMutationGraphQL, { input: { routineId } });
+    const result = await deleteRoutine({ routineId });
 
-      setCurrentUser &&
-        currentUser &&
-        setCurrentUser({
-          ...currentUser,
-          routines: currentUser?.routines.filter(
-            (routine: RoutineObject) => routine._id.toString() !== routineId
-          ),
-        });
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : error;
-      console.log('Error saving routine', { errorMessage });
+    if (result.deletedRoutineId) {
+      setCurrentUser({
+        ...currentUser,
+        routines: currentUser?.routines.filter(
+          (routine: RoutineObject) => routine._id.toString() !== routineId
+        ),
+      });
+    }
+
+    if (result.errorMessage) {
       toast({
-        title: 'Something went wrong saving routine.',
+        title: `Something went wrong deleting routine: ${result.errorMessage}`,
         status: 'error',
         duration: 3000,
         isClosable: true,
@@ -101,39 +100,9 @@ export default function Home() {
               )}
             </List>
           ) : (
-            !isLoading && (
-              <Flex flexWrap="wrap" flexDir={'column'}>
-                <Text
-                  mb={'25'}
-                  fontStyle={'italic'}
-                  color={theme.colors.accent2['600']}
-                >
-                  You have no routines yet
-                </Text>
-                <Link href="/new-routine">
-                  <Button
-                    w={'100%'}
-                    colorScheme="accent1"
-                    paddingX={30}
-                    paddingY={10}
-                    variant="solid"
-                    size="lg"
-                    leftIcon={
-                      <AddIcon color={theme.colors.accent2['400']} mr="5" />
-                    }
-                  >
-                    <Flex
-                      wrap="wrap"
-                      justifyContent="center"
-                      flexDir="column"
-                      color={theme.colors.accent2['400']}
-                    >
-                      <Text color="inherit">Click here to </Text>
-                      <Text color="inherit">create a new routine </Text>
-                    </Flex>
-                  </Button>
-                </Link>
-              </Flex>
+            !isLoading &&
+            (!currentUser || currentUser?.routines.length === 0) && (
+              <EmptyState />
             )
           )}
         </Box>
