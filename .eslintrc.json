@@ -12,6 +12,8 @@
     "react/react-in-jsx-scope": "off",
     "@typescript-eslint/no-explicit-any": "error",
     "no-console": "warn",
+    "comma-dangle": ["error", "always-multiline"],
+    "prettier/prettier": "off",
     "sort-imports": [
       "error",
       {
