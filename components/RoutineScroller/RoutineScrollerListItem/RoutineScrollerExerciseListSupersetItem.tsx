@@ -19,7 +19,8 @@ export function RoutineScrollerExerciseListSupersetItem(props: {
       <Flex
         height="100%"
         pos={'relative'}
-        p={2}
+        paddingX={2}
+        paddingBottom={2}
         flexDir={'column'}
         borderRadius="md"
         outline={'1px solid ' + theme.colors.brandPrimary['300']}

@@ -11,12 +11,11 @@ interface Props {
 export const ExerciseNameText: React.FC<Props> = ({ exerciseName }) => {
   return (
     <Flex
-      minH={'3rem'}
       textAlign={'center'}
       justifyContent={'center'}
       alignItems={'flex-start'}
       flexGrow={1}
-      h="100%"
+      h="3rem"
     >
       <Tooltip label={titleCase(exerciseName)}>
         <Text
