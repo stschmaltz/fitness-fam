@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { Box, Button, Container, Flex, Spinner } from '@chakra-ui/react';
 import { List, ListItem } from '@chakra-ui/react';
-import { useToast } from '@chakra-ui/react';
 import Image from 'next/image';
 import { AddIcon } from '@chakra-ui/icons';
 import orderBy from 'lodash/orderBy';
@@ -18,7 +17,6 @@ import { useDeleteRoutine } from '../hooks/use-delete-routine';
 export const siteTitle = 'FitnessFam.app';
 
 export default function Home() {
-  const toast = useToast();
   const [isLoading, currentUser, setCurrentUser] = useUserSignIn();
   const { deleteRoutine } = useDeleteRoutine();
 
@@ -33,15 +31,6 @@ export default function Home() {
         routines: currentUser?.routines.filter(
           (routine: RoutineObject) => routine._id.toString() !== routineId
         ),
-      });
-    }
-
-    if (result.errorMessage) {
-      toast({
-        title: `Something went wrong deleting routine: ${result.errorMessage}`,
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
       });
     }
   };

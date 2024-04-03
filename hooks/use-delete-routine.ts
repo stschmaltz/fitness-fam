@@ -1,3 +1,4 @@
+import { useToast } from '@chakra-ui/react';
 import { asyncFetch } from '../data/graphql/graphql-fetcher';
 import { deleteRoutineMutationGraphQL } from '../data/graphql/snippets/mutation';
 
@@ -11,6 +12,8 @@ function useDeleteRoutine(): {
     deletedRoutineId?: string;
   }>;
 } {
+  const toast = useToast();
+
   const deleteRoutine = async ({
     routineId,
   }: DeleteRoutineInput): Promise<{
@@ -21,19 +24,33 @@ function useDeleteRoutine(): {
 
     const deleteFailedMessage = `Failed to delete routine with id: ${routineId}.`;
     try {
-      const result = await asyncFetch(deleteRoutineMutationGraphQL, {
+      const { deleteRoutine } = await asyncFetch(deleteRoutineMutationGraphQL, {
         input: { routineId },
       });
 
-      if (!result.success) {
+      if (!deleteRoutine.success) {
         throw new Error(deleteFailedMessage);
       }
+
+      toast({
+        title: `Successfully deleted routine.`,
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      });
 
       return { deletedRoutineId: routineId };
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : deleteFailedMessage;
       console.log('Error saving routine', { errorMessage, error });
+
+      toast({
+        title: `Something went wrong deleting routine.`,
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
 
       return { errorMessage };
     }

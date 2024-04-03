@@ -179,7 +179,7 @@
     "equipment": "body weight",
     "gifUrl": "/images/exercises/F9aBEVUzXJh2KG.gif",
     "id": "3214",
-    "name": "arms apart circular toe touch (male)",
+    "name": "arms apart circular toe touch",
     "target": "glutes",
     "secondaryMuscles": ["hamstrings", "quadriceps", "calves"],
     "instructions": [
@@ -195,7 +195,7 @@
     "equipment": "body weight",
     "gifUrl": "/images/exercises/dErpeqSnP2p5YF.gif",
     "id": "3204",
-    "name": "arms overhead full sit-up (male)",
+    "name": "arms overhead full sit-up",
     "target": "abs",
     "secondaryMuscles": ["hip flexors", "lower back"],
     "instructions": [
@@ -578,7 +578,7 @@
     "equipment": "body weight",
     "gifUrl": "/images/exercises/Fa6pPaA5Sq1Eta.gif",
     "id": "3220",
-    "name": "astride jumps (male)",
+    "name": "astride jumps",
     "target": "cardiovascular system",
     "secondaryMuscles": ["quadriceps", "hamstrings", "calves"],
     "instructions": [
@@ -2098,7 +2098,7 @@
     "equipment": "barbell",
     "gifUrl": "/images/exercises/5wBv9siCm8uVgN.gif",
     "id": "3562",
-    "name": "barbell glute bridge two legs on bench (male)",
+    "name": "barbell glute bridge two legs on bench",
     "target": "glutes",
     "secondaryMuscles": ["hamstrings", "core"],
     "instructions": [
@@ -3354,7 +3354,7 @@
     "equipment": "barbell",
     "gifUrl": "/images/exercises/9VCSA3azuXwYuZ.gif",
     "id": "2800",
-    "name": "barbell sitted alternate leg raise (female)",
+    "name": "barbell sitted alternate leg raise",
     "target": "abs",
     "secondaryMuscles": ["hip flexors", "quadriceps"],
     "instructions": [
@@ -3964,7 +3964,7 @@
     "equipment": "body weight",
     "gifUrl": "/images/exercises/bJUT0Vr-k4csJW.gif",
     "id": "3212",
-    "name": "basic toe touch (male)",
+    "name": "basic toe touch",
     "target": "glutes",
     "secondaryMuscles": ["hamstrings", "calves"],
     "instructions": [
@@ -4095,7 +4095,7 @@
     "equipment": "body weight",
     "gifUrl": "/images/exercises/D64NSF6ZvaPDeV.gif",
     "id": "3639",
-    "name": "bent knee lying twist (male)",
+    "name": "bent knee lying twist",
     "target": "glutes",
     "secondaryMuscles": ["obliques", "hip flexors"],
     "instructions": [
@@ -5120,7 +5120,7 @@
     "equipment": "cable",
     "gifUrl": "/images/exercises/4u8NZSGCHjFost.gif",
     "id": "3697",
-    "name": "cable kneeling rear delt row (with rope) (male)",
+    "name": "cable kneeling rear delt row (with rope)",
     "target": "delts",
     "secondaryMuscles": ["trapezius", "rhomboids", "biceps"],
     "instructions": [
@@ -7401,7 +7401,7 @@
     "equipment": "body weight",
     "gifUrl": "/images/exercises/sweO0vkJz6Xnqo.gif",
     "id": "3216",
-    "name": "chest tap push-up (male)",
+    "name": "chest tap push-up",
     "target": "pectorals",
     "secondaryMuscles": ["triceps", "shoulders"],
     "instructions": [
@@ -10997,7 +10997,7 @@
     "equipment": "dumbbell",
     "gifUrl": "/images/exercises/7cVYwu5GHLkvrS.gif",
     "id": "2327",
-    "name": "dumbbell reverse grip row (female)",
+    "name": "dumbbell reverse grip row",
     "target": "upper back",
     "secondaryMuscles": ["biceps", "forearms"],
     "instructions": [
@@ -12591,7 +12591,7 @@
     "equipment": "body weight",
     "gifUrl": "/images/exercises/aMT8SFwYl3RB63.gif",
     "id": "1167",
-    "name": "dynamic chest stretch (male)",
+    "name": "dynamic chest stretch",
     "target": "pectorals",
     "secondaryMuscles": ["shoulders", "triceps"],
     "instructions": [
@@ -13543,7 +13543,7 @@
     "equipment": "body weight",
     "gifUrl": "/images/exercises/LlqQsQIn3jo-fo.gif",
     "id": "3470",
-    "name": "forward lunge (male)",
+    "name": "forward lunge",
     "target": "glutes",
     "secondaryMuscles": ["quadriceps", "hamstrings", "calves"],
     "instructions": [
@@ -13745,7 +13745,7 @@
     "equipment": "body weight",
     "gifUrl": "/images/exercises/Be-VNXbuttbZvT.gif",
     "id": "3523",
-    "name": "glute bridge two legs on bench (male)",
+    "name": "glute bridge two legs on bench",
     "target": "glutes",
     "secondaryMuscles": ["hamstrings", "core"],
     "instructions": [
@@ -13847,7 +13847,7 @@
     "equipment": "body weight",
     "gifUrl": "/images/exercises/Csvh1pCSvFprNe.gif",
     "id": "3221",
-    "name": "half knee bends (male)",
+    "name": "half knee bends",
     "target": "cardiovascular system",
     "secondaryMuscles": ["quadriceps", "hamstrings", "glutes"],
     "instructions": [
@@ -13863,7 +13863,7 @@
     "equipment": "body weight",
     "gifUrl": "/images/exercises/DhwFmogjEtVydZ.gif",
     "id": "3202",
-    "name": "half sit-up (male)",
+    "name": "half sit-up",
     "target": "abs",
     "secondaryMuscles": ["hip flexors"],
     "instructions": [
@@ -13911,7 +13911,7 @@
     "equipment": "body weight",
     "gifUrl": "/images/exercises/-XxqtTBxHUuAWx.gif",
     "id": "3218",
-    "name": "hands clasped circular toe touch (male)",
+    "name": "hands clasped circular toe touch",
     "target": "glutes",
     "secondaryMuscles": ["hamstrings", "quadriceps", "calves"],
     "instructions": [
@@ -13927,7 +13927,7 @@
     "equipment": "body weight",
     "gifUrl": "/images/exercises/eXTAvDqpbe4t2c.gif",
     "id": "3215",
-    "name": "hands reversed clasped circular toe touch (male)",
+    "name": "hands reversed clasped circular toe touch",
     "target": "glutes",
     "secondaryMuscles": ["hamstrings", "quadriceps", "calves"],
     "instructions": [
@@ -14586,7 +14586,7 @@
     "equipment": "body weight",
     "gifUrl": "/images/exercises/8PGNsMUTjpY2IT.gif",
     "id": "3224",
-    "name": "jack jump (male)",
+    "name": "jack jump",
     "target": "cardiovascular system",
     "secondaryMuscles": ["quadriceps", "calves"],
     "instructions": [
@@ -15455,7 +15455,7 @@
     "equipment": "body weight",
     "gifUrl": "/images/exercises/46sM9xuzhYAYwA.gif",
     "id": "3239",
-    "name": "kneeling plank tap shoulder (male)",
+    "name": "kneeling plank tap shoulder",
     "target": "abs",
     "secondaryMuscles": ["shoulders", "triceps"],
     "instructions": [
@@ -15471,7 +15471,7 @@
     "equipment": "body weight",
     "gifUrl": "/images/exercises/SO8UYHIV0eay7t.gif",
     "id": "3211",
-    "name": "kneeling push-up (male)",
+    "name": "kneeling push-up",
     "target": "pectorals",
     "secondaryMuscles": ["triceps", "shoulders"],
     "instructions": [
@@ -17166,7 +17166,7 @@
     "equipment": "body weight",
     "gifUrl": "/images/exercises/5vF38-2VGy4nRM.gif",
     "id": "3217",
-    "name": "modified hindu push-up (male)",
+    "name": "modified hindu push-up",
     "target": "pectorals",
     "secondaryMuscles": ["triceps", "shoulders", "core"],
     "instructions": [
@@ -17752,7 +17752,7 @@
     "equipment": "body weight",
     "gifUrl": "/images/exercises/tSUsqpjry-0wwM.gif",
     "id": "3203",
-    "name": "prisoner half sit-up (male)",
+    "name": "prisoner half sit-up",
     "target": "abs",
     "secondaryMuscles": ["hip flexors"],
     "instructions": [
@@ -18211,7 +18211,7 @@
     "equipment": "resistance band",
     "gifUrl": "/images/exercises/1SQf7NBPtvyxiG.gif",
     "id": "3236",
-    "name": "resistance band hip thrusts on knees (female)",
+    "name": "resistance band hip thrusts on knees",
     "target": "glutes",
     "secondaryMuscles": ["hamstrings", "quadriceps"],
     "instructions": [
@@ -18757,7 +18757,7 @@
     "equipment": "body weight",
     "gifUrl": "/images/exercises/wy9TSyUUcSfliV.gif",
     "id": "3219",
-    "name": "scissor jumps (male)",
+    "name": "scissor jumps",
     "target": "cardiovascular system",
     "secondaryMuscles": ["quadriceps", "hamstrings", "calves"],
     "instructions": [
@@ -18773,7 +18773,7 @@
     "equipment": "body weight",
     "gifUrl": "/images/exercises/KXriDCWIeAc0E-.gif",
     "id": "1390",
-    "name": "seated calf stretch (male)",
+    "name": "seated calf stretch",
     "target": "calves",
     "secondaryMuscles": ["hamstrings"],
     "instructions": [
@@ -18941,7 +18941,7 @@
     "equipment": "body weight",
     "gifUrl": "/images/exercises/eQB20gBO5KSES3.gif",
     "id": "3222",
-    "name": "semi squat jump (male)",
+    "name": "semi squat jump",
     "target": "cardiovascular system",
     "secondaryMuscles": ["quadriceps", "hamstrings", "calves"],
     "instructions": [
@@ -19106,7 +19106,7 @@
     "equipment": "body weight",
     "gifUrl": "/images/exercises/balt3phxoQLqpC.gif",
     "id": "3667",
-    "name": "side lying hip adduction (male)",
+    "name": "side lying hip adduction",
     "target": "adductors",
     "secondaryMuscles": ["glutes", "hamstrings"],
     "instructions": [
@@ -19206,7 +19206,7 @@
     "equipment": "body weight",
     "gifUrl": "/images/exercises/w5shToPT7kK3OJ.gif",
     "id": "3213",
-    "name": "side-to-side toe touch (male)",
+    "name": "side-to-side toe touch",
     "target": "abs",
     "secondaryMuscles": ["obliques", "hip flexors"],
     "instructions": [
@@ -19285,7 +19285,7 @@
     "equipment": "body weight",
     "gifUrl": "/images/exercises/xav9WmJogsXao-.gif",
     "id": "1759",
-    "name": "single leg squat (pistol) male",
+    "name": "single leg pistol squat",
     "target": "glutes",
     "secondaryMuscles": ["quadriceps", "hamstrings", "calves"],
     "instructions": [
@@ -20910,7 +20910,7 @@
     "equipment": "body weight",
     "gifUrl": "/images/exercises/A736mAMLdcs2cG.gif",
     "id": "3223",
-    "name": "star jump (male)",
+    "name": "star jump",
     "target": "cardiovascular system",
     "secondaryMuscles": ["quadriceps", "hamstrings", "calves"],
     "instructions": [
@@ -21111,7 +21111,7 @@
     "equipment": "body weight",
     "gifUrl": "/images/exercises/Pq2WEB28F1PRJI.gif",
     "id": "3433",
-    "name": "swimmer kicks v. 2 (male)",
+    "name": "swimmer kicks v. 2",
     "target": "glutes",
     "secondaryMuscles": ["hamstrings", "quadriceps", "calves"],
     "instructions": [
@@ -21361,7 +21361,7 @@
     "equipment": "body weight",
     "gifUrl": "/images/exercises/5P8ZIoknk0-ThS.gif",
     "id": "2801",
-    "name": "twisted leg raise (female)",
+    "name": "twisted leg raise",
     "target": "abs",
     "secondaryMuscles": ["obliques", "hip flexors"],
     "instructions": [
@@ -21378,7 +21378,7 @@
     "equipment": "body weight",
     "gifUrl": "/images/exercises/vLzZa65SPU856N.gif",
     "id": "3231",
-    "name": "two toe touch (male)",
+    "name": "two toe touch",
     "target": "spine",
     "secondaryMuscles": ["hamstrings", "glutes"],
     "instructions": [
@@ -21581,7 +21581,7 @@
     "equipment": "weighted",
     "gifUrl": "/images/exercises/a4CPV2e3q66wpo.gif",
     "id": "3643",
-    "name": "weighted cossack squats (male)",
+    "name": "weighted cossack squats",
     "target": "glutes",
     "secondaryMuscles": ["quadriceps", "hamstrings", "calves"],
     "instructions": [
