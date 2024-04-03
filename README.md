@@ -20,5 +20,4 @@ Those include:
 - NextJS route apis
 - Auth0
 
-
 Copyright (C) 2024 Shane Schmaltz
