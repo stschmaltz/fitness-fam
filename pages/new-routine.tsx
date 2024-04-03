@@ -38,7 +38,7 @@ export default function NewRoutinePage() {
   };
 
   const routineProvider = appContainer.get<RoutineProviderInterface>(
-    TYPES.RoutineProvider
+    TYPES.RoutineProvider,
   );
 
   const [currentRoutine, setCurrentRoutine] = useState<RoutineObject>({
@@ -51,7 +51,7 @@ export default function NewRoutinePage() {
 
   useEffect(() => {
     const routineFromLocalStorage = localStorageProvider.getItem<RoutineObject>(
-      currentRoutineLocalStorageKey
+      currentRoutineLocalStorageKey,
     );
     if (routineFromLocalStorage) {
       setCurrentRoutine({
@@ -66,7 +66,7 @@ export default function NewRoutinePage() {
   useEffect(() => {
     localStorageProvider.setItem<RoutineObject>(
       currentRoutineLocalStorageKey,
-      currentRoutine
+      currentRoutine,
     );
   }, [currentRoutine]);
 
@@ -92,7 +92,7 @@ export default function NewRoutinePage() {
       exercises: reorderList<RoutineExerciseObject>(
         currentRoutine.exercises,
         result.source.index,
-        result.destination.index
+        result.destination.index,
       ).map((exercise: RoutineExerciseObject, index: number) => ({
         ...exercise,
         order: index,
@@ -124,7 +124,7 @@ export default function NewRoutinePage() {
   const handleRemoveExerciseFromRoutine = (exerciseId: string) => {
     const newRoutine: RoutineObject = routineProvider.removeExerciseFromRoutine(
       currentRoutine,
-      exerciseId
+      exerciseId,
     );
     setCurrentRoutine(newRoutine);
   };
@@ -132,7 +132,7 @@ export default function NewRoutinePage() {
   const handleSetsRepsChange = (
     exercise: RoutineExerciseObject,
     value: string,
-    type: 'sets' | 'reps' | 'supersetReps'
+    type: 'sets' | 'reps' | 'supersetReps',
   ) => {
     const numberValue = parseInt(value);
     if (numberValue < 0 || numberValue > 99) return;
@@ -155,7 +155,7 @@ export default function NewRoutinePage() {
 
   const handleSupersetRepsChange = (
     exercise: RoutineExerciseObject,
-    value: string
+    value: string,
   ) => {
     handleSetsRepsChange(exercise, value, 'supersetReps');
   };

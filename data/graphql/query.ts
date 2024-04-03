@@ -22,7 +22,7 @@ const queryResolver = {
 
     async exercises() {
       const exerciseProvider = appContainer.get<ExerciseProviderInterface>(
-        TYPES.ExerciseProvider
+        TYPES.ExerciseProvider,
       );
 
       return exerciseProvider.getAllExercises();
@@ -30,10 +30,10 @@ const queryResolver = {
 
     async exercisesByEquipment(
       _: never,
-      { equipment }: { equipment: EQUIPMENT }
+      { equipment }: { equipment: EQUIPMENT },
     ) {
       const exerciseProvider = appContainer.get<ExerciseProviderInterface>(
-        TYPES.ExerciseProvider
+        TYPES.ExerciseProvider,
       );
 
       return exerciseProvider.getExercisesByEquipment(equipment);
@@ -41,7 +41,7 @@ const queryResolver = {
 
     async exercise(_: never, { id }: { id: string }) {
       const exerciseProvider = appContainer.get<ExerciseProviderInterface>(
-        TYPES.ExerciseProvider
+        TYPES.ExerciseProvider,
       );
 
       return exerciseProvider.findExerciseById(id);

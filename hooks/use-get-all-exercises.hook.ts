@@ -8,7 +8,7 @@ function useGetAllExercises(): readonly [ExerciseObject[]] {
   const [exercises, setExercises] = useState<ExerciseObject[]>([]);
 
   const exerciseProvider = appContainer.get<ExerciseProviderInterface>(
-    TYPES.ExerciseProvider
+    TYPES.ExerciseProvider,
   );
   useEffect(() => {
     const fetchExercises = async () => {

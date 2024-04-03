@@ -29,7 +29,7 @@ export default function Home() {
       setCurrentUser({
         ...currentUser,
         routines: currentUser?.routines.filter(
-          (routine: RoutineObject) => routine._id.toString() !== routineId
+          (routine: RoutineObject) => routine._id.toString() !== routineId,
         ),
       });
     }
@@ -85,7 +85,7 @@ export default function Home() {
                       routine={routine}
                     />
                   </ListItem>
-                )
+                ),
               )}
             </List>
           ) : (

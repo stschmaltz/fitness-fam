@@ -29,6 +29,6 @@ export type SearchFilters = {
 export interface ExerciseSearchProviderInterface {
   searchForExercises(
     input: string,
-    searchFilters: SearchFilters
+    searchFilters: SearchFilters,
   ): ExerciseObject[];
 }

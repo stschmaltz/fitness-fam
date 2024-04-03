@@ -11,7 +11,7 @@ class ExerciseProvider implements ExerciseProviderInterface {
   }
 
   async getExercisesByEquipment(
-    equipment: EQUIPMENT
+    equipment: EQUIPMENT,
   ): Promise<ExerciseObject[]> {
     const exercises = await this.getAllExercises();
 
@@ -37,7 +37,7 @@ class ExerciseProvider implements ExerciseProviderInterface {
     const allExercises = await this.getAllExercises();
 
     const exercises = allExercises.filter((exercise) =>
-      ids.includes(exercise.id)
+      ids.includes(exercise.id),
     );
 
     return exercises;

@@ -23,7 +23,7 @@ class ExerciseSearcher implements ExerciseSearchProviderInterface {
 
   public searchForExercises(
     input: string,
-    filters: SearchFilters
+    filters: SearchFilters,
   ): ExerciseObject[] {
     // if no filters search fuzzy on all fields
     if (
@@ -42,19 +42,19 @@ class ExerciseSearcher implements ExerciseSearchProviderInterface {
     const equipmentFilter = Object.values(filters.equipmentFilters).map(
       (equipment) => ({
         equipment: `'${equipment}`,
-      })
+      }),
     );
     // if filters, use text for name and apply filters
     const targetMuscleFilter = Object.values(filters.targetMuscleFilters).map(
       (targetMuscle) => ({
         targetMuscle: `'${targetMuscle}`,
-      })
+      }),
     );
     // if filters, use text for name and apply filters
     const bodyAreaFilter = Object.values(filters.bodyAreaFilters).map(
       (bodyArea) => ({
         bodyArea: `'${bodyArea}`,
-      })
+      }),
     );
     const appliedFilters = [
       !!input ? { name: input || ' ' } : null,

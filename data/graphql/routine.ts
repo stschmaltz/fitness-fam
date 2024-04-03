@@ -76,19 +76,19 @@ const routineResolver = {
   },
   RoutineExercise: {
     async exercise(
-      parent: Omit<RoutineExerciseObject, 'exercise' | 'supersetExercise'>
+      parent: Omit<RoutineExerciseObject, 'exercise' | 'supersetExercise'>,
     ) {
       const exerciseProvider = appContainer.get<ExerciseProviderInterface>(
-        TYPES.ExerciseProvider
+        TYPES.ExerciseProvider,
       );
 
       return exerciseProvider.findExerciseById(parent.id);
     },
     async supersetExercise(
-      parent: Omit<RoutineExerciseObject, 'exercise' | 'supersetExercise'>
+      parent: Omit<RoutineExerciseObject, 'exercise' | 'supersetExercise'>,
     ) {
       const exerciseProvider = appContainer.get<ExerciseProviderInterface>(
-        TYPES.ExerciseProvider
+        TYPES.ExerciseProvider,
       );
 
       return parent.supersetExerciseId

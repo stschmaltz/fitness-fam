@@ -25,7 +25,7 @@ export default function CurrentRoutineListItem(props: {
   handleRepsChange: (exercise: RoutineExerciseObject, value: string) => void;
   handleSupersetRepsChange: (
     exercise: RoutineExerciseObject,
-    value: string
+    value: string,
   ) => void;
   handleSetsChange: (exercise: RoutineExerciseObject, value: string) => void;
   handleRemoveExerciseFromRoutine: (exerciseId: string) => void;
@@ -51,8 +51,8 @@ export default function CurrentRoutineListItem(props: {
     background: isCombining
       ? theme.colors.brandPrimary['50']
       : isDragging
-      ? theme.colors.brandPrimary['100']
-      : theme.colors.brandLight,
+        ? theme.colors.brandPrimary['100']
+        : theme.colors.brandLight,
 
     ...draggableStyle,
   });
@@ -63,7 +63,7 @@ export default function CurrentRoutineListItem(props: {
 
   const handleSupersetRepsChange = (
     exercise: RoutineExerciseObject,
-    value: string
+    value: string,
   ) => {
     props.handleSupersetRepsChange(exercise, value);
   };

@@ -22,7 +22,7 @@ function useHandleSaveRoutine(): (routine: RoutineObject) => Promise<void> {
             ...rest
           }): DBRoutineExerciseObject => ({
             ...rest,
-          })
+          }),
         ),
       };
       await asyncFetch(saveRoutineMutationGraphQL, {

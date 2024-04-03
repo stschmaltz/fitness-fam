@@ -38,14 +38,14 @@ export default function ExerciseSearchList(props: {
   >(undefined);
 
   const handleSearchInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setSearchText(event.target.value);
   };
 
   const handleExerciseOnClick = (exercise: ExerciseObject) => {
     const newSearchResults = searchResults.filter(
-      (searchResult) => searchResult.id !== exercise.id
+      (searchResult) => searchResult.id !== exercise.id,
     );
     setSearchResults(newSearchResults);
 

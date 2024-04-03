@@ -16,7 +16,7 @@ export interface RoutineProviderInterface {
   }): RoutineObject;
   removeExerciseFromRoutine(
     routine: RoutineObject,
-    exerciseId: string
+    exerciseId: string,
   ): RoutineObject;
   createSuperset(input: {
     routine: RoutineObject;

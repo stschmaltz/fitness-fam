@@ -117,14 +117,14 @@ export default function WorkoutModePage(props: { routine?: RoutineObject }) {
             maxValue={routine.exercises.length}
             handlePreviousClicked={() => {
               setCurrentExercise(
-                routine.exercises[Math.max(currentExerciseIndex - 1, 0)]
+                routine.exercises[Math.max(currentExerciseIndex - 1, 0)],
               );
             }}
             handleNextClicked={() => {
               setCurrentExercise(
                 routine.exercises[
                   Math.min(currentExerciseListNumber, routine.exercises.length)
-                ]
+                ],
               );
             }}
             handleCompleteClicked={() => {
@@ -144,7 +144,7 @@ export const getServerSideProps = async ({
 }) => {
   try {
     const routine = await asyncFetch(
-      `{ routine(id:"${query.id}"){ ${fullRoutine} } }`
+      `{ routine(id:"${query.id}"){ ${fullRoutine} } }`,
     );
 
     return {

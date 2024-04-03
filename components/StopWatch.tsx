@@ -37,7 +37,7 @@ export default function StopWatch(props: {
   };
 
   const handlePause = () => {
-    clearInterval(increment.current);
+    clearInterval(Number(increment.current));
     setIsPaused(false);
   };
 
@@ -47,7 +47,7 @@ export default function StopWatch(props: {
   };
 
   const handleReset = () => {
-    clearInterval(increment.current);
+    clearInterval(Number(increment.current));
     setIsActive(false);
     setIsPaused(false);
     setTimer(0);

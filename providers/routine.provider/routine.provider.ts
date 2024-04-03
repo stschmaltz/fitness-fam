@@ -12,7 +12,7 @@ class RoutineProvider implements RoutineProviderInterface {
     const { routine, parentExerciseId } = input;
 
     const parentExercise = routine.exercises.find(
-      (exercise) => exercise.id === parentExerciseId
+      (exercise) => exercise.id === parentExerciseId,
     );
 
     if (!parentExercise?.supersetExerciseId || !parentExercise.supersetExercise)
@@ -88,7 +88,7 @@ class RoutineProvider implements RoutineProviderInterface {
   }
 
   public saveNewOrder(
-    exercises: RoutineExerciseObject[]
+    exercises: RoutineExerciseObject[],
   ): RoutineExerciseObject[] {
     const exercisesWithOrder = exercises.map((exercise, index) => ({
       ...exercise,
@@ -134,12 +134,12 @@ class RoutineProvider implements RoutineProviderInterface {
 
   public removeExerciseFromRoutine(
     routine: RoutineObject,
-    exerciseId: string
+    exerciseId: string,
   ): RoutineObject {
     const newRoutine: RoutineObject = {
       ...routine,
       exercises: this.saveNewOrder(
-        routine.exercises.filter((exercise) => exercise.id !== exerciseId)
+        routine.exercises.filter((exercise) => exercise.id !== exerciseId),
       ),
     };
 
@@ -159,8 +159,8 @@ class RoutineProvider implements RoutineProviderInterface {
             ? {
                 ...updatedExercise,
               }
-            : exercise
-        )
+            : exercise,
+        ),
       ),
     };
 
