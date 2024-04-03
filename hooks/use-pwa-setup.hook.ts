@@ -18,7 +18,7 @@ function usePWASetup() {
         // You may want to customize the UI prompt accordingly.
         if (
           confirm(
-            'A newer version of this web app is available, reload to update?'
+            'A newer version of this web app is available, reload to update?',
           )
         ) {
           wb.addEventListener('controlling', (_event: unknown) => {
@@ -29,7 +29,7 @@ function usePWASetup() {
           wb.messageSkipWaiting();
         } else {
           console.log(
-            'User rejected to reload the web app, keep using old version. New version will be automatically load when user open the app next time.'
+            'User rejected to reload the web app, keep using old version. New version will be automatically load when user open the app next time.',
           );
         }
       };

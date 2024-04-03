@@ -90,16 +90,16 @@ export const CardioIcon = createIcon({
         d="m11.2 10.9 1.7 3.7c0.3 0.7-0.2 1.4-0.9 1.4h-7"
         fill="none"
         stroke="#000"
-        stroke-miterlimit="10"
-        stroke-width="2"
+        strokeMiterlimit="10"
+        strokeWidth="2"
       />
       <path
         transform="scale(50)"
         d="m6 5 4.1-1.1c0.6-0.2 1.2 0 1.7 0.3l3.9 2.9c0.4 0.3 0.7 0.7 0.8 1.2l0.2 1.1c0.2 0.9 1 1.6 2 1.6h3.3"
         fill="none"
         stroke="#000"
-        stroke-miterlimit="10"
-        stroke-width="2"
+        strokeMiterlimit="10"
+        strokeWidth="2"
       />
       <path
         fill="currentColor"

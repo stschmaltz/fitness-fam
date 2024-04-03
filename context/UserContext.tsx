@@ -13,7 +13,7 @@ const useCurrentUserContext = () => useContext(CurrentUserContext);
 const CurrentUserProvider = (input: { children: ReactElement | null }) => {
   const { children } = input;
   const [currentUser, setCurrentUser] = useState<ApiUser | undefined>(
-    undefined
+    undefined,
   );
 
   return (

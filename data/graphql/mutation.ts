@@ -31,7 +31,7 @@ const mutationResolver = {
     async saveRoutine(
       _: never,
       args: SaveRoutineArgs,
-      ctx: { req: NextApiRequest; res: NextApiResponse }
+      ctx: { req: NextApiRequest; res: NextApiResponse },
     ): Promise<{ routine: RoutineObject }> {
       const auth0User = await getSession(ctx.req, ctx.res);
 
@@ -51,7 +51,7 @@ const mutationResolver = {
     async deleteRoutine(
       _: never,
       args: DeleteRoutineArgs,
-      ctx: { req: NextApiRequest; res: NextApiResponse }
+      ctx: { req: NextApiRequest; res: NextApiResponse },
     ): Promise<{ success: boolean }> {
       const auth0User = await getSession(ctx.req, ctx.res);
 
@@ -71,7 +71,7 @@ const mutationResolver = {
     async userSignIn(
       _: never,
       args: UserSignInInput,
-      ctx: { req: NextApiRequest; res: NextApiResponse }
+      ctx: { req: NextApiRequest; res: NextApiResponse },
     ): Promise<{ user: UserObject }> {
       try {
         const userSession = await getSession(ctx.req, ctx.res);

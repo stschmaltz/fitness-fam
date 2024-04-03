@@ -17,7 +17,7 @@ export default function CurrentRoutineList(props: {
   handleRepsChange: (exercise: RoutineExerciseObject, value: string) => void;
   handleSupersetRepsChange: (
     exercise: RoutineExerciseObject,
-    value: string
+    value: string,
   ) => void;
   handleSetsChange: (exercise: RoutineExerciseObject, value: string) => void;
   currentRoutine: RoutineObject;
@@ -48,7 +48,7 @@ export default function CurrentRoutineList(props: {
 
   const handleSupersetRepsChange = (
     exercise: RoutineExerciseObject,
-    value: string
+    value: string,
   ) => {
     props.handleSupersetRepsChange(exercise, value);
   };
@@ -123,7 +123,7 @@ export default function CurrentRoutineList(props: {
                     )}
                   </Draggable>
                 );
-              }
+              },
             )}
             {provided.placeholder}
           </List>

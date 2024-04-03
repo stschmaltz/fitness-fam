@@ -34,7 +34,7 @@ type RoutineDocument = {
 // Pros: No mapping, no need for orm, faster for dev
 // Cons: ObjectIds are slightly weird and now I'm committing to mongo shapes
 const mapRoutineDocumentToRoutineObject = (
-  doc: RoutineDocument
+  doc: RoutineDocument,
 ): DBRoutineObject => ({
   _id: doc._id,
   userId: doc.userId,
@@ -49,7 +49,7 @@ const mapRoutineDocumentToRoutineObject = (
       sets: exercise.sets,
       supersetExerciseId: exercise.supersetExerciseId,
       supersetReps: exercise.supersetReps,
-    })
+    }),
   ),
 });
 
@@ -66,14 +66,14 @@ async function getRoutinesForUser(userId: string): Promise<DBRoutineObject[]> {
 
 async function saveRoutine(
   routine: RoutineObject,
-  userId: string
+  userId: string,
 ): Promise<RoutineObject> {
   try {
     const { db } = await getDbClient();
 
     if (routine.userId.toString() !== userId) {
       throw new Error(
-        "Routine not found or you don't have permission to delete it."
+        "Routine not found or you don't have permission to delete it.",
       );
     }
 
@@ -87,7 +87,7 @@ async function saveRoutine(
           status: RoutineStatus.ACTIVE,
         },
       },
-      { upsert: true }
+      { upsert: true },
     );
 
     return routine;
@@ -111,7 +111,7 @@ async function deleteRoutine(routineId: string, userId: string): Promise<void> {
 
     if (!routine || routine.userId.toString() !== userId) {
       throw new Error(
-        "Routine not found or you don't have permission to delete it."
+        "Routine not found or you don't have permission to delete it.",
       );
     }
 
@@ -119,7 +119,7 @@ async function deleteRoutine(routineId: string, userId: string): Promise<void> {
       .collection(collectionName)
       .findOneAndUpdate(
         { _id: new ObjectId(routineId) },
-        { $set: { status: RoutineStatus.DELETED } }
+        { $set: { status: RoutineStatus.DELETED } },
       );
 
     return;
@@ -131,7 +131,7 @@ async function deleteRoutine(routineId: string, userId: string): Promise<void> {
 }
 
 async function findRoutineById(
-  id: string
+  id: string,
 ): Promise<DBRoutineObject | undefined> {
   try {
     const { db } = await getDbClient();

@@ -47,7 +47,7 @@ export default function ExerciseSearchFilterDrawer(props: {
   const [filters, setFilters] = useState<SearchFilters>(defaultFilters);
 
   const exerciseSearcher = appContainer.get<ExerciseSearchProviderInterface>(
-    TYPES.ExerciseSearcher
+    TYPES.ExerciseSearcher,
   );
 
   const onFiltersClose = () => {
@@ -60,7 +60,7 @@ export default function ExerciseSearchFilterDrawer(props: {
     const bodyAreaFilterCount = filters.bodyAreaFilters.length;
 
     setFilterCount(
-      exerciseFilterCount + muscleFilterCount + bodyAreaFilterCount
+      exerciseFilterCount + muscleFilterCount + bodyAreaFilterCount,
     );
   }, [filters, setFilterCount]);
 

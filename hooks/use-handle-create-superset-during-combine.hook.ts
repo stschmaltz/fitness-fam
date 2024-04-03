@@ -13,7 +13,7 @@ function useHandleCreateSupersetDuringCombine(input: {
   handleSplit: (parentExerciseId: string) => void;
 } {
   const routineProvider = appContainer.get<RoutineProviderInterface>(
-    TYPES.RoutineProvider
+    TYPES.RoutineProvider,
   );
   const { currentRoutine, setCurrentRoutine } = input;
   const toast = useToast();
@@ -22,10 +22,10 @@ function useHandleCreateSupersetDuringCombine(input: {
     if (!result.combine) return;
 
     const supersetExercise = currentRoutine.exercises.find(
-      (exercise) => exercise.id === result.draggableId
+      (exercise) => exercise.id === result.draggableId,
     );
     const destinationExercise = currentRoutine.exercises.find(
-      (exercise) => exercise.id === result.combine?.draggableId
+      (exercise) => exercise.id === result.combine?.draggableId,
     );
     if (
       !supersetExercise ||

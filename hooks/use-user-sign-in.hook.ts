@@ -11,7 +11,7 @@ import { ApiUser } from '../data/graphql/snippets/user';
 function useUserSignIn(): readonly [
   boolean,
   ApiUser | undefined,
-  ((currentUser: ApiUser | undefined) => void) | undefined
+  ((currentUser: ApiUser | undefined) => void) | undefined,
 ] {
   const { user, isLoading } = useUser();
 

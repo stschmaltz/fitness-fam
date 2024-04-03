@@ -17,7 +17,7 @@ export default function Exercise(props: { exercise?: ExerciseObject }) {
   const router = useRouter();
   const supersetExerciseId = router.query?.supersetId as string | undefined;
   const exerciseProvider = appContainer.get<ExerciseProviderInterface>(
-    TYPES.ExerciseProvider
+    TYPES.ExerciseProvider,
   );
 
   const [supersetExercise, setSupersetExercise] =
@@ -27,9 +27,8 @@ export default function Exercise(props: { exercise?: ExerciseObject }) {
     if (!supersetExerciseId) return;
 
     const getSupersetExercise = async () => {
-      const supersetExercise = await exerciseProvider.findExerciseById(
-        supersetExerciseId
-      );
+      const supersetExercise =
+        await exerciseProvider.findExerciseById(supersetExerciseId);
 
       setSupersetExercise(supersetExercise);
     };
@@ -58,7 +57,7 @@ export default function Exercise(props: { exercise?: ExerciseObject }) {
 
 export async function getStaticPaths() {
   const exerciseProvider = appContainer.get<ExerciseProviderInterface>(
-    TYPES.ExerciseProvider
+    TYPES.ExerciseProvider,
   );
   const exercises = await exerciseProvider.getAllExercises();
 
@@ -80,7 +79,7 @@ export async function getStaticProps({
   params: { id: string };
 }) {
   const exerciseProvider = appContainer.get<ExerciseProviderInterface>(
-    TYPES.ExerciseProvider
+    TYPES.ExerciseProvider,
   );
   const exercise = await exerciseProvider.findExerciseById(id);
 

@@ -31,7 +31,7 @@ export default function EditRoutinePage(props: { routine?: RoutineObject }) {
 
   /** Routines */
   const routineProvider = appContainer.get<RoutineProviderInterface>(
-    TYPES.RoutineProvider
+    TYPES.RoutineProvider,
   );
 
   const handleSaveRoutineHookFunction = useHandleSaveRoutine();
@@ -70,7 +70,7 @@ export default function EditRoutinePage(props: { routine?: RoutineObject }) {
       exercises: reorderList<RoutineExerciseObject>(
         currentRoutine.exercises,
         result.source.index,
-        result.destination.index
+        result.destination.index,
       ).map((exercise: RoutineExerciseObject, index: number) => ({
         ...exercise,
         order: index,
@@ -102,7 +102,7 @@ export default function EditRoutinePage(props: { routine?: RoutineObject }) {
   const handleRemoveExerciseFromRoutine = (exerciseId: string) => {
     const newRoutine: RoutineObject = routineProvider.removeExerciseFromRoutine(
       currentRoutine,
-      exerciseId
+      exerciseId,
     );
     setCurrentRoutine(newRoutine);
   };
@@ -110,7 +110,7 @@ export default function EditRoutinePage(props: { routine?: RoutineObject }) {
   const handleSetsRepsChange = (
     exercise: RoutineExerciseObject,
     value: string,
-    type: 'sets' | 'reps' | 'supersetReps'
+    type: 'sets' | 'reps' | 'supersetReps',
   ) => {
     const numberValue = parseInt(value);
     if (numberValue < 0 || numberValue > 99) return;
@@ -133,7 +133,7 @@ export default function EditRoutinePage(props: { routine?: RoutineObject }) {
 
   const handleSupersetRepsChange = (
     exercise: RoutineExerciseObject,
-    value: string
+    value: string,
   ) => {
     handleSetsRepsChange(exercise, value, 'supersetReps');
   };
@@ -227,7 +227,7 @@ export const getServerSideProps = async ({
 }) => {
   try {
     const routine = await asyncFetch(
-      `{ routine(id:"${query.id}"){ ${fullRoutine} } }`
+      `{ routine(id:"${query.id}"){ ${fullRoutine} } }`,
     );
 
     return {
