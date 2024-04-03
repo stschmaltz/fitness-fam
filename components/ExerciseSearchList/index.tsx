@@ -30,7 +30,7 @@ export default function ExerciseSearchList(props: {
   } = useDisclosure();
 
   const [filterCount, setFilterCount] = useState<number>(0);
-  const [searchText, setSearchText] = useState<string>('');
+  const [searchText, setSearchText] = useState<string>(' ');
 
   const [searchResults, setSearchResults] = useState<ExerciseObject[]>([]);
   const [selectedExercise, setSelectedExercise] = useState<
