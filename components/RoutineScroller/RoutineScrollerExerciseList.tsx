@@ -1,10 +1,10 @@
 import { Flex } from '@chakra-ui/react';
-import RoutineScrollerExerciseListItem from './RoutineScrollerExerciseListItem';
-import RoutineScrollerExerciseListSupersetItem from './RoutineScrollerExerciseListSupersetItem';
+import { RoutineScrollerExerciseListItem } from './RoutineScrollerListItem/RoutineScrollerExerciseListItem';
+import { RoutineScrollerExerciseListSupersetItem } from './RoutineScrollerListItem/RoutineScrollerExerciseListSupersetItem';
 import { RoutineExerciseObject } from '../../types/routine';
 import { theme } from '../../styles/theme';
 
-export default function RoutineScrollerExerciseList(props: {
+export function RoutineScrollerExerciseList(props: {
   exercises: RoutineExerciseObject[];
 }) {
   const listBgColor = theme.colors.accent1['100'];
@@ -20,6 +20,7 @@ export default function RoutineScrollerExerciseList(props: {
       border={borderStyle}
       borderBottomRadius={'md'}
       borderTopRightRadius={'md'}
+      paddingY={3}
     >
       {props.exercises.map((exercise) => {
         return exercise.supersetExercise ? (

@@ -8,13 +8,12 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-
-import DeleteMenuItem from './DeleteMenuItem';
+import { DeleteMenuItem } from './DeleteMenuItem';
 import { theme } from '../../styles/theme';
 import { RoutineObject } from '../../types/routine';
 import { ArmsIcon } from '../Icons';
 
-export default function RoutineOptionsMenu(props: {
+export function RoutineOptionsMenu(props: {
   routine: RoutineObject;
   onDeleteRoutine: (routineId: string) => Promise<void>;
 }) {

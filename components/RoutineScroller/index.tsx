@@ -1,10 +1,10 @@
 import { Box, Flex, Text, Tooltip } from '@chakra-ui/react';
 import { titleCase } from 'title-case';
-import RoutineScrollerExerciseList from './RoutineScrollerExerciseList';
-import RoutineOptionsMenu from './RoutineOptionsMenu';
+import { RoutineScrollerExerciseList } from './RoutineScrollerExerciseList';
+import { RoutineOptionsMenu } from './RoutineOptionsMenu';
 import { theme } from '../../styles/theme';
-import utilStyles from '../../styles/utils.module.css';
 import { RoutineObject } from '../../types/routine';
+import utilStyles from '../../styles/utils.module.css';
 
 export default function RoutineScroller(props: {
   routine: RoutineObject;
@@ -18,7 +18,7 @@ export default function RoutineScroller(props: {
     return props.handleDeleteRoutine(routineId);
   };
   return (
-    <Box pos="relative" width={'100%'} overflow="hidden">
+    <Box pos="relative" width={'100%'} h="11.5rem" mb={'4rem'}>
       <Box pos="relative" width={'100%'}>
         <Flex
           paddingX={2}
@@ -64,10 +64,10 @@ export default function RoutineScroller(props: {
       <Box
         overflowX="auto"
         pos="relative"
-        h="11rem"
         className={utilStyles.scrollTouch}
         overflowY="hidden"
         data-name="Routine exercises"
+        height={'100%'}
       >
         <Box pos="absolute" left="0" top="0" height="100%">
           <RoutineScrollerExerciseList exercises={props.routine.exercises} />
