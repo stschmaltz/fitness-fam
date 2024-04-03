@@ -13,7 +13,7 @@ export default function Layout(input: {
   const { children, showReturnToHome } = input;
 
   return (
-    <Container maxW={'100rem'} pos={'relative'}>
+    <Container maxW={'55rem'} pos={'relative'}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta
